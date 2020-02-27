@@ -1,9 +1,11 @@
 package com.bank.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class AccountOwnership {
+public class AccountOwnership implements Serializable {
+	private static final long serialVersionUID = 2554185222397117453L;
 	//SECTION: variables
 
 	private static int maxId =0;
