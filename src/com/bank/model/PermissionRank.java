@@ -2,14 +2,14 @@ package com.bank.model;
 
 import java.util.Objects;
 
-public class Permission {
+public class PermissionRank {
 	//SECTION: variables
 		private static int maxId =0;
 		private int id;
 		private int personId;
 		private String label;
 	//SECTION: constructors
-		public Permission(int personId, String label) {
+		public PermissionRank(int personId, String label) {
 			super();
 			id = getNextMaxId();
 			setPersonId(personId);
@@ -23,7 +23,7 @@ public class Permission {
 		return maxId;
 	}
 	public static void setMaxId(int maxId) {
-		Permission.maxId = maxId;
+		PermissionRank.maxId = maxId;
 	}
 	public int getId() {
 		return id;
@@ -54,10 +54,10 @@ public class Permission {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof Permission)) {
+		if (!(obj instanceof PermissionRank)) {
 			return false;
 		}
-		Permission other = (Permission) obj;
+		PermissionRank other = (PermissionRank) obj;
 		return id == other.id && Objects.equals(label, other.label) && personId == other.personId;
 	}
 	//SECTION: toString
