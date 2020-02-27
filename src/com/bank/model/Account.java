@@ -1,8 +1,10 @@
 package com.bank.model;
 
+import java.util.Objects;
+
 public class Account {
 	//SECTION: variables
-	static private int maxId =0;
+	private static int maxId =0;
 	private int id;
 	private int accountTypeId;
 	private double balance;
@@ -10,6 +12,13 @@ public class Account {
 	
 	//SECTION: constructors
 	
+	public Account(int accountTypeId, double balance, int overdraftProtection) {
+		super();
+		id = getNextMaxId();
+		setAccountTypeId(accountTypeId);
+		setBalance(balance);
+		setOverdraftProtection(overdraftProtection);
+	}
 	
 	//SECTION: getters & setters
 	public static int getNextMaxId() {
@@ -47,5 +56,31 @@ public class Account {
 	}
 	//SECTION: methods
 	//SECTION: hash && equals
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(accountTypeId, balance, id, overdraftProtection);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Account)) {
+			return false;
+		}
+		Account other = (Account) obj;
+		return accountTypeId == other.accountTypeId
+				&& Double.doubleToLongBits(balance) == Double.doubleToLongBits(other.balance) && id == other.id
+				&& overdraftProtection == other.overdraftProtection;
+	}
+	
 	//SECTION: toString
+
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", accountTypeId=" + accountTypeId + ", balance=" + balance
+				+ ", overdraftProtection=" + overdraftProtection + "]";
+	}
 }
