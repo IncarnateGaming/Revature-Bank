@@ -1,16 +1,19 @@
 package com.bank.services.menus;
 
 import com.bank.model.PermissionRank;
+import com.bank.model.Person;
 
 public class LoginMenu extends AbstractMenu{
+	
 	public LoginMenu(MainMenu mainMenu) {
-		super();
-		setMainMenu(mainMenu);
+		super(mainMenu);
 	}
+
 	public void run() {
 		do {
-			log.info("Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to return to previous menu.");
+			log.trace("Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to return to previous menu.");
 			setInput(MenuHelper.inputPositiveInt(s));
+			getMainMenu().setPerson(new Person("awesome","engage","Bob","Saget"));
 			switch(getInput()) {
 			case 0:
 				break;
@@ -30,7 +33,7 @@ public class LoginMenu extends AbstractMenu{
 				employeeMenu2.run();
 				break;
 			default:
-				log.info("No accepted number entered, please try again");
+				log.trace("No accepted number entered, please try again");
 			}
 		}while(getInput()!=0);
 	}

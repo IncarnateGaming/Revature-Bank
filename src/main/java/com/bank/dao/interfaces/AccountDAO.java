@@ -3,13 +3,15 @@ package com.bank.dao.interfaces;
 import java.util.List;
 
 import com.bank.model.Account;
+import com.bank.model.Person;
 
 public interface AccountDAO {
 	//SECTION: variables
 	//SECTION: constructors
 	//SECTION: getters & setters
 	//SECTION: methods
-	List<Account> listAccount();
+	List<Account> listAccounts();
+	List<Account> listAccounts(Person owner);
 	Account getAccount(int accountId);
 	boolean updateAccount(Account accountToUpdate);
 	boolean saveAccount(Account accountToSave);

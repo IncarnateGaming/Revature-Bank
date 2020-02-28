@@ -2,7 +2,12 @@ package com.bank.services.menus;
 
 import java.util.Scanner;
 
+import com.bank.Application;
+
 public class MenuHelper {
+	private MenuHelper() {
+		throw new IllegalStateException("Utility class");
+	}
 	public static int inputPositiveInt(Scanner s) {
 		int val = 0;
 		do {
@@ -12,7 +17,7 @@ public class MenuHelper {
 				}
 				val = Integer.parseInt(s.nextLine().split(" ")[0]);
 			}catch(NumberFormatException e) {
-				e.printStackTrace();
+				Application.getLogger().warn("Non-number submitted by user",e);
 				val = -1;
 			}
 		}
@@ -28,11 +33,19 @@ public class MenuHelper {
 				}
 				val = Integer.parseInt(s.nextLine().split(" ")[0]);
 			}catch(NumberFormatException e) {
-				e.printStackTrace();
+				Application.getLogger().warn(e.getStackTrace());
+				Application.getLogger().warn("Non-number submitted by user",e);
 				val = -168259;
 			}
 		}
-		while(val < 0);
+		while(val == -168259);
 		return val;
+	}
+	public static String inputStringOneWord(Scanner s) {
+		String val;
+		String result;
+		val = s.nextLine().split(" ")[0];
+		result = val.replaceAll("[^a-zA-Z]+", "");
+		return result;
 	}
 }

@@ -4,12 +4,18 @@ import java.util.List;
 
 import com.bank.dao.interfaces.AccountDAO;
 import com.bank.model.Account;
+import com.bank.model.Person;
 
 public class AccountDAOImpl implements AccountDAO {
 
 	//SECTION: methods
 	@Override
-	public List<Account> listAccount() {
+	public List<Account> listAccounts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<Account> listAccounts(Person owner) {
 		// TODO Auto-generated method stub
 		return null;
 	}

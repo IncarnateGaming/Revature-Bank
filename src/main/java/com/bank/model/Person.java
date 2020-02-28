@@ -18,19 +18,25 @@ public class Person {
 	
 	//SECTION: constructors
 
-	public Person(String firstName, String lastName, String socialSecurityNumber, int standing, String password,
-			int city, int address, String username) {
+	public Person(String username, String password) {
 		super();
 		id = getNextMaxId();
-		setFirstName(firstName);
+		//TODO add standing call to database
+		setUsername(username);
+		setPassword(password);
+	}
+	public Person (String username, String password, String firstName, String lastName) {
+		this(username,password);
 		setFirstName(firstName);
 		setLastName(lastName);
+	}
+	public Person(String username, String password, String firstName, String lastName, 
+			String socialSecurityNumber, int standing, int city, int address) {
+		this(username,password,firstName, lastName);
 		setSocialSecurityNumber(socialSecurityNumber);
 		setStanding(standing);
-		setPassword(password);
 		setCity(city);
 		setAddress(address);
-		setUsername(username);
 	}
 
 	//SECTION: getters & setters
@@ -76,6 +82,9 @@ public class Person {
 
 	public void setSocialSecurityNumber(String socialSecurityNumber) {
 		this.socialSecurityNumber = socialSecurityNumber;
+	}
+	public void setSocialSecurityNumber(int socialSecurityNumber) {
+		setSocialSecurityNumber(Integer.toString(socialSecurityNumber));
 	}
 
 	public int getStanding() {

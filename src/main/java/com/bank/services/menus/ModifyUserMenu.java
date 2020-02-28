@@ -1,35 +1,51 @@
 package com.bank.services.menus;
 
+import com.bank.dao.DAOUtilities;
+import com.bank.dao.interfaces.PersonDAO;
+import com.bank.model.Person;
+
 public class ModifyUserMenu extends AbstractMenu {
 
+	private Person localPerson;
 	public ModifyUserMenu(MainMenu mainMenu) {
 		super();
-		setMainMenu(mainMenu);
+		localPerson = mainMenu.getPerson();
 	}
 	public void run() {
 		do {
-			log.info("Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.");
+			log.trace("Press 1 to change First Name, 2 Last Name, 3 Street Address, 4 City, "
+					+ "5 Social Security Number. 0 to save and return to previous menu.");
 			setInput(MenuHelper.inputPositiveInt(s));
 			switch(getInput()) {
 			case 0:
+				PersonDAO daoPerson = DAOUtilities.getPersonDao();
+				daoPerson.savePerson(localPerson);
+				log.info("Person persisted: " + localPerson.toString());
 				break;
 			case 1:
-				getMainMenu().getPerson().setFirstName();
+				log.trace("Set First Name:");
+				localPerson.setFirstName(MenuHelper.inputStringOneWord(s));
+				log.trace("First name set to: " + localPerson.getFirstName() + ". Remember to hit 0 to save.");
 				break;
 			case 2:
-				CheckAccountsMenu checkAccountsMenu = new CheckAccountsMenu(getMainMenu());
-				checkAccountsMenu.run();
+				log.trace("Set Last Name:");
+				localPerson.setLastName(MenuHelper.inputStringOneWord(s));
+				log.trace("Last name set to: " + localPerson.getLastName() + ". Remember to hit 0 to save.");
 				break;
 			case 3:
-				RequestAccountsMenu requestAccountsMenu = new RequestAccountsMenu(getMainMenu());
-				requestAccountsMenu.run();
+				//TODO add Street Address Support
 				break;
 			case 4:
-				CreateAccountMenu createAccountMenu = new CreateAccountMenu(getMainMenu());
-				createAccountMenu.run();
+				//TODO add City Support
+				break;
+			case 5:
+				int num = (int) ((Math.random()*100000000)+899999999);
+				log.trace("As this is a demonstration bank, it only accepts randomly generated SSNs in the 900-00-0000 range");
+				log.trace("You have been assigned: " + num);
+				localPerson.setSocialSecurityNumber(num);
 				break;
 			default:
-				log.info("No accepted number entered, please try again");
+				log.trace("No accepted number entered, please try again");
 			}
 		}while(getInput()!=0);
 	}

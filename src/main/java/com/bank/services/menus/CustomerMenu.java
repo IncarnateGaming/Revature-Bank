@@ -4,12 +4,13 @@ public class CustomerMenu extends AbstractMenu{
 
 	public CustomerMenu(MainMenu mainMenu) {
 		super();
-		setMainMenu(mainMenu);
 	}
 
 	public void run() {
 		do {
-			log.info("Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.");
+			log.trace("Press 1 to modify user info, 2 to check accounts, 3 to request new "
+					+ "account, 4 to create a new associated user login, or 5 to list associated "
+					+ "user logins Press 0 to return to previous menu.");
 			setInput(MenuHelper.inputPositiveInt(s));
 			switch(getInput()) {
 			case 0:
@@ -19,7 +20,7 @@ public class CustomerMenu extends AbstractMenu{
 				modifyUserMenu.run();
 				break;
 			case 2:
-				CheckAccountsMenu checkAccountsMenu = new CheckAccountsMenu(getMainMenu());
+				ListAccountsMenu checkAccountsMenu = new ListAccountsMenu(getMainMenu());
 				checkAccountsMenu.run();
 				break;
 			case 3:
@@ -30,8 +31,10 @@ public class CustomerMenu extends AbstractMenu{
 				CreateAccountMenu createAccountMenu = new CreateAccountMenu(getMainMenu());
 				createAccountMenu.run();
 				break;
+			case 5:
+				
 			default:
-				log.info("No accepted number entered, please try again");
+				log.trace("No accepted number entered, please try again");
 			}
 		}while(getInput()!=0);
 	}

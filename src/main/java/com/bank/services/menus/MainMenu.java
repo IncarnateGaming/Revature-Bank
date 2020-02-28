@@ -20,7 +20,7 @@ public class MainMenu extends AbstractMenu{
 	}
 	public void run() {
 		do {
-			log.info("Press 1 to login or 2 to create a new account. Press 0 to exit.");
+			log.trace("Press 1 to login or 2 to create a new account. Press 0 to exit.");
 			setInput(MenuHelper.inputPositiveInt(s));
 			switch(getInput()) {
 			case 0:
@@ -34,9 +34,9 @@ public class MainMenu extends AbstractMenu{
 				newPersonMenu.run();
 				break;
 			default:
-				log.info("No accepted number entered, please try again");
+				log.trace("No accepted number entered, please try again");
 			}
 		}while (getInput() != 0);
-		log.info("Program Closed");
+		log.trace("Program Closed");
 	}
 }

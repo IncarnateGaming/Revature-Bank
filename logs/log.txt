@@ -55,3 +55,30 @@
 2020-02-27 20:05:07 INFO  Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
 2020-02-27 20:05:10 INFO  Application:8 - New Person Menu
 2020-02-27 20:05:10 INFO  Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 07:17:57 TRACE Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 07:18:02 TRACE Application:13 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to return to previous menu.
+2020-02-28 07:18:06 TRACE Application:12 - Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.
+2020-02-28 07:18:08 TRACE Application:17 - Press 1 to change First Name, 2 Last Name, 3 , 0 to save and return to previous menu.
+2020-02-28 07:18:10 TRACE Application:26 - Set First Name:
+2020-02-28 07:18:23 TRACE Application:28 - First name set to: Rudolf. Remember to hit 0 to save.
+2020-02-28 07:18:23 TRACE Application:17 - Press 1 to change First Name, 2 Last Name, 3 , 0 to save and return to previous menu.
+2020-02-28 07:18:41 TRACE Application:31 - Set Last Name:
+2020-02-28 07:18:56 TRACE Application:33 - Last name set to: boibkied. Remember to hit 0 to save.
+2020-02-28 07:18:56 TRACE Application:17 - Press 1 to change First Name, 2 Last Name, 3 , 0 to save and return to previous menu.
+2020-02-28 07:19:03 INFO  Application:23 - Person persisted: Person [id=1, firstName=Rudolf, lastName=boibkied, socialSecurityNumber=null, standing=0, password=engage, city=0, address=0, username=awesome]
+2020-02-28 07:19:03 TRACE Application:12 - Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.
+2020-02-28 07:19:29 TRACE Application:13 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to return to previous menu.
+2020-02-28 07:19:30 TRACE Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 07:19:31 TRACE Application:40 - Program Closed
+2020-02-28 08:46:32 TRACE Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 08:46:50 WARN  Application:20 - [Ljava.lang.StackTraceElement;@27d6c5e0
+2020-02-28 08:46:58 TRACE Application:40 - Program Closed
+2020-02-28 08:51:36 TRACE Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 08:51:41 WARN  Application:20 - Non-number submitted by user
+java.lang.NumberFormatException: For input string: "test"
+	at java.lang.NumberFormatException.forInputString(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at com.bank.services.menus.MenuHelper.inputPositiveInt(MenuHelper.java:18)
+	at com.bank.services.menus.MainMenu.run(MainMenu.java:24)
+	at com.bank.Application.main(Application.java:20)

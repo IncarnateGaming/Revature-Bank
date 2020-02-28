@@ -11,6 +11,13 @@ public abstract class AbstractMenu {
 	public static Scanner s = Application.getScanner();
 	private int input=-1;
 	private MainMenu mainMenu;
+	AbstractMenu(){
+		super();
+	}
+	AbstractMenu(MainMenu mainMenu){
+		super();
+		setMainMenu(mainMenu);
+	}
 	public int getInput() {
 		return input;
 	}
@@ -24,4 +31,5 @@ public abstract class AbstractMenu {
 		this.mainMenu = mainMenu;
 	}
 
+	abstract void run();
 }
