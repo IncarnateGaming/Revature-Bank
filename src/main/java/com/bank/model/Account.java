@@ -11,6 +11,7 @@ public class Account implements Serializable{
 	private int accountTypeId;
 	private double balance;
 	private int overdraftProtection;
+	private boolean active;
 	
 	//SECTION: constructors
 	
@@ -20,8 +21,10 @@ public class Account implements Serializable{
 		setAccountTypeId(accountTypeId);
 		setBalance(balance);
 		setOverdraftProtection(overdraftProtection);
+		setActive(true);
 	}
 	
+
 	//SECTION: getters & setters
 	public static int getNextMaxId() {
 		return ++maxId;
@@ -55,6 +58,12 @@ public class Account implements Serializable{
 	}
 	public void setOverdraftProtection(int overdraftProtection) {
 		this.overdraftProtection = overdraftProtection;
+	}
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	//SECTION: methods
 	//SECTION: hash && equals

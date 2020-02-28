@@ -1,0 +1,57 @@
+2020-02-27 18:09:10 WARN  Driver:13 - test(com.bank.testing.entity.AccountTest): Not yet implemented
+2020-02-27 18:09:10 INFO  Driver:15 - false
+2020-02-27 18:52:39 INFO  Application:14 - Press 1 to login or 2 to create a new account.
+2020-02-27 18:52:45 INFO  Application:16 - 15
+2020-02-27 18:52:45 INFO  Application:17 - Program Closed
+2020-02-27 18:52:52 INFO  Application:14 - Press 1 to login or 2 to create a new account.
+2020-02-27 18:52:59 INFO  Application:16 - 0
+2020-02-27 18:52:59 INFO  Application:17 - Program Closed
+2020-02-27 19:03:26 INFO  Application:31 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-27 19:03:31 INFO  Application:13 - Press 1 to login as Customer, 2 for Employee, 3 for Admin.
+2020-02-27 19:03:31 INFO  Application:41 - 1
+2020-02-27 19:03:31 INFO  Application:31 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-27 19:03:40 INFO  Application:13 - New Person Menu
+2020-02-27 19:03:40 INFO  Application:41 - 2
+2020-02-27 19:03:40 INFO  Application:31 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-27 19:03:45 INFO  Application:41 - 14
+2020-02-27 19:03:45 INFO  Application:31 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-27 19:03:49 INFO  Application:41 - 0
+2020-02-27 19:03:49 INFO  Application:43 - Program Closed
+2020-02-27 19:43:28 INFO  Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-27 19:43:32 INFO  Application:12 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to exit.
+2020-02-27 19:43:40 INFO  Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-27 19:43:41 INFO  Application:12 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to exit.
+2020-02-27 19:43:43 INFO  Application:12 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to exit.
+2020-02-27 19:43:45 INFO  Application:12 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to exit.
+2020-02-27 19:43:46 INFO  Application:12 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to exit.
+2020-02-27 19:43:47 INFO  Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-27 19:43:49 INFO  Application:8 - New Person Menu
+2020-02-27 19:43:49 INFO  Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-27 20:03:17 INFO  Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-27 20:03:23 INFO  Application:12 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to return to previous menu.
+2020-02-27 20:03:25 INFO  Application:12 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to return to previous menu.
+2020-02-27 20:03:27 INFO  Application:12 - Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.
+2020-02-27 20:03:31 INFO  Application:12 - Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.
+2020-02-27 20:03:32 INFO  Application:12 - Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.
+2020-02-27 20:03:36 INFO  Application:32 - No accepted number entered, please try again
+2020-02-27 20:03:36 INFO  Application:12 - Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.
+2020-02-27 20:03:41 INFO  Application:32 - No accepted number entered, please try again
+2020-02-27 20:03:41 INFO  Application:12 - Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.
+2020-02-27 20:03:43 INFO  Application:12 - Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.
+2020-02-27 20:03:45 INFO  Application:32 - No accepted number entered, please try again
+2020-02-27 20:03:45 INFO  Application:12 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to return to previous menu.
+2020-02-27 20:03:49 INFO  Application:31 - No accepted number entered, please try again
+2020-02-27 20:03:49 INFO  Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-27 20:04:40 INFO  Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-27 20:04:43 INFO  Application:12 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to return to previous menu.
+2020-02-27 20:04:46 INFO  Application:33 - No accepted number entered, please try again
+2020-02-27 20:04:46 INFO  Application:12 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to return to previous menu.
+2020-02-27 20:04:48 INFO  Application:12 - Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.
+2020-02-27 20:04:51 INFO  Application:12 - Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.
+2020-02-27 20:04:59 INFO  Application:12 - Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.
+2020-02-27 20:05:02 INFO  Application:34 - No accepted number entered, please try again
+2020-02-27 20:05:02 INFO  Application:12 - Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.
+2020-02-27 20:05:05 INFO  Application:12 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to return to previous menu.
+2020-02-27 20:05:07 INFO  Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-27 20:05:10 INFO  Application:8 - New Person Menu
+2020-02-27 20:05:10 INFO  Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.

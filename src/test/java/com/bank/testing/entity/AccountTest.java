@@ -1,4 +1,4 @@
-package com.bank.testing;
+package com.bank.testing.entity;
 
 import static org.junit.Assert.*;
 
