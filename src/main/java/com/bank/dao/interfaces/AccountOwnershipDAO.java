@@ -10,6 +10,8 @@ public interface AccountOwnershipDAO {
 	//SECTION: getters & setters
 	//SECTION: methods
 	List<AccountOwnership> listAccountOwnership();
+	List<AccountOwnership> listAccountOwnership(int accountId);
+	List<Integer> listAccountOwnershipIds(int accountId);
 	AccountOwnership getAccountOwnership(int accountOwnershipId);
 	boolean updateAccountOwnership(AccountOwnership accountOwnershipToUpdate);
 	boolean saveAccountOwnership(AccountOwnership accountOwnershipToSave);

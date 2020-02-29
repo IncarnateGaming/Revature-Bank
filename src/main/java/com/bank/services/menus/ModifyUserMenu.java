@@ -2,16 +2,19 @@ package com.bank.services.menus;
 
 import com.bank.dao.DAOUtilities;
 import com.bank.dao.interfaces.PersonDAO;
+import com.bank.exceptions.ForceCloseThread;
 import com.bank.model.Person;
+import com.bank.services.helpers.MenuHelper;
 
 public class ModifyUserMenu extends AbstractMenu {
 
 	private Person localPerson;
 	public ModifyUserMenu(MainMenu mainMenu) {
 		super();
-		localPerson = mainMenu.getPerson();
+		setMainMenu(mainMenu);
+		this.localPerson = getMainMenu().getPerson();
 	}
-	public void run() {
+	public void run() throws ForceCloseThread {
 		do {
 			log.trace("Press 1 to change First Name, 2 Last Name, 3 Street Address, 4 City, "
 					+ "5 Social Security Number. 0 to save and return to previous menu.");

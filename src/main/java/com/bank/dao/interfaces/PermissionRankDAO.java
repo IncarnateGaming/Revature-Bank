@@ -10,6 +10,7 @@ public interface PermissionRankDAO {
 	//SECTION: getters & setters
 	//SECTION: methods
 	List<PermissionRank> listPermission();
+	List<String> listPermission(int personId);
 	PermissionRank getPermission(int permissionId);
 	boolean updatePermission(PermissionRank permissionToUpdate);
 	boolean savePermission(PermissionRank permissionToSave);

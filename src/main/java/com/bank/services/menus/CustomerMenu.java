@@ -1,14 +1,19 @@
 package com.bank.services.menus;
 
+import com.bank.exceptions.ForceCloseThread;
+import com.bank.exceptions.UnsupportedInteger;
+import com.bank.services.helpers.MenuHelper;
+
 public class CustomerMenu extends AbstractMenu{
 
 	public CustomerMenu(MainMenu mainMenu) {
 		super();
+		setMainMenu(mainMenu);
 	}
 
-	public void run() {
+	public void run() throws ForceCloseThread {
 		do {
-			log.trace("Press 1 to modify user info, 2 to check accounts, 3 to request new "
+			System.out.println("Press 1 to modify user info, 2 to check accounts, 3 to request new "
 					+ "account, 4 to create a new associated user login, or 5 to list associated "
 					+ "user logins Press 0 to return to previous menu.");
 			setInput(MenuHelper.inputPositiveInt(s));
@@ -20,7 +25,7 @@ public class CustomerMenu extends AbstractMenu{
 				modifyUserMenu.run();
 				break;
 			case 2:
-				ListAccountsMenu checkAccountsMenu = new ListAccountsMenu(getMainMenu());
+				ListAccountsMenu checkAccountsMenu = new ListAccountsMenu(getMainMenu(),getMainMenu().getPerson());
 				checkAccountsMenu.run();
 				break;
 			case 3:
@@ -32,9 +37,13 @@ public class CustomerMenu extends AbstractMenu{
 				createAccountMenu.run();
 				break;
 			case 5:
-				
+				ListAssociatedAccountsMenu listAssociatedAccountsMenu = new ListAssociatedAccountsMenu(getMainMenu());
+				listAssociatedAccountsMenu.run();
+				break;
 			default:
-				log.trace("No accepted number entered, please try again");
+				Exception newException = new UnsupportedInteger("The integer: " + getInput() + " is unsupported in this menu.");
+				log.warn(newException.getMessage(), newException);
+				System.out.println("No accepted number entered, please try again");
 			}
 		}while(getInput()!=0);
 	}

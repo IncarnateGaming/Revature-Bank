@@ -1,5 +1,9 @@
 package com.bank.services.menus;
 
+import com.bank.exceptions.ForceCloseThread;
+import com.bank.exceptions.UnsupportedInteger;
+import com.bank.services.helpers.MenuHelper;
+
 public class EmployeeMenu extends AbstractMenu{
 
 	public EmployeeMenu(MainMenu mainMenu) {
@@ -7,9 +11,9 @@ public class EmployeeMenu extends AbstractMenu{
 		setMainMenu(mainMenu);
 	}
 
-	public void run() {
+	public void run() throws ForceCloseThread {
 		do {
-			log.trace("Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.");
+			System.out.println("Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.");
 			setInput(MenuHelper.inputPositiveInt(s));
 			switch(getInput()) {
 			case 0:
@@ -31,7 +35,9 @@ public class EmployeeMenu extends AbstractMenu{
 				createAccountMenu.run();
 				break;
 			default:
-				log.trace("No accepted number entered, please try again");
+				Exception newException = new UnsupportedInteger("The integer: " + getInput() + " is unsupported in this menu.");
+				log.warn(newException.getMessage(), newException);
+				System.out.println("No accepted number entered, please try again");
 			}
 		}while(getInput()!=0);
 	}

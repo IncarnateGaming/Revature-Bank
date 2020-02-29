@@ -82,3 +82,84 @@ java.lang.NumberFormatException: For input string: "test"
 	at com.bank.services.menus.MenuHelper.inputPositiveInt(MenuHelper.java:18)
 	at com.bank.services.menus.MainMenu.run(MainMenu.java:24)
 	at com.bank.Application.main(Application.java:20)
+2020-02-28 09:30:41 TRACE Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 09:30:47 TRACE Application:14 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to return to previous menu.
+2020-02-28 09:31:41 WARN  Application:40 - The integer: 6 is unsupported in this menu.
+com.bank.exceptions.UnsupportedInteger: The integer: 6 is unsupported in this menu.
+	at com.bank.services.menus.CustomerMenu.run(CustomerMenu.java:39)
+	at com.bank.services.menus.LoginMenu.run(LoginMenu.java:23)
+	at com.bank.services.menus.MainMenu.run(MainMenu.java:30)
+	at com.bank.Application.main(Application.java:20)
+2020-02-28 09:43:02 TRACE Application:14 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to return to previous menu.
+2020-02-28 09:43:03 TRACE Application:23 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 09:43:04 TRACE Application:40 - Program Closed
+2020-02-28 10:44:18 TRACE Application:24 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 10:44:24 TRACE Application:15 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to return to previous menu.
+2020-02-28 13:50:21 TRACE Application:24 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 13:50:23 TRACE Application:15 - Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to return to previous menu.
+2020-02-28 14:05:07 TRACE Application:24 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 14:05:48 TRACE Application:24 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 14:05:52 WARN  Application:29 - Non-number submitted by user
+java.lang.NumberFormatException: For input string: "q"
+	at java.lang.NumberFormatException.forInputString(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at com.bank.services.menus.MenuHelper.inputPositiveInt(MenuHelper.java:27)
+	at com.bank.services.menus.MainMenu.run(MainMenu.java:25)
+	at com.bank.Application.main(Application.java:21)
+2020-02-28 14:08:25 TRACE Application:24 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 14:10:04 TRACE Application:24 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 14:10:07 INFO  Application:18 - Person [id=1, firstName=Bob, lastName=Saget, socialSecurityNumber=null, standing=0, password=engage, city=0, address=0, username=awesome]
+2020-02-28 14:11:40 TRACE Application:24 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 14:11:43 INFO  Application:18 - Person [id=1, firstName=Bob, lastName=Saget, socialSecurityNumber=null, standing=0, password=engage, city=0, address=0, username=awesome]
+2020-02-28 14:12:19 TRACE Application:24 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 14:12:23 INFO  Application:18 - Person [id=1, firstName=Bob, lastName=Saget, socialSecurityNumber=null, standing=0, password=engage, city=0, address=0, username=awesome]
+2020-02-28 14:12:23 INFO  Application:13 - 
+2020-02-28 15:58:50 TRACE Application:24 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 15:58:54 INFO  Application:19 - Person [id=1, firstName=Bob, lastName=Saget, socialSecurityNumber=null, standing=0, password=engage, city=0, address=0, username=awesome]
+2020-02-28 15:58:54 INFO  Application:14 - com.bank.services.menus.MainMenu@27d6c5e0
+2020-02-28 15:58:54 INFO  Application:15 - Person [id=1, firstName=Bob, lastName=Saget, socialSecurityNumber=null, standing=0, password=engage, city=0, address=0, username=awesome]
+2020-02-28 18:41:08 TRACE Application:24 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 18:41:16 INFO  Application:19 - Person [id=1, firstName=Bob, lastName=Saget, socialSecurityNumber=null, standing=0, password=engage, city=0, address=0, username=awesome]
+2020-02-28 18:41:16 INFO  Application:14 - com.bank.services.menus.MainMenu@27d6c5e0
+2020-02-28 18:41:16 INFO  Application:15 - Person [id=1, firstName=Bob, lastName=Saget, socialSecurityNumber=null, standing=0, password=engage, city=0, address=0, username=awesome]
+2020-02-28 18:42:38 TRACE Application:24 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 18:42:42 INFO  Application:19 - Person [id=1, firstName=Bob, lastName=Saget, socialSecurityNumber=null, standing=0, password=engage, city=0, address=0, username=awesome]
+2020-02-28 18:42:42 INFO  Application:14 - com.bank.services.menus.MainMenu@27d6c5e0
+2020-02-28 18:42:42 INFO  Application:15 - Person [id=1, firstName=Bob, lastName=Saget, socialSecurityNumber=null, standing=0, password=engage, city=0, address=0, username=awesome]
+2020-02-28 18:43:34 TRACE Application:24 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 18:43:36 INFO  Application:19 - Person [id=1, firstName=Bob, lastName=Saget, socialSecurityNumber=null, standing=0, password=engage, city=0, address=0, username=awesome]
+2020-02-28 18:43:36 INFO  Application:14 - com.bank.services.menus.MainMenu@27d6c5e0
+2020-02-28 18:43:36 INFO  Application:15 - Person [id=1, firstName=Bob, lastName=Saget, socialSecurityNumber=null, standing=0, password=engage, city=0, address=0, username=awesome]
+2020-02-28 18:43:38 TRACE Application:18 - Press 1 to change First Name, 2 Last Name, 3 Street Address, 4 City, 5 Social Security Number. 0 to save and return to previous menu.
+2020-02-28 18:43:42 TRACE Application:28 - Set First Name:
+2020-02-28 18:43:46 TRACE Application:30 - First name set to: Jenkins. Remember to hit 0 to save.
+2020-02-28 18:43:46 TRACE Application:18 - Press 1 to change First Name, 2 Last Name, 3 Street Address, 4 City, 5 Social Security Number. 0 to save and return to previous menu.
+2020-02-28 18:43:51 WARN  Application:29 - Non-number submitted by user
+java.lang.NumberFormatException: For input string: "EXIT"
+	at java.lang.NumberFormatException.forInputString(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at com.bank.services.menus.MenuHelper.inputPositiveInt(MenuHelper.java:27)
+	at com.bank.services.menus.ModifyUserMenu.run(ModifyUserMenu.java:20)
+	at com.bank.services.menus.CustomerMenu.run(CustomerMenu.java:26)
+	at com.bank.services.menus.LoginMenu.run(LoginMenu.java:26)
+	at com.bank.services.menus.MainMenu.run(MainMenu.java:31)
+	at com.bank.Application.main(Application.java:21)
+2020-02-28 18:47:24 TRACE Application:24 - Press 1 to login or 2 to create a new account. Press 0 to exit.
+2020-02-28 18:47:27 INFO  Application:19 - Person [id=1, firstName=Bob, lastName=Saget, socialSecurityNumber=null, standing=0, password=engage, city=0, address=0, username=awesome]
+2020-02-28 18:47:27 INFO  Application:14 - com.bank.services.menus.MainMenu@27d6c5e0
+2020-02-28 18:47:27 INFO  Application:15 - Person [id=1, firstName=Bob, lastName=Saget, socialSecurityNumber=null, standing=0, password=engage, city=0, address=0, username=awesome]
+2020-02-28 18:47:29 TRACE Application:18 - Press 1 to change First Name, 2 Last Name, 3 Street Address, 4 City, 5 Social Security Number. 0 to save and return to previous menu.
+2020-02-29 12:09:36 WARN  Application:29 - Non-number submitted by user
+java.lang.NumberFormatException: For input string: "y"
+	at java.lang.NumberFormatException.forInputString(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at com.bank.services.helpers.MenuHelper.inputPositiveInt(MenuHelper.java:27)
+	at com.bank.services.menus.MainMenu.run(MainMenu.java:59)
+	at com.bank.Application.main(Application.java:21)
+2020-02-29 12:09:42 WARN  Application:73 - The integer: 8 is unsupported in this menu.
+com.bank.exceptions.UnsupportedInteger: The integer: 8 is unsupported in this menu.
+	at com.bank.services.menus.MainMenu.run(MainMenu.java:72)
+	at com.bank.Application.main(Application.java:21)

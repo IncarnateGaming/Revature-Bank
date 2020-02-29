@@ -5,6 +5,7 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import com.bank.Application;
+import com.bank.exceptions.ForceCloseThread;
 
 public abstract class AbstractMenu {
 	public static Logger log = Application.getLogger();
@@ -13,10 +14,6 @@ public abstract class AbstractMenu {
 	private MainMenu mainMenu;
 	AbstractMenu(){
 		super();
-	}
-	AbstractMenu(MainMenu mainMenu){
-		super();
-		setMainMenu(mainMenu);
 	}
 	public int getInput() {
 		return input;
@@ -31,5 +28,5 @@ public abstract class AbstractMenu {
 		this.mainMenu = mainMenu;
 	}
 
-	abstract void run();
+	abstract void run() throws ForceCloseThread;
 }

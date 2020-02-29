@@ -58,7 +58,7 @@ public class PermissionRank {
 			return false;
 		}
 		PermissionRank other = (PermissionRank) obj;
-		return id == other.id && Objects.equals(label, other.label) && personId == other.personId;
+		return Objects.equals(label, other.label);
 	}
 	//SECTION: toString
 	@Override

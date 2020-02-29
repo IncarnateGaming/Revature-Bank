@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
+import com.bank.exceptions.ForceCloseThread;
 import com.bank.services.menus.MainMenu;
 
 public class Application {
@@ -15,7 +16,7 @@ public class Application {
 	public static Scanner getScanner() {
 		return s;
 	}
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ForceCloseThread {
 		MainMenu main = new MainMenu();
 		main.run();
 	}
