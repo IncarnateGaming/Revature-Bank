@@ -5,6 +5,7 @@ import java.util.List;
 import com.revature.bank.dao.DAOUtilities;
 import com.revature.bank.dao.interfaces.AccountDAO;
 import com.revature.bank.exceptions.ForceCloseThread;
+import com.revature.bank.exceptions.ReturnMainMenu;
 import com.revature.bank.exceptions.UnsupportedInteger;
 import com.revature.bank.model.Account;
 import com.revature.bank.model.Person;
@@ -23,7 +24,7 @@ public class ListAccountsMenu extends AbstractMenu {
 		this.owner=owner;
 	}
 
-	public void run() throws ForceCloseThread {
+	public void run() throws ForceCloseThread, ReturnMainMenu {
 		do {
 			if(accounts == null) {
 				if(owner != null) {

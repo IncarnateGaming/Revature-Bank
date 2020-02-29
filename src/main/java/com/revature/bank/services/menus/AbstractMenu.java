@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.revature.bank.Application;
 import com.revature.bank.exceptions.ForceCloseThread;
+import com.revature.bank.exceptions.ReturnMainMenu;
 
 public abstract class AbstractMenu {
 	public static Logger log = Application.getLogger();
@@ -28,5 +29,5 @@ public abstract class AbstractMenu {
 		this.mainMenu = mainMenu;
 	}
 
-	abstract void run() throws ForceCloseThread;
+	abstract void run() throws ForceCloseThread, ReturnMainMenu;
 }

@@ -5,6 +5,7 @@ import com.revature.bank.dao.interfaces.AccountDAO;
 import com.revature.bank.dao.interfaces.AccountOwnershipDAO;
 import com.revature.bank.exceptions.AccessDenied;
 import com.revature.bank.exceptions.ForceCloseThread;
+import com.revature.bank.exceptions.ReturnMainMenu;
 import com.revature.bank.exceptions.UnsupportedInteger;
 import com.revature.bank.model.Account;
 import com.revature.bank.model.AccountTransaction;
@@ -29,7 +30,7 @@ public class AccountMenu extends AbstractMenu {
 		this.account = account;
 	}
 	@Override
-	void run() throws ForceCloseThread {
+	void run() throws ForceCloseThread, ReturnMainMenu {
 		//Check if owner or employee or admin
 		if ((!(daoAccOwner.listAccountOwnershipIds(account.getId())
 				.contains(getMainMenu().getPerson().getId()))
@@ -56,6 +57,7 @@ public class AccountMenu extends AbstractMenu {
 				double depositAmount = MenuHelper.inputPositiveDouble(s);
 				AccountTransaction newDeposit = new AccountTransaction(account.getId(), AccountTransactionStatus.getPendingId(), AccountTransactionType.getDepositId(), null);
 				ModifyUserMenu modifyUserMenu = new ModifyUserMenu(getMainMenu());
+				//TODO add more business logic
 				modifyUserMenu.run();
 				break;
 			case 2:

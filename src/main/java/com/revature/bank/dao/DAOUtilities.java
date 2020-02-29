@@ -1,7 +1,6 @@
 package com.revature.bank.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import com.revature.bank.dao.implementations.AccountDAOImpl;
@@ -20,12 +19,13 @@ import com.revature.bank.dao.implementations.PersonDAOImpl;
 import com.revature.bank.dao.implementations.PersonStandingDAOImpl;
 import com.revature.bank.dao.implementations.PhoneNumberDAOImpl;
 
+import oracle.jdbc.pool.OracleDataSource;
+
 public class DAOUtilities {
-	private static final String CONNECTION_USERNAME = "postgres";
-	private static final String CONNECTION_PASSWORD = "b85cr23vv8v4Cf7Bnq83C";
-	private static final String URL = "jdbc:postgresql://localhost:5432/eZoo";
+	private static final String CONNECTION_USERNAME = "orcl";
+	private static final String CONNECTION_PASSWORD = "avTtiEwVtYiQvUqP81Vi845V2T8";
+	private static final String URL = "jdbc:oracle:thin://localhost:1521/bank";
 	
-//	private static AnimalDaoImpl animalDaoImpl;
 	private static AccountDAOImpl accountDAOImpl;
 	private static AccountOwnershipDAOImpl accountOwnershipDAOImpl;
 	private static AccountRequestDAOImpl accountRequestDAOImpl;
@@ -140,20 +140,16 @@ public class DAOUtilities {
 	}
 	static synchronized Connection getConnection() throws SQLException {
 		if (connection == null) {
-			try {
-				Class.forName("org.postgresql.Driver");
-			} catch (ClassNotFoundException e) {
-				System.out.println("Could not register driver!");
-				e.printStackTrace();
-			}
-			connection = DriverManager.getConnection(URL, CONNECTION_USERNAME, CONNECTION_PASSWORD);
+			OracleDataSource ds = new OracleDataSource();
+			ds.setURL(URL);
+			connection = ds.getConnection(CONNECTION_USERNAME,CONNECTION_PASSWORD);
 		}
 		
 		//If connection was closed then retrieve a new connection
-		if (connection.isClosed()){
-			System.out.println("getting new connection...");
-			connection = DriverManager.getConnection(URL, CONNECTION_USERNAME, CONNECTION_PASSWORD);
-		}
+//		if (connection.isClosed()){
+//			System.out.println("getting new connection...");
+//			connection = DriverManager.getConnection(URL, CONNECTION_USERNAME, CONNECTION_PASSWORD);
+//		}
 		return connection;
 	}
 	//SECTION: hash && equals

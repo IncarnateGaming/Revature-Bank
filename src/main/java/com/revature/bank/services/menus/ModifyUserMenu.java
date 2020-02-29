@@ -3,6 +3,7 @@ package com.revature.bank.services.menus;
 import com.revature.bank.dao.DAOUtilities;
 import com.revature.bank.dao.interfaces.PersonDAO;
 import com.revature.bank.exceptions.ForceCloseThread;
+import com.revature.bank.exceptions.ReturnMainMenu;
 import com.revature.bank.model.Person;
 import com.revature.bank.services.helpers.MenuHelper;
 
@@ -14,7 +15,7 @@ public class ModifyUserMenu extends AbstractMenu {
 		setMainMenu(mainMenu);
 		this.localPerson = getMainMenu().getPerson();
 	}
-	public void run() throws ForceCloseThread {
+	public void run() throws ForceCloseThread, ReturnMainMenu {
 		do {
 			log.trace("Press 1 to change First Name, 2 Last Name, 3 Street Address, 4 City, "
 					+ "5 Social Security Number. 0 to save and return to previous menu.");
