@@ -11,6 +11,7 @@ import com.revature.bank.model.Account;
 import com.revature.bank.model.AccountTransaction;
 import com.revature.bank.model.AccountTransactionStatus;
 import com.revature.bank.model.AccountTransactionType;
+import com.revature.bank.model.PermissionRank;
 import com.revature.bank.services.helpers.MenuHelper;
 
 public class AccountMenu extends AbstractMenu {
@@ -34,8 +35,8 @@ public class AccountMenu extends AbstractMenu {
 		//Check if owner or employee or admin
 		if ((!(daoAccOwner.listAccountOwnershipIds(account.getId())
 				.contains(getMainMenu().getPerson().getId()))
-				|| getMainMenu().containsPermission("Employee") 
-				|| getMainMenu().containsPermission("Admin"))) {
+				|| getMainMenu().containsPermission(PermissionRank.getRankEmployee()) 
+				|| getMainMenu().containsPermission(PermissionRank.getRankAdmin()))) {
 			AccessDenied accessDenied = new AccessDenied();
 			log.warn(getMainMenu().getPerson().toString() 
 					+ " just attempted to access" + account.toString(), accessDenied);
@@ -56,29 +57,24 @@ public class AccountMenu extends AbstractMenu {
 				System.out.println("How much do you want to deposit?");
 				double depositAmount = MenuHelper.inputPositiveDouble(s);
 				AccountTransaction newDeposit = new AccountTransaction(account.getId(), AccountTransactionStatus.getPendingId(), AccountTransactionType.getDepositId(), null);
-				ModifyUserMenu modifyUserMenu = new ModifyUserMenu(getMainMenu());
 				//TODO add more business logic
-				modifyUserMenu.run();
 				break;
 			case 2:
 				System.out.println("How much do you want to withdraw?");
-				ListAccountsMenu checkAccountsMenu = new ListAccountsMenu(getMainMenu(),getMainMenu().getPerson());
-				checkAccountsMenu.run();
+				//TODO add business logic for withdraws
 				break;
 			case 3:
 				System.out.println("How much do you want to transfer?");
 				System.out.println("Which account do you want to transfer to?");
-				RequestAccountsMenu requestAccountsMenu = new RequestAccountsMenu(getMainMenu());
-				requestAccountsMenu.run();
+				//TODO add business logic for transfers
 				break;
 			case 4:
-				if(!getMainMenu().containsPermission("Admin")) {
+				if(!getMainMenu().containsPermission(PermissionRank.getRankAdmin())) {
 					unsupportedInteger();
 					break;
 				}
 				System.out.println("Are you sure you want to inactivate this account?(Y/N)");
-				CreateAccountMenu createAccountMenu = new CreateAccountMenu(getMainMenu());
-				createAccountMenu.run();
+				//TODO Add business logic
 				break;
 			default:
 				unsupportedInteger();

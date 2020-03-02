@@ -8,6 +8,9 @@ public class PermissionRank {
 		private int id;
 		private int personId;
 		private String label;
+		private static String rankCustomer = "Customer";
+		private static String rankEmployee = "Employee";
+		private static String rankAdmin = "Admin";
 	//SECTION: constructors
 		public PermissionRank(int personId, String label) {
 			super();
@@ -42,6 +45,15 @@ public class PermissionRank {
 	}
 	public void setLabel(String label) {
 		this.label = label;
+	}
+	public static String getRankCustomer() {
+		return rankCustomer;
+	}
+	public static String getRankEmployee() {
+		return rankEmployee;
+	}
+	public static String getRankAdmin() {
+		return rankAdmin;
 	}
 	//SECTION: methods
 	//SECTION: hash && equals

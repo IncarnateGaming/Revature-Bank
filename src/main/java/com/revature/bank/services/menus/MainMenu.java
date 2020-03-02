@@ -3,6 +3,7 @@ package com.revature.bank.services.menus;
 import java.util.List;
 
 import com.revature.bank.exceptions.ForceCloseThread;
+import com.revature.bank.exceptions.Logout;
 import com.revature.bank.exceptions.ReturnMainMenu;
 import com.revature.bank.exceptions.UnsupportedInteger;
 import com.revature.bank.model.PermissionRank;
@@ -82,6 +83,10 @@ public class MainMenu extends AbstractMenu{
 						loginMenu.run();
 					}
 				}while (getInput() != 0);
+			}catch(Logout e) {
+				person = null;
+				permissions = null;
+				System.out.println("Logged out.");
 			}catch(ReturnMainMenu e) {
 				System.out.println("Returned to Main Menu");
 			}

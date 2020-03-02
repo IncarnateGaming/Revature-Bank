@@ -27,9 +27,9 @@ public class ModifyUserMenu extends AbstractMenu {
 				log.info("Person persisted: " + localPerson.toString());
 				break;
 			case 1:
-				log.trace("Set First Name:");
+				System.out.println("Set First Name:");
 				localPerson.setFirstName(MenuHelper.inputStringOneWord(s));
-				log.trace("First name set to: " + localPerson.getFirstName() + ". Remember to hit 0 to save.");
+				System.out.println("First name set to: " + localPerson.getFirstName() + ". Remember to hit 0 to save.");
 				break;
 			case 2:
 				log.trace("Set Last Name:");

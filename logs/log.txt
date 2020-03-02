@@ -163,3 +163,11 @@ java.lang.NumberFormatException: For input string: "y"
 com.bank.exceptions.UnsupportedInteger: The integer: 8 is unsupported in this menu.
 	at com.bank.services.menus.MainMenu.run(MainMenu.java:72)
 	at com.bank.Application.main(Application.java:21)
+2020-03-02 07:43:12 WARN  Application:43 - Non-number submitted by user
+java.lang.NumberFormatException: For input string: ":q"
+	at java.lang.NumberFormatException.forInputString(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at com.revature.bank.services.helpers.MenuHelper.inputPositiveInt(MenuHelper.java:41)
+	at com.revature.bank.services.menus.MainMenu.run(MainMenu.java:64)
+	at com.revature.bank.Application.main(Application.java:21)

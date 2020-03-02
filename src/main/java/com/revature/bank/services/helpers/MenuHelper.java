@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.revature.bank.Application;
 import com.revature.bank.exceptions.ForceCloseThread;
+import com.revature.bank.exceptions.Logout;
 import com.revature.bank.exceptions.ReturnMainMenu;
 
 public class MenuHelper {
@@ -24,6 +25,8 @@ public class MenuHelper {
 			throw new ForceCloseThread("EXIT was entered.");
 		}else if(line.equals("MAIN")) {
 			throw new ReturnMainMenu("MENU was entered.");
+		}else if(line.equals("LOGOUT")) {
+			throw new Logout("LOGOUT was entered");
 		}
 		return line;
 	}
