@@ -4,13 +4,15 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
-import com.revature.bank.Application;
 import com.revature.bank.exceptions.ForceCloseThread;
 import com.revature.bank.exceptions.ReturnMainMenu;
+import com.revature.bank.exceptions.UnsupportedInteger;
+import com.revature.bank.services.helpers.LoggerSingleton;
+import com.revature.bank.services.helpers.ScannerSingleton;
 
 public abstract class AbstractMenu {
-	public static Logger log = Application.getLogger();
-	public static Scanner s = Application.getScanner();
+	public Logger log = LoggerSingleton.getLogger();
+	public Scanner s = ScannerSingleton.getScanner();
 	private int input=-1;
 	private MainMenu mainMenu;
 	AbstractMenu(){
@@ -29,5 +31,10 @@ public abstract class AbstractMenu {
 		this.mainMenu = mainMenu;
 	}
 
-	abstract void run() throws ForceCloseThread, ReturnMainMenu;
+	abstract AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu;
+	public void unsupportedInteger() {
+		Exception newException = new UnsupportedInteger("The integer: " + getInput() + " is unsupported in this menu.");
+		log.warn(newException.getMessage(), newException);
+		System.out.println("No accepted number entered, please try again");
+	}
 }

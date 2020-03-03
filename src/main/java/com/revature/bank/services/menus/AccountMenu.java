@@ -31,7 +31,8 @@ public class AccountMenu extends AbstractMenu {
 		this.account = account;
 	}
 	@Override
-	void run() throws ForceCloseThread, ReturnMainMenu {
+	public AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
+		AbstractMenu result = null;
 		//Check if owner or employee or admin
 		if ((!(daoAccOwner.listAccountOwnershipIds(account.getId())
 				.contains(getMainMenu().getPerson().getId()))
@@ -41,7 +42,7 @@ public class AccountMenu extends AbstractMenu {
 			log.warn(getMainMenu().getPerson().toString() 
 					+ " just attempted to access" + account.toString(), accessDenied);
 			System.out.println("Access Denied");
-			return;
+			return null;
 		}
 		System.out.println(account.toString());
 		do {
@@ -79,7 +80,8 @@ public class AccountMenu extends AbstractMenu {
 			default:
 				unsupportedInteger();
 			}
-		}while(getInput()!=0);
+		}while(getInput()!=0 && result == null);
+		return result;
 	}
 	public void unsupportedInteger() {
 		Exception newException = new UnsupportedInteger("The integer: " + getInput() + " is unsupported in this menu.");

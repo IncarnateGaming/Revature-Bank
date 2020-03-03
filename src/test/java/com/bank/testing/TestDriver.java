@@ -5,10 +5,10 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
-import com.revature.bank.Application;
+import com.revature.bank.services.helpers.LoggerSingleton;
 
 public class TestDriver {
-	private static Logger log = Application.getLogger();
+	private static Logger log = LoggerSingleton.getLogger();
 	public static void main(String[] args) {
 		Result result = JUnitCore.runClasses(AllTests.class);
 		for (Failure failure : result.getFailures()) {

@@ -16,7 +16,9 @@ public class LoginMenu extends AbstractMenu{
 		setMainMenu(mainMenu);
 	}
 
-	public void run() throws ForceCloseThread, ReturnMainMenu {
+	@Override
+	public AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
+		AbstractMenu result = null;
 		do {
 			System.out.println("Press 1 to login as Customer, 2 for Employee, 3 for Admin. Press 0 to return to previous menu.");
 			setInput(MenuHelper.inputPositiveInt(s));
@@ -28,26 +30,24 @@ public class LoginMenu extends AbstractMenu{
 				List<PermissionRank> customerPermission = new ArrayList<>(1);
 				customerPermission.add(new PermissionRank(1, "Customer"));
 				getMainMenu().setPermissions(customerPermission);
-				CustomerMenu customerMenu = new CustomerMenu(getMainMenu());
-				customerMenu.run();
+				result = new CustomerMenu(getMainMenu());
 				break;
 			case 2:
 				List<PermissionRank> employeePermission = new ArrayList<>(1);
 				employeePermission.add(new PermissionRank(2, "Employee"));
 				getMainMenu().setPermissions(employeePermission);
-				EmployeeMenu employeeMenu = new EmployeeMenu(getMainMenu());
-				employeeMenu.run();
+				result = new EmployeeMenu(getMainMenu());
 				break;
 			case 3:
 				List<PermissionRank> adminPermission = new ArrayList<>(1);
 				adminPermission.add(new PermissionRank(2, "Admin"));
 				getMainMenu().setPermissions(adminPermission);
-				EmployeeMenu employeeMenu2 = new EmployeeMenu(getMainMenu());
-				employeeMenu2.run();
+				result = new EmployeeMenu(getMainMenu());
 				break;
 			default:
 				System.out.println("No accepted number entered, please try again");
 			}
-		}while(getInput()!=0);
+		}while(getInput()!=0 && result == null);
+		return result;
 	}
 }

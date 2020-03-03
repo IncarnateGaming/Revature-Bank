@@ -9,7 +9,9 @@ public class NewPersonMenu extends AbstractMenu{
 	public NewPersonMenu(MainMenu mainMenu) {
 		setMainMenu(mainMenu);
 	}
-	public void run() throws ForceCloseThread, ReturnMainMenu {
+	@Override
+	AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
+		AbstractMenu result = null;
 		boolean usernameTaken = true;
 		String username;
 		do {
@@ -33,6 +35,7 @@ public class NewPersonMenu extends AbstractMenu{
 		}while (usernameTaken == true);
 		PersonHandling.submitNewUser(username,password);
 		System.out.println(username + " created!");
+		return result;
 	}
 
 }

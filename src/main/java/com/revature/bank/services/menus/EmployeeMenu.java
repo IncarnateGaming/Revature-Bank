@@ -3,6 +3,7 @@ package com.revature.bank.services.menus;
 import com.revature.bank.exceptions.ForceCloseThread;
 import com.revature.bank.exceptions.ReturnMainMenu;
 import com.revature.bank.exceptions.UnsupportedInteger;
+import com.revature.bank.model.PermissionRank;
 import com.revature.bank.services.helpers.MenuHelper;
 
 public class EmployeeMenu extends AbstractMenu{
@@ -12,35 +13,38 @@ public class EmployeeMenu extends AbstractMenu{
 		setMainMenu(mainMenu);
 	}
 
-	public void run() throws ForceCloseThread, ReturnMainMenu {
+	@Override
+	public AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
+		AbstractMenu result = null;
 		do {
-			System.out.println("Press 1 to modify user info, 2 to check accounts, 3 to request new account, or 4 to create a new associated user login. Press 0 to return to previous menu.");
+			System.out.println("Press 1 to Manage Requested Accounts, 2 to list users, 3 to list accounts. Enter \"LOGOUT\" to logout.");
+			if(getMainMenu().containsPermission(PermissionRank.getRankCustomer())) {
+				System.out.println("Press 4 to view your own accounts.");
+			}
 			setInput(MenuHelper.inputPositiveInt(s));
 			switch(getInput()) {
 			case 0:
 				break;
 			case 1:
-				ModifyUserMenu modifyUserMenu = new ModifyUserMenu(getMainMenu());
-				modifyUserMenu.run();
+				result = new ManageRequestedAccounts(getMainMenu());
 				break;
 			case 2:
-				ListAccountsMenu checkAccountsMenu = new ListAccountsMenu(getMainMenu());
-				checkAccountsMenu.run();
+				result = new ListUsers(getMainMenu());
 				break;
 			case 3:
-				RequestAccountsMenu requestAccountsMenu = new RequestAccountsMenu(getMainMenu());
-				requestAccountsMenu.run();
+				result = new ListAccountsMenu(getMainMenu());
 				break;
 			case 4:
-				CreateAccountMenu createAccountMenu = new CreateAccountMenu(getMainMenu());
-				createAccountMenu.run();
+				if(getMainMenu().containsPermission(PermissionRank.getRankCustomer())) {
+					result = new ListAccountsMenu(getMainMenu(),getMainMenu().getPerson());
+				}else {
+					unsupportedInteger();
+				}
 				break;
 			default:
-				Exception newException = new UnsupportedInteger("The integer: " + getInput() + " is unsupported in this menu.");
-				log.warn(newException.getMessage(), newException);
-				System.out.println("No accepted number entered, please try again");
+				unsupportedInteger();
 			}
-		}while(getInput()!=0);
+		}while(getInput()!=0 && (result == null));
+		return result;
 	}
-
 }

@@ -2,7 +2,6 @@ package com.revature.bank.services.helpers;
 
 import java.util.Scanner;
 
-import com.revature.bank.Application;
 import com.revature.bank.exceptions.ForceCloseThread;
 import com.revature.bank.exceptions.Logout;
 import com.revature.bank.exceptions.ReturnMainMenu;
@@ -12,12 +11,11 @@ public class MenuHelper {
 		throw new IllegalStateException("Utility class");
 	}
 	/**
-	 * Gets an entire line of input, while throwing a ForceCloseThread if it receives "EXIT"
-	 * Returns to main menu if it receives "MAIN"
+	 * Gets an entire line of input
 	 * @param s Scanner
 	 * @return
-	 * @throws ForceCloseThread
-	 * @throws ReturnMainMenu 
+	 * @throws ForceCloseThread if "EXIT" entered
+	 * @throws ReturnMainMenu if "LOGOUT" entered
 	 */
 	public static String getLine(Scanner s) throws ForceCloseThread, ReturnMainMenu {
 		String line = s.nextLine();
@@ -30,6 +28,13 @@ public class MenuHelper {
 		}
 		return line;
 	}
+	/**
+	 * Scanner for user to enter a positive integer.
+	 * @param s
+	 * @return Returns an integer 0 or higher
+	 * @throws ForceCloseThread if "EXIT" entered
+	 * @throws ReturnMainMenu if "LOGOUT" entered
+	 */
 	public static int inputPositiveInt(Scanner s) throws ForceCloseThread, ReturnMainMenu{
 		int val = 0;
 		do {
@@ -40,13 +45,20 @@ public class MenuHelper {
 				String line = getLine(s);
 				val = Integer.parseInt(line.split(" ")[0]);
 			}catch(NumberFormatException e) {
-				Application.getLogger().warn("Non-number submitted by user",e);
+				LoggerSingleton.getLogger().warn("Non-number submitted by user",e);
 				val = -1;
 			}
 		}
 		while(val < 0);
 		return val;
 	}
+	/**
+	 * Scanner for user to enter any integer, positive or negative
+	 * @param s
+	 * @return an integer
+	 * @throws ForceCloseThread if "EXIT" entered
+	 * @throws ReturnMainMenu if "LOGOUT" entered
+	 */
 	public static int inputInt(Scanner s) throws ForceCloseThread, ReturnMainMenu {
 		int val = 0;
 		do {
@@ -57,13 +69,20 @@ public class MenuHelper {
 				String line = getLine(s);
 				val = Integer.parseInt(line.split(" ")[0]);
 			}catch(NumberFormatException e) {
-				Application.getLogger().warn("Non-number submitted by user",e);
+				LoggerSingleton.getLogger().warn("Non-number submitted by user",e);
 				val = -168259;
 			}
 		}
 		while(val == -168259);
 		return val;
 	}
+	/**
+	 * Scanner for user to input a positive double
+	 * @param s
+	 * @return positive double
+	 * @throws ForceCloseThread if "EXIT" entered
+	 * @throws ReturnMainMenu if "LOGOUT" entered
+	 */
 	public static double inputPositiveDouble(Scanner s) throws ForceCloseThread, ReturnMainMenu{
 		double val = 0;
 		do {
@@ -74,18 +93,32 @@ public class MenuHelper {
 				String line = getLine(s);
 				val = Double.parseDouble(line.split(" ")[0]);
 			}catch(NumberFormatException e) {
-				Application.getLogger().warn("Non-number submitted by user",e);
+				LoggerSingleton.getLogger().warn("Non-number submitted by user",e);
 				val = -1;
 			}
 		}
 		while(val < 0);
 		return val;
 	}
+	/**
+	 * Scanner for user to input a word
+	 * @param s
+	 * @return one alphabetical word
+	 * @throws ForceCloseThread if "EXIT" entered
+	 * @throws ReturnMainMenu if "LOGOUT" entered
+	 */
 	public static String inputStringOneWord(Scanner s) throws ForceCloseThread, ReturnMainMenu {
 		String line = getLine(s);
 		String val = line.split(" ")[0];
 		return val.replaceAll("[^a-zA-Z]+", "");
 	}
+	/**
+	 * Scanner to get Y/N
+	 * @param s
+	 * @return boolean, true for Y, false for N
+	 * @throws ForceCloseThread if "EXIT" entered
+	 * @throws ReturnMainMenu if "LOGOUT" entered
+	 */
 	public static boolean inputYN(Scanner s) throws ForceCloseThread, ReturnMainMenu{
 		String line = getLine(s);
 		String val = line.split(" ")[0];

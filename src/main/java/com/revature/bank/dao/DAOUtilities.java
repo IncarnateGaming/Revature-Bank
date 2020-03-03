@@ -22,7 +22,7 @@ import com.revature.bank.dao.implementations.PhoneNumberDAOImpl;
 import oracle.jdbc.pool.OracleDataSource;
 
 public class DAOUtilities {
-	private static final String CONNECTION_USERNAME = "orcl";
+	private static final String CONNECTION_USERNAME = "SYSTEM";
 	private static final String CONNECTION_PASSWORD = "avTtiEwVtYiQvUqP81Vi845V2T8";
 	private static final String URL = "jdbc:oracle:thin://localhost:1521/bank";
 	
@@ -138,7 +138,7 @@ public class DAOUtilities {
 		}
 		return phoneNumberDAOImpl;
 	}
-	static synchronized Connection getConnection() throws SQLException {
+	public static synchronized Connection getConnection() throws SQLException {
 		if (connection == null) {
 			OracleDataSource ds = new OracleDataSource();
 			ds.setURL(URL);

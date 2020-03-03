@@ -15,7 +15,9 @@ public class ModifyUserMenu extends AbstractMenu {
 		setMainMenu(mainMenu);
 		this.localPerson = getMainMenu().getPerson();
 	}
-	public void run() throws ForceCloseThread, ReturnMainMenu {
+	@Override
+	public AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
+		AbstractMenu result = null;
 		do {
 			log.trace("Press 1 to change First Name, 2 Last Name, 3 Street Address, 4 City, "
 					+ "5 Social Security Number. 0 to save and return to previous menu.");
@@ -52,5 +54,6 @@ public class ModifyUserMenu extends AbstractMenu {
 				log.trace("No accepted number entered, please try again");
 			}
 		}while(getInput()!=0);
+		return result;
 	}
 }

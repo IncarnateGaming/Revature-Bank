@@ -11,8 +11,9 @@ public class CustomerMenu extends AbstractMenu{
 		super();
 		setMainMenu(mainMenu);
 	}
-
-	public void run() throws ForceCloseThread, ReturnMainMenu {
+	@Override
+	public AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
+		AbstractMenu result = null;
 		do {
 			System.out.println("Press 1 to modify user info, 2 to check accounts, 3 to request new "
 					+ "account, 4 to create a new associated user login, or 5 to list associated "
@@ -22,31 +23,27 @@ public class CustomerMenu extends AbstractMenu{
 			case 0:
 				break;
 			case 1:
-				ModifyUserMenu modifyUserMenu = new ModifyUserMenu(getMainMenu());
-				modifyUserMenu.run();
+				result = new ModifyUserMenu(getMainMenu());
 				break;
 			case 2:
-				ListAccountsMenu checkAccountsMenu = new ListAccountsMenu(getMainMenu(),getMainMenu().getPerson());
-				checkAccountsMenu.run();
+				result = new ListAccountsMenu(getMainMenu(),getMainMenu().getPerson());
 				break;
 			case 3:
-				RequestAccountsMenu requestAccountsMenu = new RequestAccountsMenu(getMainMenu());
-				requestAccountsMenu.run();
+				result = new RequestAccountsMenu(getMainMenu());
 				break;
 			case 4:
-				CreateAccountMenu createAccountMenu = new CreateAccountMenu(getMainMenu());
-				createAccountMenu.run();
+				result = new CreateAccountMenu(getMainMenu());
 				break;
 			case 5:
-				ListAssociatedAccountsMenu listAssociatedAccountsMenu = new ListAssociatedAccountsMenu(getMainMenu());
-				listAssociatedAccountsMenu.run();
+				result = new ListAssociatedAccountsMenu(getMainMenu());
 				break;
 			default:
 				Exception newException = new UnsupportedInteger("The integer: " + getInput() + " is unsupported in this menu.");
 				log.warn(newException.getMessage(), newException);
 				System.out.println("No accepted number entered, please try again");
 			}
-		}while(getInput()!=0);
+		}while(getInput()!=0 && result == null);
+		return result;
 	}
 
 }

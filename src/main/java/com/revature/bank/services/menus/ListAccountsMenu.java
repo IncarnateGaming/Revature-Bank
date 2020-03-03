@@ -24,7 +24,9 @@ public class ListAccountsMenu extends AbstractMenu {
 		this.owner=owner;
 	}
 
-	public void run() throws ForceCloseThread, ReturnMainMenu {
+	@Override
+	public AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
+		AbstractMenu result = null;
 		do {
 			if(accounts == null) {
 				if(owner != null) {
@@ -44,14 +46,14 @@ public class ListAccountsMenu extends AbstractMenu {
 			case 1:
 				accounts = null;
 				System.out.println("Which account number do you want to access?");
-				AccountMenu accountMenu = new AccountMenu(getMainMenu(),MenuHelper.inputPositiveInt(s));
-				accountMenu.run();
+				result = new AccountMenu(getMainMenu(),MenuHelper.inputPositiveInt(s));
 				break;
 			default:
 				Exception newException = new UnsupportedInteger("The integer: " + getInput() + " is unsupported in this menu.");
 				log.warn(newException.getMessage(), newException);
 				System.out.println("No accepted number entered, please try again");
 			}
-		}while(getInput()!=0);
+		}while(getInput()!=0 && result == null);
+		return result;
 	}
 }

@@ -1,7 +1,11 @@
 package com.revature.bank.model;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
+
+import com.revature.bank.services.helpers.LoggerSingleton;
 
 public class Account implements Serializable{
 	private static final long serialVersionUID = 4583212612792271521L;
@@ -24,6 +28,20 @@ public class Account implements Serializable{
 		setActive(true);
 	}
 	
+
+	public Account(ResultSet rs) {
+		super();
+		try {
+			setId(rs.getInt("account_id"));
+			setAccountTypeId(rs.getInt("account_type"));
+			setBalance(rs.getDouble("balance"));
+			setOverdraftProtection(rs.getInt("overdraft_protection"));
+			setActive(rs.getBoolean("active"));
+		}catch(SQLException e) {
+			LoggerSingleton.getLogger().warn("Failed account creation",e);
+		}
+	}
+
 
 	//SECTION: getters & setters
 	public static int getNextMaxId() {
