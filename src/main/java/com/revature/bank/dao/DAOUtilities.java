@@ -22,10 +22,10 @@ import com.revature.bank.dao.implementations.PhoneNumberDAOImpl;
 import com.revature.bank.services.helpers.LoggerSingleton;
 
 public class DAOUtilities {
-	private static final String CONNECTION_USERNAME = "SYSTEM";
-	private static final String CONNECTION_PASSWORD = "avTtiEwVtYiQvUqP81Vi845V2T8";
-//	private static final String CONNECTION_PASSWORD = "tR3V8TviTtqbi03vIeB5y7zqi391bUtN";
-	private static final String URL = "jdbc:oracle:thin://localhost:1521/bank";
+	private static final String CONNECTION_USERNAME = "Admin";
+	private static final String CONNECTION_PASSWORD = System.getenv("REV_BANK");
+//	private static final String URL = "jdbc:oracle:thin://bank.cqvzp3eturwf.us-east-2.rds.amazonaws.com:1521/ORCL";
+	private static final String URL = "jdbc:oracle:thin:@bank.cqvzp3eturwf.us-east-2.rds.amazonaws.com:1521/orcl";
 	
 	private static AccountDAOImpl accountDAOImpl;
 	private static AccountOwnershipDAOImpl accountOwnershipDAOImpl;
@@ -141,6 +141,10 @@ public class DAOUtilities {
 	}
 	public static synchronized Connection getConnection() throws SQLException {
 		try {
+			if(CONNECTION_PASSWORD == null) {
+				throw new RuntimeException("System env password 'REV_BANK' is not set, "
+						+ "connecting without password is not possible.");
+			}
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			//This above statement uses Reflection to confirm that a class with this fully qualified name
 			//is available
@@ -151,6 +155,8 @@ public class DAOUtilities {
 			}
 		}catch(ClassNotFoundException e) {
 			LoggerSingleton.getLogger().warn("Oracle db driver not found",e);
+		}catch(RuntimeException e) {
+			LoggerSingleton.getLogger().warn("Connection Failed", e);
 		}
 		if (connection.isClosed()){
 			System.out.println("getting new connection...");

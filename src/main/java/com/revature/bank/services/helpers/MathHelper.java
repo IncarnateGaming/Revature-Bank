@@ -2,6 +2,7 @@ package com.revature.bank.services.helpers;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class MathHelper {
 	private MathHelper() {
@@ -12,8 +13,9 @@ public class MathHelper {
 	 * @return String, monetary
 	 */
 	public static String doubleTextOut(double input) {
-		input = doubleRound2(input);
-		return ("$ " + String.format("%.2f", input));
+		input = doubleRoundDown(input,2);
+		DecimalFormat newFormatter = new DecimalFormat("#,###.00");
+		return("$" + newFormatter.format(input));
 	}
 	/**
 	 * Handles rounding of doubles using a Big Decimal to avoid edge case crashes
@@ -34,6 +36,11 @@ public class MathHelper {
 	private static double doubleRound(double input, int precision) {
 		BigDecimal bigDecimal = BigDecimal.valueOf(input);
 		bigDecimal = bigDecimal.setScale(precision, RoundingMode.HALF_EVEN);
+		return bigDecimal.doubleValue();
+	}
+	private static double doubleRoundDown(double input, int precision) {
+		BigDecimal bigDecimal = BigDecimal.valueOf(input);
+		bigDecimal = bigDecimal.setScale(precision, RoundingMode.DOWN);
 		return bigDecimal.doubleValue();
 	}
 }

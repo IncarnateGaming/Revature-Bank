@@ -19,6 +19,7 @@ public class ManageRequestedAccount extends AbstractMenu {
 
 	@Override
 	AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
+		AbstractMenu result = null;
 		//Display relevant information
 		do {
 			System.out.println("Press 1 to approve, 2 to reject, 3 to view all accounts controlled by this person.");
@@ -33,12 +34,12 @@ public class ManageRequestedAccount extends AbstractMenu {
 				ProcessAccountRequest.reject(accountRequest);
 				break;
 			case 3:
-				AbstractMenu requestersAccounts = new ListAccountsMenu(accountRequestHandling.getPerson(accountRequest));
-				result = new ListAccountsMenu(getMainMenu());
+//				AbstractMenu requestersAccounts = new ListAccountsMenu(accountRequestHandling.getPerson(accountRequest));
+//				result = new ListAccountsMenu(getMainMenu());
 				break;
 			case 4:
 				if(getMainMenu().containsPermission(PermissionRank.getRankCustomer())) {
-					result = new ListAccountsMenu(getMainMenu(),getMainMenu().getPerson());
+//					result = new ListAccountsMenu(getMainMenu(),getMainMenu().getPerson());
 				}else {
 					unsupportedInteger();
 				}
