@@ -7,41 +7,40 @@ import com.revature.bank.model.City;
 
 public class CityDAOImpl implements CityDAO {
 
-	//SECTION: methods
 	@Override
-	public List<City> listCity() {
+	public City create(City cityToSave) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public City getCity(int cityId) {
+	public List<City> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updateCity(City cityToUpdate) {
+	public City get(int cityId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean saveCity(City cityToSave) {
+	public City update(City cityToUpdate) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deleteCity(City cityToDelete) {
+	public City delete(City cityToDelete) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deleteCity(int cityId) {
+	public City delete(int cityId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
@@ -49,5 +48,4 @@ public class CityDAOImpl implements CityDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

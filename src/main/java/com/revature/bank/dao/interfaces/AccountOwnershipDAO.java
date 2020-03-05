@@ -5,23 +5,20 @@ import java.util.List;
 import com.revature.bank.model.AccountOwnership;
 
 public interface AccountOwnershipDAO {
-	//SECTION: variables
-	//SECTION: constructors
-	//SECTION: getters & setters
-	//SECTION: methods
-	List<AccountOwnership> listAccountOwnership();
-	List<AccountOwnership> listAccountOwnership(int accountId);
-	List<Integer> listAccountOwnershipIds(int accountId);
-	AccountOwnership getAccountOwnership(int accountOwnershipId);
-	boolean updateAccountOwnership(AccountOwnership accountOwnershipToUpdate);
-	boolean saveAccountOwnership(AccountOwnership accountOwnershipToSave);
-	boolean deleteAccountOwnership(AccountOwnership accountOwnershipToDelete);
-	boolean deleteAccountOwnership(int accountOwnershipId);
+	AccountOwnership create(AccountOwnership accountOwnershipToSave);
+
+	List<AccountOwnership> list();
+	List<AccountOwnership> list(int accountId);
+	List<Integer> listIds(int accountId);
+	AccountOwnership get(int accountOwnershipId);
+
+	AccountOwnership update(AccountOwnership accountOwnershipToUpdate);
+
+	AccountOwnership delete(AccountOwnership accountOwnershipToDelete);
+	AccountOwnership delete(int accountOwnershipId);
 	/**
 	 * Gets the highest id for the AccountOwnershipOwnership objects in persisted memory
 	 * @return Integer
 	 */
 	int getHighestId();
-	//SECTION: hash && equals
-	//SECTION: toString
 }

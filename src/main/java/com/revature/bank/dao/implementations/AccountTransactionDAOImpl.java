@@ -7,41 +7,40 @@ import com.revature.bank.model.AccountTransaction;
 
 public class AccountTransactionDAOImpl implements AccountTransactionDAO {
 
-	//SECTION: methods
 	@Override
-	public List<AccountTransaction> listAccountTransaction() {
+	public AccountTransaction create(AccountTransaction accountTransactionToSave) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public AccountTransaction getAccountTransaction(int accountTransactionId) {
+	public List<AccountTransaction> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updateAccountTransaction(AccountTransaction accountTransactionToUpdate) {
+	public AccountTransaction get(int accountTransactionId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean saveAccountTransaction(AccountTransaction accountTransactionToSave) {
+	public AccountTransaction update(AccountTransaction accountTransactionToUpdate) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deleteAccountTransaction(AccountTransaction accountTransactionToDelete) {
+	public AccountTransaction delete(AccountTransaction accountTransactionToDelete) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deleteAccountTransaction(int accountTransactionId) {
+	public AccountTransaction delete(int accountTransactionId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
@@ -49,5 +48,4 @@ public class AccountTransactionDAOImpl implements AccountTransactionDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

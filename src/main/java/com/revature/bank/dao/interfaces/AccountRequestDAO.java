@@ -5,21 +5,18 @@ import java.util.List;
 import com.revature.bank.model.AccountRequest;
 
 public interface AccountRequestDAO {
-	//SECTION: variables
-	//SECTION: constructors
-	//SECTION: getters & setters
-	//SECTION: methods
-	List<AccountRequest> listAccountRequest();
-	AccountRequest getAccountRequest(int accountRequestId);
-	boolean updateAccountRequest(AccountRequest accountRequestToUpdate);
-	boolean saveAccountRequest(AccountRequest accountRequestToSave);
-	boolean deleteAccountRequest(AccountRequest accountRequestToDelete);
-	boolean deleteAccountRequest(int accountRequestId);
+	AccountRequest create(AccountRequest accountRequestToSave);
+
+	List<AccountRequest> list();
+	AccountRequest get(int accountRequestId);
+
+	AccountRequest update(AccountRequest accountRequestToUpdate);
+
+	AccountRequest delete(AccountRequest accountRequestToDelete);
+	AccountRequest delete(int accountRequestId);
 	/**
 	 * Gets the highest id for the AccountRequest objects in persisted memory
 	 * @return Integer
 	 */
 	int getHighestId();
-	//SECTION: hash && equals
-	//SECTION: toString
 }

@@ -6,22 +6,19 @@ import com.revature.bank.model.Account;
 import com.revature.bank.model.Person;
 
 public interface AccountDAO {
-	//SECTION: variables
-	//SECTION: constructors
-	//SECTION: getters & setters
-	//SECTION: methods
-	List<Account> listAccounts();
-	List<Account> listAccounts(Person owner);
-	Account getAccount(int accountId);
-	boolean updateAccount(Account accountToUpdate);
-	boolean saveAccount(Account accountToSave);
-	boolean deleteAccount(Account accountToDelete);
-	boolean deleteAccount(int accountId);
+	Account create(Account accountToSave);
+
+	List<Account> list();
+	List<Account> list(Person owner);
+	Account get(int accountId);
+
+	Account update(Account accountToUpdate);
+
+	Account delete(Account accountToDelete);
+	Account delete(int accountId);
 	/**
 	 * Gets the highest id for the Account objects in persisted memory
 	 * @return Integer
 	 */
 	int getHighestId();
-	//SECTION: hash && equals
-	//SECTION: toString
 }

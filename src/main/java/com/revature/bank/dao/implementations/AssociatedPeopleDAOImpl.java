@@ -7,41 +7,40 @@ import com.revature.bank.model.AssociatedPeople;
 
 public class AssociatedPeopleDAOImpl implements AssociatedPeopleDAO {
 
-	//SECTION: methods
 	@Override
-	public List<AssociatedPeople> listAssociatedPeople() {
+	public AssociatedPeople create(AssociatedPeople associatedPeopleToSave) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public AssociatedPeople getAssociatedPeople(int associatedPeopleId) {
+	public List<AssociatedPeople> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updateAssociatedPeople(AssociatedPeople associatedPeopleToUpdate) {
+	public AssociatedPeople get(int associatedPeopleId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean saveAssociatedPeople(AssociatedPeople associatedPeopleToSave) {
+	public AssociatedPeople update(AssociatedPeople associatedPeopleToUpdate) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deleteAssociatedPeople(AssociatedPeople associatedPeopleToDelete) {
+	public AssociatedPeople delete(AssociatedPeople associatedPeopleToDelete) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deleteAssociatedPeople(int associatedPeopleId) {
+	public AssociatedPeople delete(int associatedPeopleId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
@@ -49,5 +48,4 @@ public class AssociatedPeopleDAOImpl implements AssociatedPeopleDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

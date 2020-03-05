@@ -7,47 +7,54 @@ import com.revature.bank.model.AccountOwnership;
 
 public class AccountOwnershipDAOImpl implements AccountOwnershipDAO {
 
-	//SECTION: methods
 	@Override
-	public List<AccountOwnership> listAccountOwnership() {
+	public AccountOwnership create(AccountOwnership accountOwnershipToSave) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public List<AccountOwnership> listAccountOwnership(int accountId) {
+	public List<AccountOwnership> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public List<Integer> listAccountOwnershipIds(int accountId) {
+	public List<AccountOwnership> list(int accountId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public AccountOwnership getAccountOwnership(int accountOwnershipId) {
+	public List<Integer> listIds(int accountId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public boolean updateAccountOwnership(AccountOwnership accountOwnershipToUpdate) {
+	public AccountOwnership get(int accountOwnershipId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
+
 	@Override
-	public boolean saveAccountOwnership(AccountOwnership accountOwnershipToSave) {
+	public AccountOwnership update(AccountOwnership accountOwnershipToUpdate) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
+
 	@Override
-	public boolean deleteAccountOwnership(AccountOwnership accountOwnershipToDelete) {
+	public AccountOwnership delete(AccountOwnership accountOwnershipToDelete) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
+
 	@Override
-	public boolean deleteAccountOwnership(int accountOwnershipId) {
+	public AccountOwnership delete(int accountOwnershipId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
+
 	@Override
 	public int getHighestId() {
 		// TODO Auto-generated method stub

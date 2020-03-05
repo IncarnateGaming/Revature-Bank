@@ -7,53 +7,52 @@ import com.revature.bank.model.Person;
 
 public class PersonDAOImpl implements PersonDAO {
 
-	//SECTION: methods
 	@Override
-	public List<Person> ListPerson() {
+	public Person create(Person personToSave) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean savePerson(Person personToSave) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Person getPerson(int personId) {
+	public List<Person> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Person getPerson(String username) {
+	public Person get(int personId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Person> getPerson(String firstName, String lastName) {
+	public Person get(String username) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updatePerson(Person personToUpdate) {
+	public List<Person> get(String firstName, String lastName) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deletePerson(Person personToDelete) {
+	public Person update(Person personToUpdate) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deletePerson(int personId) {
+	public Person delete(Person personToDelete) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
+	}
+
+	@Override
+	public Person delete(int personId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -61,5 +60,4 @@ public class PersonDAOImpl implements PersonDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

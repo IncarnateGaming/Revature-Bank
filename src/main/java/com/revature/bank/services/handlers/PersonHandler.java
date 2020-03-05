@@ -1,5 +1,7 @@
 package com.revature.bank.services.handlers;
 
+import com.revature.bank.model.Person;
+
 public class PersonHandler {
 	private PersonHandler() {
 	}
@@ -16,8 +18,8 @@ public class PersonHandler {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	public static void submitNewUser(String username, String password) {
-		// TODO Auto-generated method stub
-		
+	public static Person submitNewUser(String username, String password) {
+		//TODO add logic
+		return null;
 	}
 }

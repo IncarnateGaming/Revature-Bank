@@ -12,7 +12,7 @@ public class AccountRequestHandler {
 	}
 
 	public AccountRequest getAccountRequest(int input) {
-		return daoAR.getAccountRequest(input);
+		return daoAR.get(input);
 	}
 
 	public Person getPerson(AccountRequest accountRequest) {

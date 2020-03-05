@@ -5,21 +5,18 @@ import java.util.List;
 import com.revature.bank.model.PhoneNumber;
 
 public interface PhoneNumberDAO {
-	//SECTION: variables
-	//SECTION: constructors
-	//SECTION: getters & setters
-	//SECTION: methods
-	List<PhoneNumber> listPhoneNumber();
-	PhoneNumber getPhoneNumber(int phoneNumberId);
-	boolean updatePhoneNumber(PhoneNumber phoneNumberToUpdate);
-	boolean savePhoneNumber(PhoneNumber phoneNumberToSave);
-	boolean deletePhoneNumber(PhoneNumber phoneNumberToDelete);
-	boolean deletePhoneNumber(int phoneNumberId);
+	PhoneNumber create(PhoneNumber phoneNumberToSave);
+
+	List<PhoneNumber> list();
+	PhoneNumber get(int phoneNumberId);
+
+	PhoneNumber update(PhoneNumber phoneNumberToUpdate);
+
+	PhoneNumber delete(PhoneNumber phoneNumberToDelete);
+	PhoneNumber delete(int phoneNumberId);
 	/**
 	 * Gets the highest id for the PhoneNumber objects in persisted memory
 	 * @return Integer
 	 */
 	int getHighestId();
-	//SECTION: hash && equals
-	//SECTION: toString
 }

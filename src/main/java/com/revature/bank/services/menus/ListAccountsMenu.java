@@ -30,9 +30,9 @@ public class ListAccountsMenu extends AbstractMenu {
 		do {
 			if(accounts == null) {
 				if(owner != null) {
-					accounts = daoAccount.listAccounts(owner);
+					accounts = daoAccount.list(owner);
 				}else {
-					accounts = daoAccount.listAccounts();
+					accounts = daoAccount.list();
 				}
 			}
 			for(Account account : accounts) {

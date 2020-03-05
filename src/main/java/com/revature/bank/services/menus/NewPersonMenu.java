@@ -2,12 +2,19 @@ package com.revature.bank.services.menus;
 
 import com.revature.bank.exceptions.ForceCloseThread;
 import com.revature.bank.exceptions.ReturnMainMenu;
+import com.revature.bank.model.Person;
+import com.revature.bank.services.handlers.AssociatedPersonHandler;
 import com.revature.bank.services.handlers.PersonHandler;
 import com.revature.bank.services.helpers.MenuHelper;
 
 public class NewPersonMenu extends AbstractMenu{
+	private Person associatedPerson;
 	public NewPersonMenu(MainMenu mainMenu) {
 		setMainMenu(mainMenu);
+	}
+	public NewPersonMenu(MainMenu mainMenu, Person associatedPerson) {
+		this(mainMenu);
+		this.associatedPerson = associatedPerson;
 	}
 	@Override
 	AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
@@ -33,7 +40,11 @@ public class NewPersonMenu extends AbstractMenu{
 				//TODO be more specific
 			}
 		}while (usernameTaken == true);
-		PersonHandler.submitNewUser(username,password);
+		Person newPerson = PersonHandler.submitNewUser(username,password);
+		//If triggered by association, create the association
+		if(associatedPerson != null) {
+			AssociatedPersonHandler.create(associatedPerson,newPerson);
+		}
 		System.out.println(username + " created!");
 		return result;
 	}

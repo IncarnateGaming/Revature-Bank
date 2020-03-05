@@ -25,7 +25,7 @@ public class ModifyUserMenu extends AbstractMenu {
 			switch(getInput()) {
 			case 0:
 				PersonDAO daoPerson = DAOUtilities.getPersonDao();
-				daoPerson.savePerson(localPerson);
+				daoPerson.create(localPerson);
 				log.info("Person persisted: " + localPerson.toString());
 				break;
 			case 1:

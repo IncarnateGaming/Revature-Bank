@@ -7,41 +7,40 @@ import com.revature.bank.model.AccountType;
 
 public class AccountTypeDAOImpl implements AccountTypeDAO {
 
-	//SECTION: methods
 	@Override
-	public List<AccountType> listAccountType() {
+	public AccountType create(AccountType accountTypeToSave) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public AccountType getAccountType(int accountTypeId) {
+	public List<AccountType> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updateAccountType(AccountType accountTypeToUpdate) {
+	public AccountType get(int accountTypeId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean saveAccountType(AccountType accountTypeToSave) {
+	public AccountType update(AccountType accountTypeToUpdate) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deleteAccountType(AccountType accountTypeToDelete) {
+	public AccountType delete(AccountType accountTypeToDelete) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deleteAccountType(int accountTypeId) {
+	public AccountType delete(int accountTypeId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
@@ -49,5 +48,4 @@ public class AccountTypeDAOImpl implements AccountTypeDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

@@ -7,41 +7,40 @@ import com.revature.bank.model.PhoneNumber;
 
 public class PhoneNumberDAOImpl implements PhoneNumberDAO {
 
-	//SECTION: methods
 	@Override
-	public List<PhoneNumber> listPhoneNumber() {
+	public PhoneNumber create(PhoneNumber phoneNumberToSave) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public PhoneNumber getPhoneNumber(int phoneNumberId) {
+	public List<PhoneNumber> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updatePhoneNumber(PhoneNumber phoneNumberToUpdate) {
+	public PhoneNumber get(int phoneNumberId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean savePhoneNumber(PhoneNumber phoneNumberToSave) {
+	public PhoneNumber update(PhoneNumber phoneNumberToUpdate) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deletePhoneNumber(PhoneNumber phoneNumberToDelete) {
+	public PhoneNumber delete(PhoneNumber phoneNumberToDelete) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deletePhoneNumber(int phoneNumberId) {
+	public PhoneNumber delete(int phoneNumberId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
@@ -49,5 +48,4 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

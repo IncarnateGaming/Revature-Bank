@@ -7,41 +7,40 @@ import com.revature.bank.model.AccountRequest;
 
 public class AccountRequestDAOImpl implements AccountRequestDAO {
 
-	//SECTION: methods
 	@Override
-	public List<AccountRequest> listAccountRequest() {
+	public AccountRequest create(AccountRequest accountRequestToSave) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public AccountRequest getAccountRequest(int accountRequestId) {
+	public List<AccountRequest> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updateAccountRequest(AccountRequest accountRequestToUpdate) {
+	public AccountRequest get(int accountRequestId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean saveAccountRequest(AccountRequest accountRequestToSave) {
+	public AccountRequest update(AccountRequest accountRequestToUpdate) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deleteAccountRequest(AccountRequest accountRequestToDelete) {
+	public AccountRequest delete(AccountRequest accountRequestToDelete) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deleteAccountRequest(int accountRequestId) {
+	public AccountRequest delete(int accountRequestId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
@@ -49,5 +48,4 @@ public class AccountRequestDAOImpl implements AccountRequestDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

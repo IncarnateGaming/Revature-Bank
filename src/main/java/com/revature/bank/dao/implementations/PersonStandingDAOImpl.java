@@ -7,41 +7,40 @@ import com.revature.bank.model.PersonStanding;
 
 public class PersonStandingDAOImpl implements PersonStandingDAO {
 
-	//SECTION: methods
 	@Override
-	public List<PersonStanding> listPersonStanding() {
+	public PersonStanding create(PersonStanding personStandingToSave) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public PersonStanding getPersonStanding(int personStandingId) {
+	public List<PersonStanding> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updatePersonStanding(PersonStanding personStandingToUpdate) {
+	public PersonStanding get(int personStandingId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean savePersonStanding(PersonStanding personStandingToSave) {
+	public PersonStanding update(PersonStanding personStandingToUpdate) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deletePersonStanding(PersonStanding personStandingToDelete) {
+	public PersonStanding delete(PersonStanding personStandingToDelete) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deletePersonStanding(int personStandingId) {
+	public PersonStanding delete(int personStandingId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
@@ -49,5 +48,4 @@ public class PersonStandingDAOImpl implements PersonStandingDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

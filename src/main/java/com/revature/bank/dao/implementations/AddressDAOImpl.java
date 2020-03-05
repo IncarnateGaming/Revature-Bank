@@ -7,41 +7,40 @@ import com.revature.bank.model.Address;
 
 public class AddressDAOImpl implements AddressDAO {
 
-	//SECTION: methods
 	@Override
-	public List<Address> listAddress() {
+	public Address create(Address addressToSave) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Address getAddress(int addressId) {
+	public List<Address> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updateAddress(Address addressToUpdate) {
+	public Address get(int addressId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean saveAddress(Address addressToSave) {
+	public Address update(Address addressToUpdate) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deleteAddress(Address addressToDelete) {
+	public Address delete(Address addressToDelete) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deleteAddress(int addressId) {
+	public Address delete(int addressId) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
@@ -49,5 +48,4 @@ public class AddressDAOImpl implements AddressDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

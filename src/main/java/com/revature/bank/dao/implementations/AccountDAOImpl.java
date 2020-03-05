@@ -15,7 +15,13 @@ import com.revature.bank.services.helpers.LoggerSingleton;
 
 public class AccountDAOImpl implements AccountDAO {
 	@Override
-	public List<Account> listAccounts() {
+	public Account create(Account accountToSave) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Account> list() {
 		List<Account> accountList = new ArrayList<>();
 		Connection conn = null;
 		Statement stmt = null;
@@ -44,40 +50,35 @@ public class AccountDAOImpl implements AccountDAO {
 		}
 		return accountList;
 	}
+
 	@Override
-	public List<Account> listAccounts(Person owner) {
+	public List<Account> list(Person owner) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Account getAccount(int accountId) {
+	public Account get(int accountId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updateAccount(Account accountToUpdate) {
+	public Account update(Account accountToUpdate) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean saveAccount(Account accountToSave) {
+	public Account delete(Account accountToDelete) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deleteAccount(Account accountToDelete) {
+	public Account delete(int accountId) {
 		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean deleteAccount(int accountId) {
-		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
@@ -85,5 +86,4 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

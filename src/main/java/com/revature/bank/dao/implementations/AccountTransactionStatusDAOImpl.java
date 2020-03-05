@@ -7,7 +7,12 @@ import com.revature.bank.model.AccountTransactionStatus;
 
 public class AccountTransactionStatusDAOImpl implements AccountTransactionStatusDAO {
 
-	//SECTION: methods
+	@Override
+	public AccountTransactionStatus create(AccountTransactionStatus accountTransactionStatusToSave) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@Override
 	public List<AccountTransactionStatus> listAccountTransactionStatus() {
 		// TODO Auto-generated method stub
@@ -21,27 +26,23 @@ public class AccountTransactionStatusDAOImpl implements AccountTransactionStatus
 	}
 
 	@Override
-	public boolean updateAccountTransactionStatus(AccountTransactionStatus accountTransactionStatusToUpdate) {
+	public AccountTransactionStatus updateAccountTransactionStatus(
+			AccountTransactionStatus accountTransactionStatusToUpdate) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean saveAccountTransactionStatus(AccountTransactionStatus accountTransactionStatusToSave) {
+	public AccountTransactionStatus deleteAccountTransactionStatus(
+			AccountTransactionStatus accountTransactionStatusToDelete) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean deleteAccountTransactionStatus(AccountTransactionStatus accountTransactionStatusToDelete) {
+	public AccountTransactionStatus deleteAccountTransactionStatus(int accountTransactionStatusId) {
 		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean deleteAccountTransactionStatus(int accountTransactionStatusId) {
-		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override

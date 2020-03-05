@@ -22,7 +22,7 @@ public class AccountMenu extends AbstractMenu {
 	public AccountMenu(MainMenu mainMenu, int accountId) {
 		super();
 		setMainMenu(mainMenu);
-		setAccount(daoAccount.getAccount(accountId));
+		setAccount(daoAccount.get(accountId));
 	}
 	public Account getAccount() {
 		return account;
@@ -34,7 +34,7 @@ public class AccountMenu extends AbstractMenu {
 	public AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
 		AbstractMenu result = null;
 		//Check if owner or employee or admin
-		if ((!(daoAccOwner.listAccountOwnershipIds(account.getId())
+		if ((!(daoAccOwner.listIds(account.getId())
 				.contains(getMainMenu().getPerson().getId()))
 				|| getMainMenu().containsPermission(PermissionRank.getRankEmployee()) 
 				|| getMainMenu().containsPermission(PermissionRank.getRankAdmin()))) {

@@ -7,42 +7,48 @@ import com.revature.bank.model.PermissionRank;
 
 public class PermissionRankDAOImpl implements PermissionRankDAO {
 
-	//SECTION: methods
 	@Override
-	public List<PermissionRank> listPermission() {
+	public boolean create(PermissionRank permissionToSave) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<PermissionRank> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public List<String> listPermission(int personId) {
+	public List<String> list(int personId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public PermissionRank getPermission(int permissionId) {
+	public PermissionRank get(int permissionId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public boolean updatePermission(PermissionRank permissionToUpdate) {
+	public boolean update(PermissionRank permissionToUpdate) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 	@Override
-	public boolean savePermission(PermissionRank permissionToSave) {
+	public boolean delete(PermissionRank permissionToDelete) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 	@Override
-	public boolean deletePermission(PermissionRank permissionToDelete) {
+	public boolean delete(int permissionId) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	@Override
-	public boolean deletePermission(int permissionId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 	@Override
 	public int getHighestId() {
 		// TODO Auto-generated method stub
