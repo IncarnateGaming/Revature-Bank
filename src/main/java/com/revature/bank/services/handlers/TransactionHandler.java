@@ -1,10 +1,10 @@
-package com.revature.bank.services.buisness.logic;
+package com.revature.bank.services.handlers;
 
 import com.revature.bank.model.Account;
 import com.revature.bank.model.Person;
 
-public class TransactionHandling {
-	private TransactionHandling() {
+public class TransactionHandler {
+	private TransactionHandler() {
 	}
 	public static boolean newDeposit(Account account, double amount, Person person) {
 		return false;

@@ -6,7 +6,7 @@ import com.revature.bank.Application;
 
 public class LoggerSingleton {
 	private static Logger log;
-	public LoggerSingleton() {
+	private LoggerSingleton() {
 	}
 	public static Logger getLogger() {
 		if (log == null) {

@@ -1,7 +1,7 @@
-package com.revature.bank.services.buisness.logic;
+package com.revature.bank.services.handlers;
 
-public class PersonHandling {
-	private PersonHandling() {
+public class PersonHandler {
+	private PersonHandler() {
 	}
 	/**
 	 * Tests to see if a username is already in use. If so returns true otherwise false

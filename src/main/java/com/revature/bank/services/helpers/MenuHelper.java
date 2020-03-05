@@ -8,7 +8,6 @@ import com.revature.bank.exceptions.ReturnMainMenu;
 
 public class MenuHelper {
 	private MenuHelper() {
-		throw new IllegalStateException("Utility class");
 	}
 	/**
 	 * Gets an entire line of input
@@ -124,7 +123,7 @@ public class MenuHelper {
 		String val = line.split(" ")[0];
 		val = val.replaceAll("[^a-zA-Z]+", "").toUpperCase();
 		boolean result = false;
-		if(val.equals("Y")) {
+		if(val.equals("Y")||val.equals("YES")||val.equals("TRUE")) {
 			result = true;
 		}
 		return result;
