@@ -10,15 +10,17 @@ public interface AccountDAO {
 
 	List<Account> list();
 	List<Account> list(Person owner);
+	List<Integer> listIds();
 	Account get(int accountId);
 
 	Account update(Account accountToUpdate);
 
-	Account delete(Account accountToDelete);
-	Account delete(int accountId);
+	boolean delete(Account accountToDelete);
+	boolean delete(int accountId);
 	/**
 	 * Gets the highest id for the Account objects in persisted memory
 	 * @return Integer
 	 */
 	int getHighestId();
+
 }

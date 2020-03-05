@@ -295,6 +295,10 @@ ALTER TABLE ACCOUNT
     REFERENCES ACCOUNT_TYPE (account_type_id)
     ON DELETE SET NULL
 ;
+ALTER TABLE ACCOUNT
+  ADD CONSTRAINT ac_check_bool
+    CHECK (active <= 1 AND active >= 0)
+;
 ALTER TABLE ACCOUNT_OWNERSHIP 
   ADD CONSTRAINT ao_owner
     FOREIGN KEY (owner)
@@ -418,6 +422,10 @@ INSERT INTO ACCOUNT_TYPE (label,min_balance,interest) VALUES ('Checking',0,0.000
 INSERT INTO ACCOUNT_TYPE (label,min_balance,interest) VALUES ('Savings',300,0.0015);
 INSERT INTO ACCOUNT_TYPE (label,min_balance,interest) VALUES ('High Yield Savings',50000,0.0105);
 INSERT INTO ACCOUNT_TYPE (label,min_balance,interest) VALUES ('Credit',-5000,0.0);
+INSERT INTO ACCOUNT (account_type,balance,overdraft_protection,active) VALUES (1,0,500,1);
+INSERT INTO ACCOUNT (account_type,balance,overdraft_protection,active) VALUES (2,0,1000,1);
+SELECT * FROM ACCOUNT WHERE account_id = (SELECT MAX(account_id) FROM ACCOUNT);
+SELECT MAX(account_id) FROM ACCOUNT;
 SELECT * FROM PERMISSION_RANK_LABEL;
 SELECT * FROM PERSON_STANDING;
 SELECT * FROM ACCOUNT_TYPE;

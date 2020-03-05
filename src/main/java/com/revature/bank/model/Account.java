@@ -1,11 +1,7 @@
 package com.revature.bank.model;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Objects;
-
-import com.revature.bank.services.helpers.LoggerSingleton;
 
 public class Account implements Serializable{
 	private static final long serialVersionUID = 4583212612792271521L;
@@ -21,26 +17,18 @@ public class Account implements Serializable{
 	
 	public Account(int accountTypeId, double balance, int overdraftProtection) {
 		super();
-		id = getNextMaxId();
 		setAccountTypeId(accountTypeId);
 		setBalance(balance);
 		setOverdraftProtection(overdraftProtection);
 		setActive(true);
 	}
+	public Account(int id, int accountTypeId, double balance, int overdraftProtection,boolean active) {
+		this(accountTypeId,balance,overdraftProtection);
+		this.id = id;
+		this.active = active;
+	}
 	
 
-	public Account(ResultSet rs) {
-		super();
-		try {
-			setId(rs.getInt("account_id"));
-			setAccountTypeId(rs.getInt("account_type"));
-			setBalance(rs.getDouble("balance"));
-			setOverdraftProtection(rs.getInt("overdraft_protection"));
-			setActive(rs.getBoolean("active"));
-		}catch(SQLException e) {
-			LoggerSingleton.getLogger().warn("Failed account creation",e);
-		}
-	}
 
 
 	//SECTION: getters & setters
@@ -77,7 +65,7 @@ public class Account implements Serializable{
 	public void setOverdraftProtection(int overdraftProtection) {
 		this.overdraftProtection = overdraftProtection;
 	}
-	public boolean isActive() {
+	public boolean getActive() {
 		return active;
 	}
 	public void setActive(boolean active) {
