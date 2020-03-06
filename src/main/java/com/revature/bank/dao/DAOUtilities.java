@@ -22,8 +22,10 @@ import com.revature.bank.dao.implementations.PhoneNumberDAOImpl;
 import com.revature.bank.services.helpers.LoggerSingleton;
 
 public class DAOUtilities {
-	private static final String CONNECTION_USERNAME = "Admin";
-	private static final String CONNECTION_PASSWORD = System.getenv("REV_BANK");
+//	private static final String CONNECTION_USERNAME = "Admin";
+	private static final String CONNECTION_USERNAME = "bank_connection";
+//	private static final String CONNECTION_PASSWORD = System.getenv("REV_BANK_ADMIN");
+	private static final String CONNECTION_PASSWORD = System.getenv("REV_BANK_CONN");
 //	private static final String URL = "jdbc:oracle:thin://bank.cqvzp3eturwf.us-east-2.rds.amazonaws.com:1521/ORCL";
 	private static final String URL = "jdbc:oracle:thin:@bank.cqvzp3eturwf.us-east-2.rds.amazonaws.com:1521/orcl";
 	
@@ -142,7 +144,7 @@ public class DAOUtilities {
 	public static synchronized Connection getConnection() throws SQLException {
 		try {
 			if(CONNECTION_PASSWORD == null) {
-				throw new RuntimeException("System env password 'REV_BANK' is not set, "
+				throw new RuntimeException("System env password 'REV_BANK_CONN' is not set, "
 						+ "connecting without password is not possible.");
 			}
 			Class.forName("oracle.jdbc.driver.OracleDriver");
