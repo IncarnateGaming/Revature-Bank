@@ -24,6 +24,12 @@ public abstract class AbstractMenu {
 	public void setInput(int input) {
 		this.input = input;
 	}
+	public Scanner getScanner() {
+		return s;
+	}
+	public void setScanner(Scanner s) {
+		this.s = s;
+	}
 	public MainMenu getMainMenu() {
 		return mainMenu;
 	}

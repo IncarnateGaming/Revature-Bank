@@ -19,24 +19,26 @@ public class AccountDAOImpl implements AccountDAO {
 	public Account create(Account accountToCreate) {
 		Account result = null;
 		try (Connection conn = DAOUtilities.getConnection()){
-			String sql = "INSERT (account_type, balance, overdraft_protection, active) INTO ACCOUNT VALUES (?,?,?,?)";
+			String sql = "INSERT INTO ADMIN.ACCOUNT (account_type, balance, overdraft_protection, active) VALUES (?,?,?,?)";
 			try(PreparedStatement stmt = conn.prepareStatement(sql)){
 				stmt.setInt(1, accountToCreate.getAccountTypeId());
 				stmt.setDouble(2, accountToCreate.getBalance());
 				stmt.setInt(3, accountToCreate.getOverdraftProtection());
 				stmt.setInt(4, accountToCreate.getActive() ? 1 : 0);
 				try(ResultSet rs = stmt.executeQuery()){
+					LoggerSingleton.getLogger().warn("result from account creation: "+rs);
 					//TODO mark as successful if certain return
 				}
 			}
 			try(Statement stmt = conn.createStatement()){
-				String sql2 = "SELECT * FROM ACCOUNT WHERE account_id = (SELECT MAX(account_id) FROM ACCOUNT)";
+				String sql2 = "SELECT * FROM ADMIN.ACCOUNT WHERE account_id = (SELECT MAX(account_id) FROM ADMIN.ACCOUNT)";
 				try(ResultSet rs = stmt.executeQuery(sql2)){
 					while(rs.next()) {
 						result = objectBuilder(rs);
 					}
 				}
 			}
+			DAOUtilities.commit(conn);
 		}catch(SQLException e) {
 			LoggerSingleton.getLogger().warn("Failed to create account",e);
 		}
@@ -48,7 +50,7 @@ public class AccountDAOImpl implements AccountDAO {
 		List<Account> list = new ArrayList<>();
 		try (Connection conn = DAOUtilities.getConnection()){
 			try(Statement stmt = conn.createStatement()){
-				String sql = "SELECT * FROM ACCOUNT";
+				String sql = "SELECT * FROM ADMIN.ACCOUNT";
 				try(ResultSet rs = stmt.executeQuery(sql)){
 					while(rs.next()) {
 						Account a = objectBuilder(rs);
@@ -79,7 +81,7 @@ public class AccountDAOImpl implements AccountDAO {
 
 		List<Account> list = new ArrayList<>();
 		try (Connection conn = DAOUtilities.getConnection()){
-			String sql = "SELECT * FROM ACCOUNT";
+			String sql = "SELECT * FROM ADMIN.ACCOUNT";
 			try(PreparedStatement stmt = conn.prepareStatement(sql)){
 				//TODO limit to only accounts that are owned by the person
 				try(ResultSet rs = stmt.executeQuery()){
@@ -105,7 +107,7 @@ public class AccountDAOImpl implements AccountDAO {
 	public Account get(int accountId) {
 		Account result = null;
 		try (Connection conn = DAOUtilities.getConnection()){
-			String sql = "SELECT * FROM ACCOUNT WHERE account_id = ?";
+			String sql = "SELECT * FROM ADMIN.ACCOUNT WHERE account_id = ?";
 			try(PreparedStatement stmt = conn.prepareStatement(sql)){
 				try(ResultSet rs = stmt.executeQuery()){
 					while(rs.next()) {
@@ -134,7 +136,7 @@ public class AccountDAOImpl implements AccountDAO {
 	public boolean delete(int accountId) {
 		Boolean result = false;
 		try (Connection conn = DAOUtilities.getConnection()){
-			String sql = "DELETE FROM ACCOUNT WHERE account_id = ?";
+			String sql = "DELETE FROM ADMIN.ACCOUNT WHERE account_id = ?";
 			try(PreparedStatement stmt = conn.prepareStatement(sql)){
 				stmt.setInt(1, accountId);
 				try(ResultSet rs = stmt.executeQuery()){
@@ -152,7 +154,7 @@ public class AccountDAOImpl implements AccountDAO {
 		int result = 0;
 		try (Connection conn = DAOUtilities.getConnection()){
 			try(Statement stmt = conn.createStatement()){
-				String sql = "SELECT MAX(account_id) FROM ACCOUNT";
+				String sql = "SELECT MAX(account_id) FROM ADMIN.ACCOUNT";
 				try(ResultSet rs = stmt.executeQuery(sql)){
 					result = rs.getInt(1);
 				}

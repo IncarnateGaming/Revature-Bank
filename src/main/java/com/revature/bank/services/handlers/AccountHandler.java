@@ -9,11 +9,11 @@ import com.revature.bank.model.Person;
 
 public class AccountHandler {
 	private AccountDAO repository = null;
-	private AccountHandler() {
+	public AccountHandler() {
 		super();
 		this.repository = new AccountDAOImpl();
 	}
-	private AccountHandler(AccountDAO repository) {
+	public AccountHandler(AccountDAO repository) {
 		super();
 		this.repository = repository;
 	}

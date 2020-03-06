@@ -1,5 +1,7 @@
 package com.revature.bank.services.menus;
 
+import java.util.Scanner;
+
 import com.revature.bank.exceptions.ForceCloseThread;
 import com.revature.bank.exceptions.ReturnMainMenu;
 import com.revature.bank.exceptions.UnsupportedInteger;
@@ -10,6 +12,10 @@ public class CustomerMenu extends AbstractMenu{
 	public CustomerMenu(MainMenu mainMenu) {
 		super();
 		setMainMenu(mainMenu);
+	}
+	public CustomerMenu(MainMenu mainMenu,Scanner s) {
+		this(mainMenu);
+		setScanner(s);
 	}
 	@Override
 	public AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
