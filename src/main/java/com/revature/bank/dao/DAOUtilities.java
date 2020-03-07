@@ -3,7 +3,6 @@ package com.revature.bank.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.revature.bank.dao.implementations.AccountDAOImpl;
@@ -163,17 +162,13 @@ public class DAOUtilities {
 	public static void commit(Connection conn) throws SQLException {
 		String sql = "COMMIT";
 		try(PreparedStatement stmt = conn.prepareStatement(sql)){
-			try(ResultSet rs = stmt.executeQuery()){
-				LoggerSingleton.getLogger().warn("result from commiting: "+rs);
-			}
+			stmt.execute();
 		}
 	}
 	public static void rollback(Connection conn) throws SQLException {
 		String sql = "ROLLBACK";
 		try(PreparedStatement stmt = conn.prepareStatement(sql)){
-			try(ResultSet rs = stmt.executeQuery()){
-				LoggerSingleton.getLogger().warn("result from rollback: "+rs);
-			}
+			stmt.execute();
 		}
 	}
 }

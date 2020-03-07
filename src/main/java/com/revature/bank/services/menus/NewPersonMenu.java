@@ -1,10 +1,12 @@
 package com.revature.bank.services.menus;
 
 import com.revature.bank.exceptions.ForceCloseThread;
+import com.revature.bank.exceptions.InvalidPasswordChoice;
 import com.revature.bank.exceptions.ReturnMainMenu;
 import com.revature.bank.model.Person;
+import com.revature.bank.services.buisness.logic.PersonService;
 import com.revature.bank.services.handlers.AssociatedPersonHandler;
-import com.revature.bank.services.handlers.PersonHandler;
+import com.revature.bank.services.helpers.LoggerSingleton;
 import com.revature.bank.services.helpers.MenuHelper;
 
 public class NewPersonMenu extends AbstractMenu{
@@ -24,7 +26,7 @@ public class NewPersonMenu extends AbstractMenu{
 		do {
 			System.out.println("What username do you want to use for this user login?");
 			username = MenuHelper.inputStringOneWord(s);
-			usernameTaken = PersonHandler.usernameTaken(username);
+			usernameTaken = new PersonService().usernameTaken(username);
 			if (usernameTaken) {
 				System.out.println("Username: \""+ username + "\" is already in use.");
 			}
@@ -34,13 +36,14 @@ public class NewPersonMenu extends AbstractMenu{
 		do {
 			System.out.println("What password do you want to use for the " + username + " user login?");
 			password = MenuHelper.inputStringOneWord(s);
-			passwordAccepted = PersonHandler.passwordAccepted(password);
-			if (!passwordAccepted) {
-				System.out.println("Password: \""+ username + "\" does not meet standards.");
-				//TODO be more specific
+			try {
+				passwordAccepted = new PersonService().passwordAccepted(password);
+			} catch (InvalidPasswordChoice e) {
+				passwordAccepted = false;
+				LoggerSingleton.getLogger().warn("Invalid Password Choice: ",e);
 			}
-		}while (usernameTaken == true);
-		Person newPerson = PersonHandler.submitNewUser(username,password);
+		}while (passwordAccepted == false);
+		Person newPerson = new PersonService().submitNewUser(username,password);
 		//If triggered by association, create the association
 		if(associatedPerson != null) {
 			AssociatedPersonHandler.create(associatedPerson,newPerson);

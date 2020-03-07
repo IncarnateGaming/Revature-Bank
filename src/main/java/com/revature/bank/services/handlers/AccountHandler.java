@@ -27,7 +27,7 @@ public class AccountHandler {
 		return repository.list(owner);
 	}
 	public List<Integer> listIds(){
-		return repository .listIds();
+		return repository.listIds();
 	}
 	public Account get(int accountId) {
 		return repository.get(accountId);

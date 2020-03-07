@@ -1,10 +1,12 @@
 package com.revature.bank.dao.implementations;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,24 +21,19 @@ public class AccountDAOImpl implements AccountDAO {
 	public Account create(Account accountToCreate) {
 		Account result = null;
 		try (Connection conn = DAOUtilities.getConnection()){
-			String sql = "INSERT INTO ADMIN.ACCOUNT (account_type, balance, overdraft_protection, active) VALUES (?,?,?,?)";
-			try(PreparedStatement stmt = conn.prepareStatement(sql)){
-				stmt.setInt(1, accountToCreate.getAccountTypeId());
-				stmt.setDouble(2, accountToCreate.getBalance());
-				stmt.setInt(3, accountToCreate.getOverdraftProtection());
-				stmt.setInt(4, accountToCreate.getActive() ? 1 : 0);
-				try(ResultSet rs = stmt.executeQuery()){
-					LoggerSingleton.getLogger().warn("result from account creation: "+rs.getMetaData().getColumnCount());
-					//TODO mark as successful if certain return
-				}
-			}
-			try(Statement stmt = conn.createStatement()){
-				String sql2 = "SELECT * FROM ADMIN.ACCOUNT WHERE account_id = (SELECT MAX(account_id) FROM ADMIN.ACCOUNT)";
-				try(ResultSet rs = stmt.executeQuery(sql2)){
-					while(rs.next()) {
-						result = objectBuilder(rs);
-					}
-				}
+			String sql = "call admin.create_account(?,?,?,?,?)";
+			try(CallableStatement stmt = conn.prepareCall(sql)){
+				stmt.registerOutParameter(1, Types.INTEGER);
+				stmt.setInt(2, accountToCreate.getAccountTypeId());
+				stmt.setDouble(3, accountToCreate.getBalance());
+				stmt.setInt(4, accountToCreate.getOverdraftProtection());
+				stmt.setInt(5, accountToCreate.getActive() ? 1 : 0);
+				System.out.println("Target Location!");
+				stmt.execute();
+				int resultId = (Integer) stmt.getObject(1);
+				System.out.println(resultId);
+				accountToCreate.setId(resultId);
+				result = accountToCreate;
 			}
 			DAOUtilities.commit(conn);
 		}catch(SQLException e) {
@@ -66,24 +63,13 @@ public class AccountDAOImpl implements AccountDAO {
 
 	@Override
 	public List<Account> list(Person owner) {
-//		try (Connection conn = ConnectionUtil.getConnection()){
-//			String sql = "INSERT INTO employees (first_name, last_name, email, salary) VALUES (?,?,?,?)";
-//			PreparedStatement stmt = conn.prepareStatement(sql);
-//			stmt.setString(1, emp.getFirstName());
-//			stmt.setString(2, emp.getLastName());
-//			stmt.setString(3, emp.getEmail());
-//			stmt.setDouble(4, emp.getSalary());
-//			return stmt.execute();
-//		}catch(SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return false;
-
 		List<Account> list = new ArrayList<>();
 		try (Connection conn = DAOUtilities.getConnection()){
-			String sql = "SELECT * FROM ADMIN.ACCOUNT";
+			String sql = "SELECT * FROM ADMIN.ACCOUNT_OWNERSHIP_JT WHERE "
+					+ "ADMIN.ACCOUNT_OWNERSHIP_JT.owner = ? INNER JOIN ADMIN.ACCOUNT"
+					+ "ON ADMIN.ACCOUNT_OWNERSHIP_JT.account = ADMIN.ACCOUNT.account_id";
 			try(PreparedStatement stmt = conn.prepareStatement(sql)){
-				//TODO limit to only accounts that are owned by the person
+				stmt.setInt(1, owner.getId());
 				try(ResultSet rs = stmt.executeQuery()){
 					while(rs.next()) {
 						Account a = objectBuilder(rs);
@@ -99,8 +85,12 @@ public class AccountDAOImpl implements AccountDAO {
 
 	@Override
 	public List<Integer> listIds(){
-		//TODO complete;
-		return null;
+		List<Account> listAccounts = list();
+		List<Integer> list = new ArrayList<>();
+		for(Account a : listAccounts) {
+			list.add(a.getId());
+		}
+		return list;
 	}
 
 	@Override
@@ -109,6 +99,7 @@ public class AccountDAOImpl implements AccountDAO {
 		try (Connection conn = DAOUtilities.getConnection()){
 			String sql = "SELECT * FROM ADMIN.ACCOUNT WHERE account_id = ?";
 			try(PreparedStatement stmt = conn.prepareStatement(sql)){
+				stmt.setInt(1, accountId);
 				try(ResultSet rs = stmt.executeQuery()){
 					while(rs.next()) {
 						result = objectBuilder(rs);
@@ -123,8 +114,26 @@ public class AccountDAOImpl implements AccountDAO {
 
 	@Override
 	public Account update(Account accountToUpdate) {
-		//TODO complete
-		return null;
+		Account result = null;
+		try (Connection conn = DAOUtilities.getConnection()){
+			String sql = "UPDATE ADMIN.ACCOUNT "
+					+ "SET account_type = ?, balance = ?, overdraft_protection = ?, active = ?"
+					+ "WHERE ADMIN.ACCOUNT.account_id = ?";
+			try(PreparedStatement stmt = conn.prepareStatement(sql)){
+				stmt.setDouble(1, accountToUpdate.getBalance());
+				stmt.setInt(2, accountToUpdate.getOverdraftProtection());
+				stmt.setInt(3, accountToUpdate.getActive() ? 1 : 0);
+				stmt.setInt(4, accountToUpdate.getId());
+				int rs = stmt.executeUpdate();
+				if (rs > 0) {
+					result = accountToUpdate;
+				}
+			}
+			DAOUtilities.commit(conn);
+		}catch(SQLException e) {
+			LoggerSingleton.getLogger().warn("Failed to create account",e);
+		}
+		return result;
 	}
 
 	@Override
@@ -139,12 +148,13 @@ public class AccountDAOImpl implements AccountDAO {
 			String sql = "DELETE FROM ADMIN.ACCOUNT WHERE account_id = ?";
 			try(PreparedStatement stmt = conn.prepareStatement(sql)){
 				stmt.setInt(1, accountId);
-				try(ResultSet rs = stmt.executeQuery()){
-					LoggerSingleton.getLogger().warn("rs from delete" + rs);
+				int rs = stmt.executeUpdate();
+				if (rs > 0) {
+					result = true;
 				}
 			}
 		}catch(SQLException e) {
-			LoggerSingleton.getLogger().warn("Failed to delete record.",e);
+			LoggerSingleton.getLogger().warn("Failed to delete account.",e);
 		}
 		return result;
 	}

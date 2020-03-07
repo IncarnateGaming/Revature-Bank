@@ -1,25 +1,46 @@
 package com.revature.bank.services.handlers;
 
+import java.util.List;
+
+import com.revature.bank.dao.implementations.PersonDAOImpl;
+import com.revature.bank.dao.interfaces.PersonDAO;
 import com.revature.bank.model.Person;
 
 public class PersonHandler {
-	private PersonHandler() {
+	private PersonDAO repository = null;
+	public PersonHandler() {
+		super();
+		this.repository = new PersonDAOImpl();
 	}
-	/**
-	 * Tests to see if a username is already in use. If so returns true otherwise false
-	 * @param username
-	 * @return boolean
-	 */
-	public static boolean usernameTaken(String username) {
-		//TODO add buisness logic
-		return false;
+	public PersonHandler(PersonDAO repository) {
+		super();
+		this.repository = repository;
 	}
-	public static boolean passwordAccepted(String password) {
-		// TODO Auto-generated method stub
-		return true;
+	public Person create(Person personToCreate) {
+		return repository.create(personToCreate);
 	}
-	public static Person submitNewUser(String username, String password) {
-		//TODO add logic
-		return null;
+	public List<Person> list() {
+		return repository.list();
+	}
+	public List<Integer> listIds(){
+		return repository.listIds();
+	}
+	public Person get(int personId) {
+		return repository.get(personId);
+	}
+	public Person get(String username) {
+		return repository.get(username);
+	}
+	public Person update(Person personToUpdate) {
+		return repository.update(personToUpdate);
+	}
+	public boolean delete(Person personToDelete) {
+		return repository.delete(personToDelete);
+	}
+	public boolean delete(int personId) {
+		return repository.delete(personId);
+	}
+	public int getHighestId() {
+		return repository.getHighestId();
 	}
 }

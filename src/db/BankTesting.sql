@@ -13,6 +13,7 @@ BEGIN
   create_address(c,'1600 Pennslavania Ave.');
   create_address(c,'100 Main Street');
   create_address(c,'300 East');
+  create_address(c,'300 New West');
   create_acc_tran_status(c,'Approved');
   create_acc_tran_status(c,'Approved');
   create_acc_tran_status(c,'Approved');
@@ -20,7 +21,21 @@ BEGIN
 END;
 /
 SELECT * FROM ADDRESS;
+SELECT * FROM PERSON;
+SELECT * FROM PERSON_STANDING;
+SELECT * FROM PERMISSION_RANK_LABEL;
 SELECT * FROM ACCOUNT_TRANSACTION_STATUS;
+SELECT * FROM ACCOUNT_TRANSACTION_TYPE;
+SELECT * FROM ACCOUNT_TYPE;
+SELECT * FROM ACCOUNT;
+SELECT * FROM ADDRESS;
+SELECT * FROM ACCOUNT_TRANSACTION_STATUS;
+DECLARE
+  c int;
+BEGIN
+  createAccount();
+END;
+/
 
 
 

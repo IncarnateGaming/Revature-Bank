@@ -15,6 +15,11 @@ public interface PersonDAO {
 	 */
 	List<Person> list();
 	/**
+	 * List all IDs for People
+	 * @return list of integers
+	 */
+	List<Integer> listIds();
+	/**
 	 * Find a Person by their id
 	 * @param personId
 	 * @return Person object
@@ -47,13 +52,13 @@ public interface PersonDAO {
 	 * @return Person true if successful, false if failed
 	 */
 
-	Person delete(Person personToDelete);
+	boolean delete(Person personToDelete);
 	/**
 	 * Deletes a Person by an id
 	 * @param personId
 	 * @return Person true if successful, false if failed
 	 */
-	Person delete(int personId);
+	boolean delete(int personId);
 	/**
 	 * Gets the highest id for the Person objects in persisted memory
 	 * @return

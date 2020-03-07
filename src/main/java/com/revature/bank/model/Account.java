@@ -32,14 +32,6 @@ public class Account implements Serializable{
 		this(accountTypeId, balance, overdraftProtection);
 		setActive(active);
 	}
-	/**
-	 * 
-	 * @param id
-	 * @param accountTypeId
-	 * @param balance
-	 * @param overdraftProtection
-	 * @param active
-	 */
 	public Account(int id, int accountTypeId, double balance, int overdraftProtection,boolean active) {
 		this(accountTypeId,balance,overdraftProtection,active);
 		this.id = id;

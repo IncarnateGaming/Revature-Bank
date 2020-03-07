@@ -30,6 +30,7 @@ BEGIN
     VALUES (acc_type, acc_balance, acc_overdraft, acc_active)
     RETURNING account_id 
       INTO acc_id;
+  COMMIT;
 END;
 /
 
@@ -62,6 +63,7 @@ BEGIN
     VALUES (acc_own_owner, acc_own_account, acc_own_date_added)
     RETURNING ownership_id 
       INTO acc_own_id;
+  COMMIT;
 END;
 /
 
@@ -92,6 +94,7 @@ BEGIN
     VALUES (acc_request_type, acc_request_date)
     RETURNING acc_request_id 
       INTO acc_request_id;
+  COMMIT;
 END;
 /
 
@@ -142,6 +145,7 @@ BEGIN
     VALUES (tran_amount, tran_acc, tran_status, tran_type, tran_notes, tran_related, tran_date)
     RETURNING transaction_id 
       INTO tran_id;
+  COMMIT;
 END;
 /
 
@@ -166,12 +170,15 @@ CREATE OR REPLACE PROCEDURE create_acc_tran_status(
 IS
 BEGIN
   SELECT MIN (trans_status_id) INTO tran_id FROM ACCOUNT_TRANSACTION_STATUS WHERE ACCOUNT_TRANSACTION_STATUS.label = new_label;
-  IF tran_id = null
+  IF tran_id > 0
   THEN
+    DBMS_OUTPUT.PUT_LINE(tran_id);
+  ELSE
     INSERT INTO ACCOUNT_TRANSACTION_STATUS(label) 
       VALUES (new_label)
       RETURNING trans_status_id 
         INTO tran_id;
+    COMMIT;
   END IF;
 END;
 /
@@ -197,12 +204,15 @@ CREATE OR REPLACE PROCEDURE create_acc_tran_type(
 IS
 BEGIN
   SELECT MIN(trans_type_id) INTO tran_id FROM ACCOUNT_TRANSACTION_TYPE WHERE ACCOUNT_TRANSACTION_TYPE.label = new_label;
-  if tran_id = null
+  if tran_id >0
   THEN
+    DBMS_OUTPUT.PUT_LINE(tran_id);
+  ELSE
     INSERT INTO ACCOUNT_TRANSACTION_TYPE(label) 
       VALUES (new_label)
       RETURNING trans_type_id 
         INTO tran_id;
+    COMMIT;
   END IF;
 END;
 /
@@ -232,12 +242,15 @@ IS
 BEGIN
   SELECT MIN(account_type_id) INTO acc_type_id FROM ACCOUNT_TYPE WHERE ACCOUNT_TYPE.label = new_label 
   AND ACCOUNT_TYPE.min_balance = new_min_balance AND ACCOUNT_TYPE.interest = new_interest;
-  if acc_type_id = null
+  if acc_type_id > 0
   THEN
+    DBMS_OUTPUT.PUT_LINE(acc_type_id);
+  ELSE
     INSERT INTO ACCOUNT_TYPE(label, min_balance, interest) 
       VALUES (new_label, new_min_balance, new_interest)
       RETURNING account_type_id 
         INTO acc_type_id;
+    COMMIT;
   END IF;
 END;
 /
@@ -263,12 +276,15 @@ CREATE OR REPLACE PROCEDURE create_address(
 IS
 BEGIN
   SELECT MIN(address_id) INTO add_id FROM ADDRESS WHERE ADDRESS.address_label = add_label;
-  IF add_id = null
+  IF add_id > 0
   THEN
+   DBMS_OUTPUT.PUT_LINE(add_id);
+  ELSE
     INSERT INTO ADDRESS(address_label) 
       VALUES (add_label)
       RETURNING address_id 
         INTO add_id;
+    COMMIT;
   END IF;
 END;
 /
@@ -312,12 +328,15 @@ IS
 BEGIN
   SELECT MIN(city_id) INTO cit_id FROM CITY WHERE CITY.city = cit_label 
   AND CITY.state = cit_state AND CITY.zip = cit_zip;
-  IF cit_id = null
+  IF cit_id > 0
   THEN
+   DBMS_OUTPUT.PUT_LINE(cit_id);
+  ELSE
     INSERT INTO CITY(city, state, zip) 
       VALUES (cit_label, cit_state, cit_zip)
       RETURNING city_id 
         INTO cit_id;
+    COMMIT;
   END IF;
 END;
 /
@@ -345,12 +364,15 @@ IS
 BEGIN
   SELECT MIN(email_id) INTO em_id FROM EMAIL WHERE EMAIL.email = em_email 
   AND EMAIL.person = em_person;
-  IF em_id = null
+  IF em_id > 0
   THEN
+   DBMS_OUTPUT.PUT_LINE(em_id);
+  ELSE
     INSERT INTO EMAIL(email, person) 
       VALUES (em_email, em_person)
       RETURNING email_id 
         INTO em_id;
+    COMMIT;
   END IF;
 END;
 /
@@ -374,8 +396,7 @@ CREATE TABLE PERSON (
   password VARCHAR2(1000),
   city NUMBER,
   address NUMBER,
-  username VARCHAR2(100) UNIQUE,
-  active NUMBER(1)
+  username VARCHAR2(100) UNIQUE
 );
 
 CREATE OR REPLACE PROCEDURE create_person(
@@ -387,6 +408,7 @@ BEGIN
     VALUES (per_password, per_username)
     RETURNING person_id 
       INTO per_id;
+  COMMIT;
 END;
 /
 
@@ -411,12 +433,15 @@ CREATE OR REPLACE PROCEDURE create_standing(
 IS
 BEGIN
   SELECT MIN(standing_id) INTO stand_id FROM PERSON_STANDING WHERE PERSON_STANDING.label = stand_label;
-  IF stand_id = null
+  IF stand_id > 0
   THEN
+   DBMS_OUTPUT.PUT_LINE(stand_id);
+  ELSE
     INSERT INTO PERSON_STANDING(label) 
       VALUES (stand_label)
       RETURNING standing_id 
         INTO stand_id;
+    COMMIT;
   END IF;
 END;
 /
@@ -457,12 +482,15 @@ CREATE OR REPLACE PROCEDURE create_rank(
 IS
 BEGIN
   SELECT MIN(permission_rank_label_id) INTO rank_id FROM PERMISSION_RANK_LABEL WHERE PERMISSION_RANK_LABEL.label = rank_label;
-  IF rank_id = null
+  IF rank_id > 0
   THEN
+   DBMS_OUTPUT.PUT_LINE(rank_id);
+  ELSE
     INSERT INTO PERMISSION_RANK_LABEL(label) 
       VALUES (rank_label)
       RETURNING permission_rank_label_id 
         INTO rank_id;
+    COMMIT;
   END IF;
 END;
 /
@@ -489,12 +517,15 @@ CREATE OR REPLACE PROCEDURE create_phone(
 IS
 BEGIN
   SELECT MIN(phone_id) INTO phon_id FROM PHONE_NUMBER WHERE PHONE_NUMBER.phone_num = phone_numb AND PHONE_NUMBER.person = phone_person;
-  IF phon_id = null
+  IF phon_id > 0
   THEN
+   DBMS_OUTPUT.PUT_LINE(phon_id);
+  ELSE
     INSERT INTO PHONE_NUMBER(phone_num, person) 
       VALUES (phone_numb, phone_person)
       RETURNING phone_id 
         INTO phon_id;
+    COMMIT;
   END IF;
 END;
 /
@@ -659,7 +690,21 @@ END;
 /
 CREATE USER bank_connection IDENTIFIED BY a2v5iIl9vTqbTrziqB581Bt5iB0iqz;
 GRANT CREATE SESSION TO bank_connection;
-GRANT EXECUTE ON admin.insert_into_person TO bank_connection;
+GRANT CREATE PROCEDURE TO bank_connection;
+GRANT EXECUTE ON create_account TO bank_connection;
+GRANT EXECUTE ON create_account_ownership_jt TO bank_connection;
+GRANT EXECUTE ON create_account_request TO bank_connection;
+GRANT EXECUTE ON create_acc_tran TO bank_connection;
+GRANT EXECUTE ON create_acc_tran_status TO bank_connection;
+GRANT EXECUTE ON create_acc_tran_type TO bank_connection;
+GRANT EXECUTE ON create_account_type TO bank_connection;
+GRANT EXECUTE ON create_address TO bank_connection;
+GRANT EXECUTE ON create_city TO bank_connection;
+GRANT EXECUTE ON create_email TO bank_connection;
+GRANT EXECUTE ON create_person TO bank_connection;
+GRANT EXECUTE ON create_standing TO bank_connection;
+GRANT EXECUTE ON create_rank TO bank_connection;
+GRANT EXECUTE ON create_phone TO bank_connection;
 GRANT INSERT, SELECT, UPDATE, DELETE ON admin.account TO bank_connection;
 GRANT INSERT, SELECT, UPDATE, DELETE ON admin.account_employees_jt TO bank_connection;
 GRANT INSERT, SELECT, UPDATE, DELETE ON admin.account_ownership_jt TO bank_connection;

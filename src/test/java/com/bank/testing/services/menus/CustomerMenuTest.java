@@ -20,9 +20,6 @@ import com.revature.bank.services.menus.RequestAccountsMenu;
 public class CustomerMenuTest {
 	public Scanner s;
 	public MainMenu mainMenu = new MainMenu();
-	public MainMenu getMainMenu() {
-		return this.mainMenu;
-	}
 
 	@Test
 	public void UpMenu() throws ForceCloseThread, ReturnMainMenu {

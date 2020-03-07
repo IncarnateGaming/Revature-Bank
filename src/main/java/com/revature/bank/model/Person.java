@@ -10,18 +10,16 @@ public class Person {
 	private String firstName;
 	private String lastName;
 	private String socialSecurityNumber;
-	private int standing;// Good, bad or ugly standing with the bank
+	private int standing;
 	private String password;
 	private int city;
 	private int address;
-	private String username;//TODO make unique
+	private String username;
 	
 	//SECTION: constructors
 
 	public Person(String username, String password) {
 		super();
-		id = getNextMaxId();
-		//TODO add standing call to database
 		setUsername(username);
 		setPassword(password);
 	}
@@ -29,14 +27,6 @@ public class Person {
 		this(username,password);
 		setFirstName(firstName);
 		setLastName(lastName);
-	}
-	public Person(String username, String password, String firstName, String lastName, 
-			String socialSecurityNumber, int standing, int city, int address) {
-		this(username,password,firstName, lastName);
-		setSocialSecurityNumber(socialSecurityNumber);
-		setStanding(standing);
-		setCity(city);
-		setAddress(address);
 	}
 
 	//SECTION: getters & setters
