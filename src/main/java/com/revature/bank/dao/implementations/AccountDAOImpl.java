@@ -26,7 +26,7 @@ public class AccountDAOImpl implements AccountDAO {
 				stmt.setInt(3, accountToCreate.getOverdraftProtection());
 				stmt.setInt(4, accountToCreate.getActive() ? 1 : 0);
 				try(ResultSet rs = stmt.executeQuery()){
-					LoggerSingleton.getLogger().warn("result from account creation: "+rs);
+					LoggerSingleton.getLogger().warn("result from account creation: "+rs.getMetaData().getColumnCount());
 					//TODO mark as successful if certain return
 				}
 			}

@@ -24,12 +24,9 @@ import com.revature.bank.dao.implementations.PhoneNumberDAOImpl;
 import com.revature.bank.services.helpers.LoggerSingleton;
 
 public class DAOUtilities {
-//	private static final String CONNECTION_USERNAME = "Admin";
-	private static final String CONNECTION_USERNAME = "bank_connection";
-//	private static final String CONNECTION_PASSWORD = System.getenv("REV_BANK_ADMIN");
+	private static final String CONNECTION_USERNAME = System.getenv("REV_BANK_USR");
 	private static final String CONNECTION_PASSWORD = System.getenv("REV_BANK_CONN");
-//	private static final String URL = "jdbc:oracle:thin://bank.cqvzp3eturwf.us-east-2.rds.amazonaws.com:1521/ORCL";
-	private static final String URL = "jdbc:oracle:thin:@bank.cqvzp3eturwf.us-east-2.rds.amazonaws.com:1521/orcl";
+	private static final String URL = System.getenv("REV_BANK_URL");
 	
 	private static AccountDAOImpl accountDAOImpl;
 	private static AccountOwnershipDAOImpl accountOwnershipDAOImpl;
@@ -47,11 +44,6 @@ public class DAOUtilities {
 	private static PersonStandingDAOImpl personStandingDAOImpl;
 	private static PhoneNumberDAOImpl phoneNumberDAOImpl;
 	private static Connection connection;
-
-	//SECTION: variables
-	//SECTION: constructors
-	//SECTION: getters & setters
-	//SECTION: methods
 	
 	public static synchronized AccountDAOImpl getAccountDao() {
 		if(accountDAOImpl == null) {
@@ -184,7 +176,4 @@ public class DAOUtilities {
 			}
 		}
 	}
-	//SECTION: hash && equals
-	//SECTION: toString
-
 }
