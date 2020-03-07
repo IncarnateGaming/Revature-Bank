@@ -1,5 +1,6 @@
 package com.revature.bank.model;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class AccountTransaction {
@@ -11,6 +12,7 @@ public class AccountTransaction {
 	private int transactionType;
 	private String notes;
 	private int relatedTransactionId;
+	private Date transactionDate;
 	//SECTION: constructors
 	public AccountTransaction(int accountId, int statusId, int transactionType, String notes) {
 		super();
@@ -19,6 +21,7 @@ public class AccountTransaction {
 		setStatusId(statusId);
 		setTransactionType(transactionType);
 		setNotes(notes);
+		setTransactionDate(new Date());
 	}
 	public AccountTransaction(int accountId, int statusId, int transactionType, String notes,
 			int relatedTransactionId) {
@@ -73,14 +76,19 @@ public class AccountTransaction {
 	public void setRelatedTransactionId(int relatedTransactionId) {
 		this.relatedTransactionId = relatedTransactionId;
 	}
+	public Date getTransactionDate() {
+		return transactionDate;
+	}
+	public void setTransactionDate(Date transactionDate) {
+		this.transactionDate = transactionDate;
+	}
 	
 	//SECTION: methods
 	//SECTION: hash && equals
 	
-	
 	@Override
 	public int hashCode() {
-		return Objects.hash(accountId, id, notes, relatedTransactionId, statusId, transactionType);
+		return Objects.hash(accountId, id, notes, relatedTransactionId, statusId, transactionDate, transactionType);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -93,15 +101,16 @@ public class AccountTransaction {
 		AccountTransaction other = (AccountTransaction) obj;
 		return accountId == other.accountId && id == other.id && Objects.equals(notes, other.notes)
 				&& relatedTransactionId == other.relatedTransactionId && statusId == other.statusId
-				&& transactionType == other.transactionType;
+				&& Objects.equals(transactionDate, other.transactionDate) && transactionType == other.transactionType;
 	}
 	
 	//SECTION: toString
-
+	
 	@Override
 	public String toString() {
 		return "AccountTransaction [id=" + id + ", accountId=" + accountId + ", statusId=" + statusId
 				+ ", transactionType=" + transactionType + ", notes=" + notes + ", relatedTransactionId="
-				+ relatedTransactionId + "]";
+				+ relatedTransactionId + ", transactionDate=" + transactionDate + "]";
 	}
+
 }

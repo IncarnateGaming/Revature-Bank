@@ -17,6 +17,22 @@ CREATE TABLE ACCOUNT (
   active NUMBER(1)
 );
 
+CREATE OR REPLACE PROCEDURE create_account(
+  acc_id OUT NUMBER, 
+  acc_type IN NUMBER,
+  acc_balance IN NUMBER,
+  acc_overdraft NUMBER,
+  acc_active NUMBER
+)
+IS
+BEGIN
+  INSERT INTO ACCOUNT(account_type, balance, overdraft_protection, active) 
+    VALUES (acc_type, acc_balance, acc_overdraft, acc_active)
+    RETURNING account_id 
+      INTO acc_id;
+END;
+/
+
 DECLARE
    c int;
 BEGIN
@@ -34,6 +50,21 @@ CREATE TABLE ACCOUNT_OWNERSHIP_JT (
   date_added DATE
 );
 
+CREATE OR REPLACE PROCEDURE create_account_ownership_jt(
+  acc_own_id OUT NUMBER, 
+  acc_own_owner IN NUMBER,
+  acc_own_account IN NUMBER,
+  acc_own_date_added DATE
+)
+IS
+BEGIN
+  INSERT INTO ACCOUNT_OWNERSHIP_JT(owner, account, date_added) 
+    VALUES (acc_own_owner, acc_own_account, acc_own_date_added)
+    RETURNING ownership_id 
+      INTO acc_own_id;
+END;
+/
+
 DECLARE
    c int;
 BEGIN
@@ -50,18 +81,31 @@ CREATE TABLE ACCOUNT_REQUEST (
   date_of_request DATE
 );
 
+CREATE OR REPLACE PROCEDURE create_account_request(
+  acc_request_id OUT NUMBER, 
+  acc_request_type IN NUMBER,
+  acc_request_date DATE
+)
+IS
+BEGIN
+  INSERT INTO ACCOUNT_REQUEST(account_type, date_of_request) 
+    VALUES (acc_request_type, acc_request_date)
+    RETURNING acc_request_id 
+      INTO acc_request_id;
+END;
+/
+
 DECLARE
    c int;
 BEGIN
-   SELECT count(*) INTO c FROM user_tables WHERE table_name = upper('ACCOUNT_REQUEST_USERS');
+   SELECT count(*) INTO c FROM user_tables WHERE table_name = upper('ACCOUNT_REQUEST_USERS_JT');
    IF c = 1 then
-      EXECUTE IMMEDIATE 'DROP TABLE ACCOUNT_REQUEST_USERS CASCADE CONSTRAINTS';
+      EXECUTE IMMEDIATE 'DROP TABLE ACCOUNT_REQUEST_USERS_JT CASCADE CONSTRAINTS';
    END IF;
 END;
 /
 
-CREATE TABLE ACCOUNT_REQUEST_USERS (
-  acc_request_user NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+CREATE TABLE ACCOUNT_REQUEST_USERS_JT (
   person NUMBER,
   acc_request NUMBER
 );
@@ -82,9 +126,24 @@ CREATE TABLE ACCOUNT_TRANSACTION (
   account NUMBER,
   status NUMBER,
   transaction_type NUMBER,
-  notes VARCHAR(500),
-  related_transaction NUMBER
+  notes VARCHAR2(500),
+  related_transaction NUMBER,
+  transaction_date DATE
 );
+
+CREATE OR REPLACE PROCEDURE create_acc_tran(
+  tran_id OUT NUMBER, tran_amount IN NUMBER, tran_acc IN NUMBER,
+  tran_status IN NUMBER, tran_type IN NUMBER, tran_notes IN VARCHAR2,
+  tran_related IN NUMBER, tran_date IN DATE
+)
+IS
+BEGIN
+  INSERT INTO ACCOUNT_TRANSACTION(amount, account, status, transaction_type, notes, related_transaction, transaction_date) 
+    VALUES (tran_amount, tran_acc, tran_status, tran_type, tran_notes, tran_related, tran_date)
+    RETURNING transaction_id 
+      INTO tran_id;
+END;
+/
 
 DECLARE
    c int;
@@ -101,6 +160,22 @@ CREATE TABLE ACCOUNT_TRANSACTION_STATUS (
   label VARCHAR(100)
 );
 
+CREATE OR REPLACE PROCEDURE create_acc_tran_status(
+  tran_id OUT NUMBER, new_label IN VARCHAR2
+)
+IS
+BEGIN
+  SELECT MIN (trans_status_id) INTO tran_id FROM ACCOUNT_TRANSACTION_STATUS WHERE ACCOUNT_TRANSACTION_STATUS.label = new_label;
+  IF tran_id = null
+  THEN
+    INSERT INTO ACCOUNT_TRANSACTION_STATUS(label) 
+      VALUES (new_label)
+      RETURNING trans_status_id 
+        INTO tran_id;
+  END IF;
+END;
+/
+
 DECLARE
    c int;
 BEGIN
@@ -116,6 +191,22 @@ CREATE TABLE ACCOUNT_TRANSACTION_TYPE (
   label VARCHAR(100)
 );
 
+CREATE OR REPLACE PROCEDURE create_acc_tran_type(
+  tran_id OUT NUMBER, new_label IN VARCHAR2
+)
+IS
+BEGIN
+  SELECT MIN(trans_type_id) INTO tran_id FROM ACCOUNT_TRANSACTION_TYPE WHERE ACCOUNT_TRANSACTION_TYPE.label = new_label;
+  if tran_id = null
+  THEN
+    INSERT INTO ACCOUNT_TRANSACTION_TYPE(label) 
+      VALUES (new_label)
+      RETURNING trans_type_id 
+        INTO tran_id;
+  END IF;
+END;
+/
+
 DECLARE
    c int;
 BEGIN
@@ -130,8 +221,26 @@ CREATE TABLE ACCOUNT_TYPE (
   account_type_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   label VARCHAR(100),
   min_balance NUMBER(7),
-  Interest NUMBER(6,5)
+  interest NUMBER(6,5)
 );
+
+CREATE OR REPLACE PROCEDURE create_account_type(
+  acc_type_id OUT NUMBER, new_label IN VARCHAR2, new_min_balance IN NUMBER, 
+  new_interest IN NUMBER
+)
+IS
+BEGIN
+  SELECT MIN(account_type_id) INTO acc_type_id FROM ACCOUNT_TYPE WHERE ACCOUNT_TYPE.label = new_label 
+  AND ACCOUNT_TYPE.min_balance = new_min_balance AND ACCOUNT_TYPE.interest = new_interest;
+  if acc_type_id = null
+  THEN
+    INSERT INTO ACCOUNT_TYPE(label, min_balance, interest) 
+      VALUES (new_label, new_min_balance, new_interest)
+      RETURNING account_type_id 
+        INTO acc_type_id;
+  END IF;
+END;
+/
 
 DECLARE
    c int;
@@ -145,8 +254,24 @@ END;
 
 CREATE TABLE ADDRESS (
   address_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  address VARCHAR(100)
+  address_label VARCHAR(100)
 );
+
+CREATE OR REPLACE PROCEDURE create_address(
+  add_id IN OUT NUMBER, add_label IN VARCHAR2
+)
+IS
+BEGIN
+  SELECT MIN(address_id) INTO add_id FROM ADDRESS WHERE ADDRESS.address_label = add_label;
+  IF add_id = null
+  THEN
+    INSERT INTO ADDRESS(address_label) 
+      VALUES (add_label)
+      RETURNING address_id 
+        INTO add_id;
+  END IF;
+END;
+/
 
 DECLARE
    c int;
@@ -175,10 +300,27 @@ END;
 
 CREATE TABLE CITY (
   city_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  city VARCHAR(200),
-  state VARCHAR(2),
+  city VARCHAR2(200),
+  state VARCHAR2(2),
   zip NUMBER(5)
 );
+
+CREATE OR REPLACE PROCEDURE create_city(
+  cit_id IN OUT NUMBER, cit_label IN VARCHAR2, cit_state IN VARCHAR2, cit_zip IN NUMBER
+)
+IS
+BEGIN
+  SELECT MIN(city_id) INTO cit_id FROM CITY WHERE CITY.city = cit_label 
+  AND CITY.state = cit_state AND CITY.zip = cit_zip;
+  IF cit_id = null
+  THEN
+    INSERT INTO CITY(city, state, zip) 
+      VALUES (cit_label, cit_state, cit_zip)
+      RETURNING city_id 
+        INTO cit_id;
+  END IF;
+END;
+/
 
 DECLARE
    c int;
@@ -196,6 +338,23 @@ CREATE TABLE EMAIL (
   person NUMBER
 );
 
+CREATE OR REPLACE PROCEDURE create_email(
+  em_id IN OUT NUMBER, em_email IN VARCHAR2, em_person IN NUMBER
+)
+IS
+BEGIN
+  SELECT MIN(email_id) INTO em_id FROM EMAIL WHERE EMAIL.email = em_email 
+  AND EMAIL.person = em_person;
+  IF em_id = null
+  THEN
+    INSERT INTO EMAIL(email, person) 
+      VALUES (em_email, em_person)
+      RETURNING email_id 
+        INTO em_id;
+  END IF;
+END;
+/
+
 DECLARE
    c int;
 BEGIN
@@ -208,16 +367,28 @@ END;
 
 CREATE TABLE PERSON (
   person_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  first_name VARCHAR(100),
-  last_name VARCHAR(100),
-  social_sec_num VARCHAR(9),
+  first_name VARCHAR2(100),
+  last_name VARCHAR2(100),
+  social_sec_num VARCHAR2(9),
   standing NUMBER,
   password VARCHAR2(1000),
   city NUMBER,
   address NUMBER,
-  username VARCHAR(100) UNIQUE,
+  username VARCHAR2(100) UNIQUE,
   active NUMBER(1)
 );
+
+CREATE OR REPLACE PROCEDURE create_person(
+  per_id IN OUT NUMBER, per_password IN VARCHAR2, per_username IN VARCHAR2
+)
+IS
+BEGIN
+  INSERT INTO PERSON(password, username) 
+    VALUES (per_password, per_username)
+    RETURNING person_id 
+      INTO per_id;
+END;
+/
 
 DECLARE
    c int;
@@ -234,13 +405,19 @@ CREATE TABLE PERSON_STANDING (
   label VARCHAR(100)
 );
 
-DECLARE
-   c int;
+CREATE OR REPLACE PROCEDURE create_standing(
+  stand_id IN OUT NUMBER, stand_label IN VARCHAR2
+)
+IS
 BEGIN
-   SELECT count(*) INTO c FROM user_tables WHERE table_name = upper('PERSON_STANDING_LABEL');
-   IF c = 1 then
-      EXECUTE IMMEDIATE 'DROP TABLE PERSON_STANDING_LABEL CASCADE CONSTRAINTS';
-   END IF;
+  SELECT MIN(standing_id) INTO stand_id FROM PERSON_STANDING WHERE PERSON_STANDING.label = stand_label;
+  IF stand_id = null
+  THEN
+    INSERT INTO PERSON_STANDING(label) 
+      VALUES (stand_label)
+      RETURNING standing_id 
+        INTO stand_id;
+  END IF;
 END;
 /
 
@@ -274,6 +451,22 @@ CREATE TABLE PERMISSION_RANK_LABEL (
   label VARCHAR(100)
 );
 
+CREATE OR REPLACE PROCEDURE create_rank(
+  rank_id IN OUT NUMBER, rank_label IN VARCHAR2
+)
+IS
+BEGIN
+  SELECT MIN(permission_rank_label_id) INTO rank_id FROM PERMISSION_RANK_LABEL WHERE PERMISSION_RANK_LABEL.label = rank_label;
+  IF rank_id = null
+  THEN
+    INSERT INTO PERMISSION_RANK_LABEL(label) 
+      VALUES (rank_label)
+      RETURNING permission_rank_label_id 
+        INTO rank_id;
+  END IF;
+END;
+/
+
 DECLARE
    c int;
 BEGIN
@@ -286,9 +479,25 @@ END;
 
 CREATE TABLE PHONE_NUMBER (
   phone_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  phone_number VARCHAR(20),
+  phone_num VARCHAR(20),
   person NUMBER
 );
+
+CREATE OR REPLACE PROCEDURE create_phone(
+  phon_id IN OUT NUMBER, phone_numb IN VARCHAR2, phone_person IN NUMBER
+)
+IS
+BEGIN
+  SELECT MIN(phone_id) INTO phon_id FROM PHONE_NUMBER WHERE PHONE_NUMBER.phone_num = phone_numb AND PHONE_NUMBER.person = phone_person;
+  IF phon_id = null
+  THEN
+    INSERT INTO PHONE_NUMBER(phone_num, person) 
+      VALUES (phone_numb, phone_person)
+      RETURNING phone_id 
+        INTO phon_id;
+  END IF;
+END;
+/
 
 ALTER TABLE ACCOUNT 
   ADD CONSTRAINT ac_account_type
@@ -318,13 +527,13 @@ ALTER TABLE ACCOUNT_REQUEST
     REFERENCES ACCOUNT_TYPE (account_type_id)
     ON DELETE SET NULL
 ;
-ALTER TABLE ACCOUNT_REQUEST_USERS
+ALTER TABLE ACCOUNT_REQUEST_USERS_JT
   ADD CONSTRAINT ar_person
     FOREIGN KEY (person)
     REFERENCES PERSON (person_id)
     ON DELETE SET NULL
 ;
-ALTER TABLE ACCOUNT_REQUEST_USERS
+ALTER TABLE ACCOUNT_REQUEST_USERS_JT
   ADD CONSTRAINT ar_account_request
     FOREIGN KEY (acc_request)
     REFERENCES ACCOUNT_REQUEST (acc_request_id)
@@ -409,31 +618,35 @@ ALTER TABLE PHONE_NUMBER
     ON DELETE SET NULL
 ;
 
-INSERT INTO PERMISSION_RANK_LABEL (label) VALUES ('Customer');
-INSERT INTO PERMISSION_RANK_LABEL (label) VALUES ('Employee');
-INSERT INTO PERMISSION_RANK_LABEL (label) VALUES ('Admin');
-INSERT INTO PERSON_STANDING (label) VALUES ('Black List -5');
-INSERT INTO PERSON_STANDING (label) VALUES ('Delinquent -3');
-INSERT INTO PERSON_STANDING (label) VALUES ('Disrespectful -2');
-INSERT INTO PERSON_STANDING (label) VALUES ('Untrustworthy -1');
-INSERT INTO PERSON_STANDING (label) VALUES ('Unknown 0');
-INSERT INTO PERSON_STANDING (label) VALUES ('Trustworthy 1');
-INSERT INTO PERSON_STANDING (label) VALUES ('Respected 2');
-INSERT INTO PERSON_STANDING (label) VALUES ('Honored 3');
-INSERT INTO ACCOUNT_TRANSACTION_TYPE (label) VALUES ('Deposit');
-INSERT INTO ACCOUNT_TRANSACTION_TYPE (label) VALUES ('Transfer in');
-INSERT INTO ACCOUNT_TRANSACTION_TYPE (label) VALUES ('Transfer out');
-INSERT INTO ACCOUNT_TRANSACTION_TYPE (label) VALUES ('Withdraw');
-INSERT INTO ACCOUNT_TRANSACTION_STATUS (label) VALUES ('Pending');
-INSERT INTO ACCOUNT_TRANSACTION_STATUS (label) VALUES ('Disputed');
-INSERT INTO ACCOUNT_TRANSACTION_STATUS (label) VALUES ('Approved');
-INSERT INTO ACCOUNT_TRANSACTION_STATUS (label) VALUES ('Rejected');
-INSERT INTO ACCOUNT_TYPE (label,min_balance,interest) VALUES ('Checking',0,0.0005);
-INSERT INTO ACCOUNT_TYPE (label,min_balance,interest) VALUES ('Savings',300,0.0015);
-INSERT INTO ACCOUNT_TYPE (label,min_balance,interest) VALUES ('High Yield Savings',50000,0.0105);
-INSERT INTO ACCOUNT_TYPE (label,min_balance,interest) VALUES ('Credit',-5000,0.0);
-INSERT INTO ACCOUNT (account_type,balance,overdraft_protection,active) VALUES (1,0,500,1);
-INSERT INTO ACCOUNT (account_type,balance,overdraft_protection,active) VALUES (2,0,1000,1);
+DECLARE
+  c int;
+BEGIN
+  create_rank(c,'Customer');
+  create_rank(c,'Employee');
+  create_rank(c,'Admin');
+  create_standing(c,'Black List -5');
+  create_standing(c,'Delinquent -3');
+  create_standing(c,'Disrespectful -2');
+  create_standing(c,'Untrustworthy -1');
+  create_standing(c,'Unknown 0');
+  create_standing(c,'Trustworthy 1');
+  create_standing(c,'Respected 2');
+  create_standing(c,'Honored 3');
+  create_acc_tran_type(c,'Deposit');
+  create_acc_tran_type(c,'Transfer in');
+  create_acc_tran_type(c,'Transfer out');
+  create_acc_tran_type(c,'Withdraw');
+  create_acc_tran_status(c,'Pending');
+  create_acc_tran_status(c,'Disputed');
+  create_acc_tran_status(c,'Approved');
+  create_acc_tran_status(c,'Rejected');
+  create_account_type(c,'Checking',0,0.0005);
+  create_account_type(c,'Savings',300,0.0015);
+  create_account_type(c,'High Yield Savings',50000,0.0105);
+  create_account_type(c,'Credit',-5000,0.0);
+  COMMIT;
+END;
+/
 
 DECLARE
    c int;
@@ -444,61 +657,6 @@ BEGIN
    END IF;
 END;
 /
-
-
---
---Procedures
---
-CREATE OR REPLACE PROCEDURE insert_into_person(
-  emp_id OUT NUMBER, 
-  emp_first IN VARCHAR2,
-  emp_last IN VARCHAR2,
-  emp_email VARCHAR2,
-  emp_salary NUMBER,
-  emp_title VARCHAR2
-)
-IS
-BEGIN
-  INSERT INTO EMPLOYEES(first_name, last_name, email, salary, title) 
-    VALUES (emp_first, emp_last, emp_email, emp_salary, emp_title)
-    RETURNING employee_id 
-      INTO emp_id;
-END;
-/
-
-CREATE OR REPLACE PROCEDURE insert_into_account(
-  account_id OUT NUMBER, 
-  account_owner IN NUMBER
-)
-IS
-BEGIN
-  INSERT INTO tmp_account(owner) 
-    VALUES (account_owner)
-    RETURNING id 
-      INTO account_id;
-END;
-/
-
-CREATE OR REPLACE PROCEDURE transfer_funds(
-  source_id IN NUMBER, 
-  target_id IN NUMBER, 
-  amount IN NUMBER
-)
-IS
-  source_balance NUMBER;
-  target_balance NUMBER;
-BEGIN
-  SELECT (balance - amount) INTO source_balance FROM tmp_account
-    WHERE tmp_account.id = source_id;
---  source_balance := source_balance - amount;
-  SELECT (balance + amount) INTO target_balance FROM tmp_account
-    WHERE tmp_account.id = target_id;
---  target_balance := target_balance + amount;
-  UPDATE tmp_account SET balance = source_balance WHERE tmp_account.id = source_id;
-  UPDATE tmp_account SET balance = target_balance WHERE tmp_account.id = target_id;
-  COMMIT;
-END;
-/
 CREATE USER bank_connection IDENTIFIED BY a2v5iIl9vTqbTrziqB581Bt5iB0iqz;
 GRANT CREATE SESSION TO bank_connection;
 GRANT EXECUTE ON admin.insert_into_person TO bank_connection;
@@ -506,7 +664,7 @@ GRANT INSERT, SELECT, UPDATE, DELETE ON admin.account TO bank_connection;
 GRANT INSERT, SELECT, UPDATE, DELETE ON admin.account_employees_jt TO bank_connection;
 GRANT INSERT, SELECT, UPDATE, DELETE ON admin.account_ownership_jt TO bank_connection;
 GRANT INSERT, SELECT, UPDATE, DELETE ON admin.account_request TO bank_connection;
-GRANT INSERT, SELECT, UPDATE, DELETE ON admin.account_request_users TO bank_connection;
+GRANT INSERT, SELECT, UPDATE, DELETE ON admin.account_request_users_jt TO bank_connection;
 GRANT INSERT, SELECT, UPDATE, DELETE ON admin.account_transaction TO bank_connection;
 GRANT INSERT, SELECT, UPDATE, DELETE ON admin.account_transaction_status TO bank_connection;
 GRANT INSERT, SELECT, UPDATE, DELETE ON admin.account_transaction_type TO bank_connection;
