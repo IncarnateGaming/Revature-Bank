@@ -54,4 +54,8 @@ public class PersonServiceTest {
 	public void invalidPassword6() throws InvalidPasswordChoice{
 		assertTrue(personService.passwordAccepted("Finally4AGoodPassword"));
 	}
+	@Test
+	public void otherContructor(){
+		assertTrue(new PersonService(new PersonHandler()) instanceof PersonService);
+	}
 }

@@ -28,6 +28,18 @@ public class MenuHelper {
 		return line;
 	}
 	/**
+	 * Pulls all letters and numbers out of the line and returns them.
+	 * @param s
+	 * @return
+	 * @throws ForceCloseThread
+	 * @throws ReturnMainMenu
+	 */
+	public static String inputToken(Scanner s) throws ForceCloseThread, ReturnMainMenu{
+		String line = getLine(s);
+		String val = line.split(" ")[0];
+		return val.replaceAll("[^a-zA-Z0-9]+", "");
+	}
+	/**
 	 * Scanner for user to enter a positive integer.
 	 * @param s
 	 * @return Returns an integer 0 or higher

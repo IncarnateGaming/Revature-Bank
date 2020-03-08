@@ -28,10 +28,8 @@ public class AccountDAOImpl implements AccountDAO {
 				stmt.setDouble(3, accountToCreate.getBalance());
 				stmt.setInt(4, accountToCreate.getOverdraftProtection());
 				stmt.setInt(5, accountToCreate.getActive() ? 1 : 0);
-				System.out.println("Target Location!");
 				stmt.execute();
 				int resultId = (Integer) stmt.getObject(1);
-				System.out.println(resultId);
 				accountToCreate.setId(resultId);
 				result = accountToCreate;
 			}

@@ -187,4 +187,10 @@ public class MenuHelperTest {
 		boolean value = MenuHelper.inputYN(s);
 		assertEquals(true,value);
 	}
+	@Test
+	public void token1() throws ForceCloseThread, ReturnMainMenu {
+		s = TestingHelper.changeBuffer("1.%ty{6ve#4bt}Wb");
+		String value = MenuHelper.inputToken(s);
+		assertEquals("1ty6ve4btWb",value);
+	}
 }

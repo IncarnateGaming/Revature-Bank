@@ -25,7 +25,7 @@ public class NewPersonMenu extends AbstractMenu{
 		String username;
 		do {
 			System.out.println("What username do you want to use for this user login?");
-			username = MenuHelper.inputStringOneWord(s);
+			username = MenuHelper.inputToken(s);
 			usernameTaken = new PersonService().usernameTaken(username);
 			if (usernameTaken) {
 				System.out.println("Username: \""+ username + "\" is already in use.");
@@ -35,7 +35,7 @@ public class NewPersonMenu extends AbstractMenu{
 		String password;
 		do {
 			System.out.println("What password do you want to use for the " + username + " user login?");
-			password = MenuHelper.inputStringOneWord(s);
+			password = MenuHelper.inputToken(s);
 			try {
 				passwordAccepted = new PersonService().passwordAccepted(password);
 			} catch (InvalidPasswordChoice e) {

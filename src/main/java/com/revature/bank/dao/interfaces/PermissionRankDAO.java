@@ -3,9 +3,11 @@ package com.revature.bank.dao.interfaces;
 import java.util.List;
 
 import com.revature.bank.model.PermissionRank;
+import com.revature.bank.model.Person;
 
 public interface PermissionRankDAO {
-	boolean create(PermissionRank permissionToSave);
+	PermissionRank create(PermissionRank permissionToCreate);
+	boolean assign(Person person, PermissionRank rank);
 
 	List<PermissionRank> list();
 	List<String> list(int personId);
@@ -15,6 +17,7 @@ public interface PermissionRankDAO {
 
 	boolean delete(PermissionRank permissionToDelete);
 	boolean delete(int permissionId);
+	boolean remove(Person person, PermissionRank rank);
 	/**
 	 * Gets the highest id for the Permission objects in persisted memory
 	 * @return Integer

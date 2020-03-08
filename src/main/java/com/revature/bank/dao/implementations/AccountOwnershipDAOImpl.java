@@ -20,13 +20,13 @@ public class AccountOwnershipDAOImpl implements AccountOwnershipDAO {
 	}
 
 	@Override
-	public List<AccountOwnership> list(int accountId) {
+	public List<AccountOwnership> list(int userId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Integer> listIds(int accountId) {
+	public List<Integer> listIds(int userId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -44,15 +44,15 @@ public class AccountOwnershipDAOImpl implements AccountOwnershipDAO {
 	}
 
 	@Override
-	public AccountOwnership delete(AccountOwnership accountOwnershipToDelete) {
+	public boolean delete(com.revature.bank.model.AccountOwnership accountOwnershipToDelete) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 	@Override
-	public AccountOwnership delete(int accountOwnershipId) {
+	public boolean delete(int accountOwnershipId) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 	@Override
