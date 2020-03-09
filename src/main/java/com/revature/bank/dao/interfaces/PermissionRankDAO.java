@@ -10,10 +10,11 @@ public interface PermissionRankDAO {
 	boolean assign(Person person, PermissionRank rank);
 
 	List<PermissionRank> list();
-	List<String> list(int personId);
+	List<PermissionRank> list(Person person);
+	List<String> listLabels(Person person);
 	PermissionRank get(int permissionId);
 
-	boolean update(PermissionRank permissionToUpdate);
+	PermissionRank update(PermissionRank permissionToUpdate);
 
 	boolean delete(PermissionRank permissionToDelete);
 	boolean delete(int permissionId);

@@ -12,6 +12,7 @@ public class Account implements Serializable{
 	private double balance;
 	private int overdraftProtection;
 	private boolean active;
+	private AccountType accountType;
 	
 	//SECTION: constructors
 	
@@ -28,10 +29,25 @@ public class Account implements Serializable{
 		setOverdraftProtection(overdraftProtection);
 		setActive(true);
 	}
+	/**
+	 * 
+	 * @param accountTypeId
+	 * @param balance
+	 * @param overdraftProtection
+	 * @param active
+	 */
 	public Account(int accountTypeId, double balance, int overdraftProtection, boolean active) {
 		this(accountTypeId, balance, overdraftProtection);
 		setActive(active);
 	}
+	/**
+	 * 
+	 * @param id
+	 * @param accountTypeId
+	 * @param balance
+	 * @param overdraftProtection
+	 * @param active
+	 */
 	public Account(int id, int accountTypeId, double balance, int overdraftProtection,boolean active) {
 		this(accountTypeId,balance,overdraftProtection,active);
 		this.id = id;
@@ -79,6 +95,12 @@ public class Account implements Serializable{
 	}
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	public AccountType getAccountType() {
+		return accountType;
+	}
+	public void setAccountType(AccountType accountType) {
+		this.accountType = accountType;
 	}
 	//SECTION: methods
 	//SECTION: hash && equals

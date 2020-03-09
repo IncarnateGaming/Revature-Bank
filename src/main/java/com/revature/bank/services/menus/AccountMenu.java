@@ -12,13 +12,16 @@ import com.revature.bank.model.AccountTransaction;
 import com.revature.bank.model.AccountTransactionStatus;
 import com.revature.bank.model.AccountTransactionType;
 import com.revature.bank.model.PermissionRank;
+import com.revature.bank.services.buisness.logic.PermissionRankService;
 import com.revature.bank.services.helpers.MenuHelper;
+import com.revature.bank.services.helpers.PermissionRankHelper;
 
 public class AccountMenu extends AbstractMenu {
 
 	private AccountDAO daoAccount = DAOUtilities.getAccountDao();
 	private AccountOwnershipDAO daoAccOwner = DAOUtilities.getAccountOwnershipDao();
 	private Account account;
+	private PermissionRankService rankService = new PermissionRankService();
 	public AccountMenu(MainMenu mainMenu, int accountId) {
 		super();
 		setMainMenu(mainMenu);
@@ -36,8 +39,9 @@ public class AccountMenu extends AbstractMenu {
 		//Check if owner or employee or admin
 		if ((!(daoAccOwner.listIds(account.getId())
 				.contains(getMainMenu().getPerson().getId()))
-				|| getMainMenu().containsPermission(PermissionRank.getRankEmployee()) 
-				|| getMainMenu().containsPermission(PermissionRank.getRankAdmin()))) {
+				|| rankService.containsPermission(PermissionRankHelper.getEmployee(),getMainMenu().getPermissions()) 
+				|| rankService.containsPermission(PermissionRankHelper.getAdmin(), getMainMenu().getPermissions())
+				)) {
 			AccessDenied accessDenied = new AccessDenied();
 			log.warn(getMainMenu().getPerson().toString() 
 					+ " just attempted to access" + account.toString(), accessDenied);
@@ -47,7 +51,7 @@ public class AccountMenu extends AbstractMenu {
 		System.out.println(account.toString());
 		do {
 			System.out.println("Press 1 to deposit, 2 to withdraw, 3 to transfer. Press 0 to return to previous menu.");
-			if(getMainMenu().containsPermission("Admin")) {
+			if(rankService.containsPermission(PermissionRankHelper.getAdmin(), getMainMenu().getPermissions())) {
 				System.out.println("Press 4 to mark the account as inactive.");
 			}
 			setInput(MenuHelper.inputPositiveInt(s));
@@ -70,22 +74,18 @@ public class AccountMenu extends AbstractMenu {
 				//TODO add business logic for transfers
 				break;
 			case 4:
-				if(!getMainMenu().containsPermission(PermissionRank.getRankAdmin())) {
+				if(rankService.containsPermission(PermissionRankHelper.getAdmin(), getMainMenu().getPermissions())) {
+					System.out.println("Are you sure you want to inactivate this account?(Y/N)");
+					//TODO add buisness logic
+					break;
+				}else {
 					unsupportedInteger();
 					break;
 				}
-				System.out.println("Are you sure you want to inactivate this account?(Y/N)");
-				//TODO Add business logic
-				break;
 			default:
 				unsupportedInteger();
 			}
 		}while(getInput()!=0 && result == null);
 		return result;
-	}
-	public void unsupportedInteger() {
-		Exception newException = new UnsupportedInteger("The integer: " + getInput() + " is unsupported in this menu.");
-		log.warn(newException.getMessage(), newException);
-		System.out.println("No accepted number entered, please try again");
 	}
 }

@@ -25,36 +25,6 @@ public class MainMenu extends AbstractMenu implements Runnable{
 	public void setPermissions(List<PermissionRank> permissions) {
 		this.permissions = permissions;
 	}
-	/**
-	 * Checks to see if the currently logged in person has a particular permission
-	 * @param permissionLabel
-	 * @return boolean
-	 */
-	public boolean containsPermission(String permissionLabel) {
-		boolean result = false;
-		for (PermissionRank permission : permissions) {
-			if(permission.getLabel() == permissionLabel) {
-				result = true;
-				break;
-			}
-		}
-		return result;
-	}
-	/**
-	 * Checks to see if the currently logged in person has a particular permission
-	 * @param checkPermission
-	 * @return boolean
-	 */
-	public boolean containsPermission(PermissionRank checkPermission) {
-		boolean result = false;
-		for (PermissionRank permission : permissions) {
-			if(permission.equals(checkPermission)) {
-				result = true;
-				break;
-			}
-		}
-		return result;
-	}
 	public AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
 		AbstractMenu result = null;
 		do {

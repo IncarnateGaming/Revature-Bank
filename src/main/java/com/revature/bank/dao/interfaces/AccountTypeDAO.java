@@ -12,8 +12,8 @@ public interface AccountTypeDAO {
 
 	AccountType update(AccountType accountTypeToUpdate);
 
-	AccountType delete(AccountType accountTypeToDelete);
-	AccountType delete(int accountTypeId);
+	boolean delete(AccountType accountTypeToDelete);
+	boolean delete(int accountTypeId);
 	/**
 	 * Gets the highest id for the AccountType objects in persisted memory
 	 * @return Integer

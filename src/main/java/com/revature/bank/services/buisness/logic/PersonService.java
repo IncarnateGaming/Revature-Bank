@@ -27,17 +27,28 @@ public class PersonService {
 		return result;
 	}
 	public boolean passwordAccepted(String password) throws InvalidPasswordChoice {
+		String msg;
 		boolean result = true;
 		if(password.length()<=10) {
-			throw new InvalidPasswordChoice("Password must be at least 10 characters.");
+			msg = "Password must be at least 10 characters.";
+			System.out.println(msg);
+			throw new InvalidPasswordChoice(msg);
 		}else if(password.length()>30) {
-			throw new InvalidPasswordChoice("Password must be 30 characters or less.");
+			msg = "Password must be 30 characters or less.";
+			System.out.println(msg);
+			throw new InvalidPasswordChoice(msg);
 		}else if(!password.matches(".*[a-z].*")) {
-			throw new InvalidPasswordChoice("Password must contain at least one lowercase letter");
+			msg = "Password must contain at least one lowercase letter.";
+			System.out.println(msg);
+			throw new InvalidPasswordChoice(msg);
 		}else if(!password.matches(".*[A-Z].*")) {
-			throw new InvalidPasswordChoice("Password must contain at least one uppercase letter");
+			msg = "Password must contain at least one uppercase letter";
+			System.out.println(msg);
+			throw new InvalidPasswordChoice(msg);
 		}else if(!password.matches(".*[0-9].*")) {
-			throw new InvalidPasswordChoice("Password must contain at least one number");
+			msg = "Password must contain at least one number";
+			System.out.println(msg);
+			throw new InvalidPasswordChoice(msg);
 		}
 		return result;
 	}

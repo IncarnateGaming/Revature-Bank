@@ -53,8 +53,8 @@ CREATE TABLE ACCOUNT_OWNERSHIP_JT (
 
 CREATE OR REPLACE PROCEDURE create_account_ownership_jt(
   acc_own_id OUT NUMBER, 
-  acc_own_owner IN NUMBER,
   acc_own_account IN NUMBER,
+  acc_own_owner IN NUMBER,
   acc_own_date_added DATE
 )
 IS
@@ -214,6 +214,65 @@ BEGIN
         INTO tran_id;
     COMMIT;
   END IF;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE create_deposit(
+  acc_id IN NUMBER, val IN NUMBER
+)
+IS
+BEGIN
+  INSERT INTO ACCOUNT_TRANSACTION(amount,account,status,transaction_type,transaction_date)
+    VALUES (val
+      ,acc_id
+      ,(SELECT MIN(trans_status_id) FROM ADMIN.ACCOUNT_TRANSACTION_STATUS WHERE ADMIN.ACCOUNT_TRANSACTION_STATUS.label = 'Approved')
+      ,(SELECT MIN(trans_type_id) FROM ADMIN.ACCOUNT_TRANSACTION_TYPE WHERE ADMIN.ACCOUNT_TRANSACTION_TYPE.label = 'Deposit')
+      , CURRENT_TIMESTAMP
+      );
+  UPDATE ACCOUNT SET balance = (SELECT MIN(balance) FROM ACCOUNT WHERE account_id = acc_id) + val WHERE account_id = acc_id;
+  COMMIT;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE create_withdraw(
+  acc_id IN NUMBER, val IN NUMBER
+)
+IS
+BEGIN
+  INSERT INTO ACCOUNT_TRANSACTION(amount,account,status,transaction_type,transaction_date)
+    VALUES (val
+      ,acc_id
+      ,(SELECT MIN(trans_status_id) FROM ADMIN.ACCOUNT_TRANSACTION_STATUS WHERE ADMIN.ACCOUNT_TRANSACTION_STATUS.label = 'Approved')
+      ,(SELECT MIN(trans_type_id) FROM ADMIN.ACCOUNT_TRANSACTION_TYPE WHERE ADMIN.ACCOUNT_TRANSACTION_TYPE.label = 'Withdraw')
+      , CURRENT_TIMESTAMP
+      );
+  UPDATE ACCOUNT SET balance = (SELECT MIN(balance) FROM ACCOUNT WHERE account_id = acc_id) - val WHERE account_id = acc_id;
+  COMMIT;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE create_transfer(
+  acc_in_id IN NUMBER, acc_out_id IN NUMBER, val IN NUMBER
+)
+IS
+BEGIN
+  INSERT INTO ACCOUNT_TRANSACTION(amount,account,status,transaction_type,transaction_date)
+    VALUES (val
+      ,acc_in_id
+      ,(SELECT MIN(trans_status_id) FROM ADMIN.ACCOUNT_TRANSACTION_STATUS WHERE ADMIN.ACCOUNT_TRANSACTION_STATUS.label = 'Approved')
+      ,(SELECT MIN(trans_type_id) FROM ADMIN.ACCOUNT_TRANSACTION_TYPE WHERE ADMIN.ACCOUNT_TRANSACTION_TYPE.label = 'Transfer in')
+      , CURRENT_TIMESTAMP
+      );
+  UPDATE ACCOUNT SET balance = (SELECT MIN(balance) FROM ACCOUNT WHERE account_id = acc_in_id) - val WHERE account_id = acc_in_id;
+  INSERT INTO ACCOUNT_TRANSACTION(amount,account,status,transaction_type,transaction_date)
+    VALUES (val
+      ,acc_out_id
+      ,(SELECT MIN(trans_status_id) FROM ADMIN.ACCOUNT_TRANSACTION_STATUS WHERE ADMIN.ACCOUNT_TRANSACTION_STATUS.label = 'Approved')
+      ,(SELECT MIN(trans_type_id) FROM ADMIN.ACCOUNT_TRANSACTION_TYPE WHERE ADMIN.ACCOUNT_TRANSACTION_TYPE.label = 'Transfer out')
+      , CURRENT_TIMESTAMP
+      );
+  UPDATE ACCOUNT SET balance = (SELECT MIN(balance) FROM ACCOUNT WHERE account_id = acc_out_id) + val WHERE account_id = acc_out_id;
+  COMMIT;
 END;
 /
 
@@ -700,6 +759,9 @@ GRANT EXECUTE ON create_acc_tran_type TO bank_connection;
 GRANT EXECUTE ON create_account_type TO bank_connection;
 GRANT EXECUTE ON create_address TO bank_connection;
 GRANT EXECUTE ON create_city TO bank_connection;
+GRANT EXECUTE ON create_deposit TO bank_connection;
+GRANT EXECUTE ON create_withdraw TO bank_connection;
+GRANT EXECUTE ON create_transfer TO bank_connection;
 GRANT EXECUTE ON create_email TO bank_connection;
 GRANT EXECUTE ON create_person TO bank_connection;
 GRANT EXECUTE ON create_standing TO bank_connection;
@@ -724,9 +786,21 @@ GRANT INSERT, SELECT, UPDATE, DELETE ON admin.person TO bank_connection;
 GRANT INSERT, SELECT, UPDATE, DELETE ON admin.person_standing TO bank_connection;
 GRANT INSERT, SELECT, UPDATE, DELETE ON admin.phone_number TO bank_connection;
 COMMIT;
-SELECT * FROM ACCOUNT;
+--SELECT * FROM ACCOUNT;
 --SELECT * FROM ACCOUNT WHERE account_id = (SELECT MAX(account_id) FROM ACCOUNT);
 --SELECT MAX(account_id) FROM ACCOUNT;
 --SELECT * FROM PERMISSION_RANK_LABEL;
+--SELECT * FROM ACCOUNT;
+--SELECT * FROM ACCOUNT_TRANSACTION;
+--SELECT * FROM ACCOUNT_TYPE;
+--SELECT * FROM ACCOUNT_OWNERSHIP_JT;
+--SELECT * FROM PERMISSION_RANK_JT;
+--SELECT * FROM PERSON;
+--call create_withdraw(1111113,1500);
+--SELECT * FROM ADMIN.PERMISSION_RANK_JT 
+--  INNER JOIN ADMIN.PERMISSION_RANK_LABEL 
+--  ON ADMIN.PERMISSION_RANK_JT.permission_rank_label_id = 
+--  ADMIN.PERMISSION_RANK_LABEL.permission_rank_label_id 
+--  WHERE ADMIN.PERMISSION_RANK_JT.person = 46;
 --SELECT * FROM PERSON_STANDING;
 --SELECT * FROM ACCOUNT_TYPE;

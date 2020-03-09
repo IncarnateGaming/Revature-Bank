@@ -2,9 +2,10 @@ package com.revature.bank.services.menus;
 
 import com.revature.bank.exceptions.ForceCloseThread;
 import com.revature.bank.exceptions.ReturnMainMenu;
-import com.revature.bank.exceptions.UnsupportedInteger;
 import com.revature.bank.model.PermissionRank;
+import com.revature.bank.services.buisness.logic.PermissionRankService;
 import com.revature.bank.services.helpers.MenuHelper;
+import com.revature.bank.services.helpers.PermissionRankHelper;
 
 public class EmployeeMenu extends AbstractMenu{
 
@@ -18,7 +19,7 @@ public class EmployeeMenu extends AbstractMenu{
 		AbstractMenu result = null;
 		do {
 			System.out.println("Press 1 to Manage Requested Accounts, 2 to list users, 3 to list accounts. Enter \"LOGOUT\" to logout.");
-			if(getMainMenu().containsPermission(PermissionRank.getRankCustomer())) {
+			if(new PermissionRankService().containsPermission(PermissionRankHelper.getCustomer(), getMainMenu().getPermissions())) {
 				System.out.println("Press 4 to view your own accounts.");
 			}
 			setInput(MenuHelper.inputPositiveInt(s));
@@ -35,7 +36,7 @@ public class EmployeeMenu extends AbstractMenu{
 				result = new ListAccountsMenu(getMainMenu());
 				break;
 			case 4:
-				if(getMainMenu().containsPermission(PermissionRank.getRankCustomer())) {
+				if(new PermissionRankService().containsPermission(PermissionRankHelper.getCustomer(), getMainMenu().getPermissions())) {
 					result = new ListAccountsMenu(getMainMenu(),getMainMenu().getPerson());
 				}else {
 					unsupportedInteger();

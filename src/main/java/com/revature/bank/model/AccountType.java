@@ -4,7 +4,6 @@ import java.util.Objects;
 
 public class AccountType {
 	//SECTION: variables
-		private static int maxId =0;
 		private int id;
 		private String label;
 		private int minBalance;
@@ -12,21 +11,11 @@ public class AccountType {
 	//SECTION: constructors
 		public AccountType(String label, int minBalance, double interest) {
 			super();
-			id = getNextMaxId();
 			setLabel(label);
 			setMinBalance(minBalance);
 			setInterest(interest);
 		}
 	//SECTION: getters & setters
-		public static int getNextMaxId() {
-			return ++maxId;
-		}
-		public static int getMaxId() {
-			return maxId;
-		}
-		public static void setMaxId(int maxId) {
-			AccountType.maxId = maxId;
-		}
 		public int getId() {
 			return id;
 		}

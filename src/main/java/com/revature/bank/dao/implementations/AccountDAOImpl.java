@@ -13,6 +13,7 @@ import java.util.List;
 import com.revature.bank.dao.DAOUtilities;
 import com.revature.bank.dao.interfaces.AccountDAO;
 import com.revature.bank.model.Account;
+import com.revature.bank.model.AccountType;
 import com.revature.bank.model.Person;
 import com.revature.bank.services.helpers.LoggerSingleton;
 
@@ -63,14 +64,58 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<Account> list(Person owner) {
 		List<Account> list = new ArrayList<>();
 		try (Connection conn = DAOUtilities.getConnection()){
-			String sql = "SELECT * FROM ADMIN.ACCOUNT_OWNERSHIP_JT WHERE "
-					+ "ADMIN.ACCOUNT_OWNERSHIP_JT.owner = ? INNER JOIN ADMIN.ACCOUNT"
-					+ "ON ADMIN.ACCOUNT_OWNERSHIP_JT.account = ADMIN.ACCOUNT.account_id";
+			String sql = "SELECT * FROM ADMIN.ACCOUNT_OWNERSHIP_JT "
+					+ "INNER JOIN ADMIN.ACCOUNT "
+					+ "ON ADMIN.ACCOUNT_OWNERSHIP_JT.account = ADMIN.ACCOUNT.account_id "
+					+ "WHERE ADMIN.ACCOUNT_OWNERSHIP_JT.owner = ? "
+					;
 			try(PreparedStatement stmt = conn.prepareStatement(sql)){
 				stmt.setInt(1, owner.getId());
 				try(ResultSet rs = stmt.executeQuery()){
 					while(rs.next()) {
 						Account a = objectBuilder(rs);
+						list.add(a);
+					}
+				}
+			}
+		}catch(SQLException e) {
+			LoggerSingleton.getLogger().warn("Failed to get accounts",e);
+		}
+		return null;
+	}
+	public List<Account> listJoin(){
+		List<Account> list = new ArrayList<>();
+		try (Connection conn = DAOUtilities.getConnection()){
+			try(Statement stmt = conn.createStatement()){
+				String sql = "SELECT * FROM ADMIN.ACCOUNT "
+						+ "INNER JOIN ADMIN.ACCOUNT_TYPE "
+						+ "ON ADMIN.ACCOUNT.account_type = ADMIN.ACCOUNT_TYPE.account_type_id ";
+				try(ResultSet rs = stmt.executeQuery(sql)){
+					while(rs.next()) {
+						Account a = objectBuilderJoined(rs);
+						list.add(a);
+					}
+				}
+			}
+		}catch(SQLException e) {
+			LoggerSingleton.getLogger().warn("Failed to get accounts",e);
+		}
+		return list;
+	}
+	public List<Account> listJoin(Person owner){
+		List<Account> list = new ArrayList<>();
+		try (Connection conn = DAOUtilities.getConnection()){
+			String sql = "SELECT * FROM ADMIN.ACCOUNT_OWNERSHIP_JT "
+					+ "INNER JOIN ADMIN.ACCOUNT "
+					+ "ON ADMIN.ACCOUNT_OWNERSHIP_JT.account = ADMIN.ACCOUNT.account_id "
+					+ "INNER JOIN ADMIN.ACCOUNT.account_type = ADMIN.ACCOUNT_TYPE.account_type_id "
+					+ "WHERE ADMIN.ACCOUNT_OWNERSHIP_JT.owner = ? "
+					;
+			try(PreparedStatement stmt = conn.prepareStatement(sql)){
+				stmt.setInt(1, owner.getId());
+				try(ResultSet rs = stmt.executeQuery()){
+					while(rs.next()) {
+						Account a = objectBuilderJoined(rs);
 						list.add(a);
 					}
 				}
@@ -105,7 +150,7 @@ public class AccountDAOImpl implements AccountDAO {
 				}
 			}
 		}catch(SQLException e) {
-			LoggerSingleton.getLogger().warn("Failed to get accounts",e);
+			LoggerSingleton.getLogger().warn("Failed to get account",e);
 		}
 		return result;
 	}
@@ -168,7 +213,7 @@ public class AccountDAOImpl implements AccountDAO {
 				}
 			}
 		}catch(SQLException e) {
-			LoggerSingleton.getLogger().warn("Failed to get accounts",e);
+			LoggerSingleton.getLogger().warn("Failed to get max account id",e);
 		}
 		return result;
 	}
@@ -180,5 +225,22 @@ public class AccountDAOImpl implements AccountDAO {
 				rs.getInt("overdraft_protection"),
 				rs.getBoolean("active")
 				);
+	}
+	private Account objectBuilderJoined(ResultSet rs) throws SQLException {
+		Account account = new Account(
+				rs.getInt("account_type"),
+				rs.getDouble("balance"),
+				rs.getInt("overdraft_protection"),
+				rs.getBoolean("active")
+				);
+		account.setId(rs.getInt("account_id"));
+		AccountType accType = new AccountType(
+				rs.getString("label"),
+				rs.getInt("min_balance"),
+				rs.getDouble("interest")
+				);
+		accType.setId(rs.getInt("account_type_id"));
+		account.setAccountType(accType);
+		return account;
 	}
 }

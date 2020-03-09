@@ -6,8 +6,10 @@ import com.revature.bank.exceptions.ReturnMainMenu;
 import com.revature.bank.model.Person;
 import com.revature.bank.services.buisness.logic.PersonService;
 import com.revature.bank.services.handlers.AssociatedPersonHandler;
+import com.revature.bank.services.handlers.PermissionRankHandler;
 import com.revature.bank.services.helpers.LoggerSingleton;
 import com.revature.bank.services.helpers.MenuHelper;
+import com.revature.bank.services.helpers.PermissionRankHelper;
 
 public class NewPersonMenu extends AbstractMenu{
 	private Person associatedPerson;
@@ -44,6 +46,7 @@ public class NewPersonMenu extends AbstractMenu{
 			}
 		}while (passwordAccepted == false);
 		Person newPerson = new PersonService().submitNewUser(username,password);
+		new PermissionRankHandler().assign(newPerson, PermissionRankHelper.getCustomer());
 		//If triggered by association, create the association
 		if(associatedPerson != null) {
 			AssociatedPersonHandler.create(associatedPerson,newPerson);

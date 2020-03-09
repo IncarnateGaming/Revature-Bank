@@ -8,7 +8,6 @@ public class AccountOwnership implements Serializable {
 	private static final long serialVersionUID = 2554185222397117453L;
 	//SECTION: variables
 
-	private static int maxId =0;
 	private int id;
 	private int ownerId;
 	private int accountId;
@@ -16,25 +15,15 @@ public class AccountOwnership implements Serializable {
 	
 	//SECTION: constructors
 	
-	public AccountOwnership(int ownerId, int accountId) {
+	public AccountOwnership(int accountId, int ownerId) {
 		super();
-		id = getNextMaxId();
-		setOwnerId(ownerId);
 		setAccountId(accountId);
+		setOwnerId(ownerId);
 		setDateToday();
 	}
 	
 	//SECTION: getters & setters
 
-	public static int getNextMaxId() {
-		return ++maxId;
-	}
-	public static int getMaxId() {
-		return maxId;
-	}
-	public static void setMaxId(int maxId) {
-		AccountOwnership.maxId = maxId;
-	}
 	public int getId() {
 		return id;
 	}

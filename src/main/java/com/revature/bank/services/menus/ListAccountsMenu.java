@@ -30,13 +30,18 @@ public class ListAccountsMenu extends AbstractMenu {
 		do {
 			if(accounts == null) {
 				if(owner != null) {
-					accounts = daoAccount.list(owner);
+					accounts = daoAccount.listJoin(owner);
 				}else {
-					accounts = daoAccount.list();
+					accounts = daoAccount.listJoin();
 				}
 			}
+			System.out.format("%6%16%24%5%12%16%8s", "ID","Balance","Overdraft Protection","Active","Account Type","Min Balance","Interest");
 			for(Account account : accounts) {
-				System.out.println(account.toString());
+				System.out.format("%6%16%24%5%12%16%8s", account.getId(),account.getBalance(),
+						account.getOverdraftProtection(),account.getActive()
+						, account.getAccountType() != null ? account.getAccountType().getLabel() : ""
+						, account.getAccountType() != null ? account.getAccountType().getMinBalance() : ""
+						, account.getAccountType() != null ? account.getAccountType().getInterest() : "");
 			}
 			System.out.println("1 to select account. 0 to return to previous menu.");
 			setInput(MenuHelper.inputPositiveInt(s));

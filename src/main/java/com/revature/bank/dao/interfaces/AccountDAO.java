@@ -10,6 +10,8 @@ public interface AccountDAO {
 
 	List<Account> list();
 	List<Account> list(Person owner);
+	List<Account> listJoin();
+	List<Account> listJoin(Person owner);
 	List<Integer> listIds();
 	Account get(int accountId);
 
