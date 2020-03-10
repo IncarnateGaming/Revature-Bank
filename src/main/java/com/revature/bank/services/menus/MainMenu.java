@@ -32,6 +32,8 @@ public class MainMenu extends AbstractMenu implements Runnable{
 			setInput(MenuHelper.inputPositiveInt(s));
 			switch(getInput()) {
 			case 0:
+				System.out.println("Turning off.");
+                System.exit(0);
 				break;
 			case 1:
 				result = new LoginMenu(this);

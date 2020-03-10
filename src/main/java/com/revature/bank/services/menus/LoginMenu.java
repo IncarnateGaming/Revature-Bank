@@ -14,6 +14,8 @@ import com.revature.bank.services.helpers.PermissionRankHelper;
 
 public class LoginMenu extends AbstractMenu{
 	private PermissionRankService rankService = new PermissionRankService();
+	private Person user = null;
+	private List<PermissionRank> ranks = null;
 	public LoginMenu(MainMenu mainMenu) {
 		super();
 		setMainMenu(mainMenu);
@@ -22,10 +24,9 @@ public class LoginMenu extends AbstractMenu{
 	@Override
 	public AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
 		AbstractMenu result = null;
-		Person user = null;
-		List<PermissionRank> ranks = null;
 		boolean loginSuccess = false;
-		do {
+		if(getMainMenu().getPerson() != null) loginSuccess = true;
+		while (loginSuccess == false){
 			System.out.println("Enter Username:");
 			String username = MenuHelper.inputToken(s);
 			System.out.println("Enter Password:");
@@ -34,12 +35,16 @@ public class LoginMenu extends AbstractMenu{
 			if(user != null && user.getPassword().equals(password)) {
 				loginSuccess = true;
 				getMainMenu().setPerson(user);
-				ranks = new PermissionRankHandler().list(user);
-				getMainMenu().setPermissions(ranks);
 			}else {
 				System.out.println("Login failed, try again. Enter \"LOGOUT\" to return to previous menu");
 			}
-		}while (loginSuccess == false);
+		}
+		if(getMainMenu().getPermissions() == null) {
+			ranks = new PermissionRankHandler().list(user);
+			getMainMenu().setPermissions(ranks);
+		}else {
+			ranks = getMainMenu().getPermissions();
+		}
 		if(rankService.containsPermission(PermissionRankHelper.getAdmin(), ranks)) {
 			result = new EmployeeMenu(getMainMenu());
 		}

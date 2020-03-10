@@ -18,6 +18,7 @@ public class ModifyUserMenu extends AbstractMenu {
 	public AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
 		AbstractMenu result = null;
 		do {
+			System.out.println(localPerson.toString());
 			System.out.println("Press 1 to change First Name, 2 Last Name"
 //					+ ", 3 Street Address, 4 City"
 					+ ", 5 Social Security Number. 0 to save and return to previous menu.");

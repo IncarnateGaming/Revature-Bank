@@ -38,7 +38,7 @@ public class CustomerMenu extends AbstractMenu{
 				result = new RequestAccountsMenu(getMainMenu());
 				break;
 			case 4:
-				result = new CreateAccountMenu(getMainMenu());
+				result = new NewPersonMenu(getMainMenu(),getMainMenu().getPerson());
 				break;
 			case 5:
 				result = new ListAssociatedAccountsMenu(getMainMenu());
