@@ -363,6 +363,25 @@ CREATE TABLE ASSOCIATED_PEOPLE_JT (
   second_person NUMBER
 );
 
+CREATE OR REPLACE PROCEDURE create_associated_people_jt(
+  fir_person IN NUMBER, sec_person IN NUMBER, tmp_val OUT NUMBER
+)
+IS
+BEGIN
+  SELECT MIN(first_person) INTO tmp_val FROM ASSOCIATED_PEOPLE_JT 
+    WHERE ASSOCIATED_PEOPLE_JT.first_person = fir_person 
+    AND ASSOCIATED_PEOPLE_JT.second_person = sec_person;
+  IF tmp_val > 0
+  THEN
+   DBMS_OUTPUT.PUT_LINE(tmp_val);
+  ELSE
+    INSERT INTO ASSOCIATED_PEOPLE_JT(first_person, second_person) 
+      VALUES (fir_person, sec_person);
+    COMMIT;
+  END IF;
+END;
+/
+
 DECLARE
    c int;
 BEGIN
@@ -758,6 +777,7 @@ GRANT EXECUTE ON create_acc_tran_status TO bank_connection;
 GRANT EXECUTE ON create_acc_tran_type TO bank_connection;
 GRANT EXECUTE ON create_account_type TO bank_connection;
 GRANT EXECUTE ON create_address TO bank_connection;
+GRANT EXECUTE ON create_associated_people_jt TO bank_connection;
 GRANT EXECUTE ON create_city TO bank_connection;
 GRANT EXECUTE ON create_deposit TO bank_connection;
 GRANT EXECUTE ON create_withdraw TO bank_connection;

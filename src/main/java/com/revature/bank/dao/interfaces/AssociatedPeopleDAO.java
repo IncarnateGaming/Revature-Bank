@@ -3,20 +3,16 @@ package com.revature.bank.dao.interfaces;
 import java.util.List;
 
 import com.revature.bank.model.AssociatedPeople;
+import com.revature.bank.model.Person;
 
 public interface AssociatedPeopleDAO {
+	AssociatedPeople create(Person person1, Person person2);
 	AssociatedPeople create(AssociatedPeople associatedPeopleToSave);
 
 	List<AssociatedPeople> list();
-	AssociatedPeople get(int associatedPeopleId);
+	List<Integer> list(Person person);
+	boolean check(Person person1, Person person2);
 
-	AssociatedPeople update(AssociatedPeople associatedPeopleToUpdate);
-
-	AssociatedPeople delete(AssociatedPeople associatedPeopleToDelete);
-	AssociatedPeople delete(int associatedPeopleId);
-	/**
-	 * Gets the highest id for the AssociatedPeople objects in persisted memory
-	 * @return Integer
-	 */
-	int getHighestId();
+	boolean delete(AssociatedPeople associatedPeopleToDelete);
+	boolean delete(int person1Id, int person2Id);
 }

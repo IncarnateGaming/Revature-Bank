@@ -49,7 +49,7 @@ public class NewPersonMenu extends AbstractMenu{
 		new PermissionRankHandler().assign(newPerson, PermissionRankHelper.getCustomer());
 		//If triggered by association, create the association
 		if(associatedPerson != null) {
-			AssociatedPersonHandler.create(associatedPerson,newPerson);
+			new AssociatedPersonHandler().create(associatedPerson,newPerson);
 		}
 		System.out.println(username + " created!");
 		return result;

@@ -45,7 +45,7 @@ public class AccountTransactionService {
 			System.out.println(msg);
 			throw new InvalidNegativeValue(msg);
 		}else {
-			LoggerSingleton.getLogger().info(MathHelper.doubleTextOut(value) + " deposited into account number: " + account.getId());
+			LoggerSingleton.getBusinessLog().info(MathHelper.doubleTextOut(value) + " deposited into account number: " + account.getId());
 			result = getAccountTransactionHandler().createDeposit(account, value);
 		}
 		return result;
@@ -67,7 +67,7 @@ public class AccountTransactionService {
 			if(futureValue >= officialAccountType.getMinBalance() + officialAccount.getOverdraftProtection()) {
 				if(futureValue >= officialAccountType.getMinBalance()) {
 					result = tranHandler.createWithdraw(officialAccount, value);
-					LoggerSingleton.getLogger().info(MathHelper.doubleTextOut(value) + " withdrawn from "
+					LoggerSingleton.getBusinessLog().info(MathHelper.doubleTextOut(value) + " withdrawn from "
 							+ "account number: " + officialAccount.getId());
 				}else {
 					System.out.println("WARNING: withdrawing " + MathHelper.doubleTextOut(value) + " from "
@@ -75,7 +75,7 @@ public class AccountTransactionService {
 							+ "each day your account is overdrawn, so make sure to deposit more money by the end "
 							+ "of the buisness day.");
 					tranHandler.createWithdraw(officialAccount, value);
-					LoggerSingleton.getLogger().info(MathHelper.doubleTextOut(value) + " withdrawn from "
+					LoggerSingleton.getBusinessLog().info(MathHelper.doubleTextOut(value) + " withdrawn from "
 							+ "account number: " + officialAccount.getId() + " This account is currently overdrawn.");
 					throw new InsufficientFunds("Warning issued that account: " + officialAccount.getId() + " is overdrawn "
 							+ "and will begin to assess daily fees.");
@@ -105,7 +105,7 @@ public class AccountTransactionService {
 			if(futureValue >= officialAccountType.getMinBalance() + officialAccount.getOverdraftProtection()) {
 				if(futureValue >= officialAccountType.getMinBalance()) {
 					result =  tranHandler.createTransfer(officialAccount, targetAccount, value);
-					LoggerSingleton.getLogger().info(MathHelper.doubleTextOut(value) + " transfered from "
+					LoggerSingleton.getBusinessLog().info(MathHelper.doubleTextOut(value) + " transfered from "
 							+ "account number: " + officialAccount.getId() + " to account number: " + targetAccount.getId());
 				}else {
 					System.out.println("WARNING: transfering " + MathHelper.doubleTextOut(value) + " from "
@@ -113,7 +113,7 @@ public class AccountTransactionService {
 							+ "each day your account is overdrawn, so make sure to deposit more money by the end "
 							+ "of the buisness day.");
 					tranHandler.createTransfer(officialAccount, targetAccount, value);
-					LoggerSingleton.getLogger().info(MathHelper.doubleTextOut(value) + " transfered from "
+					LoggerSingleton.getBusinessLog().info(MathHelper.doubleTextOut(value) + " transfered from "
 							+ "account number: " + officialAccount.getId() + " to account number: " + targetAccount.getId() + " The origin account is currently overdrawn.");
 					throw new InsufficientFunds("Warning issued that account: " + officialAccount.getId() + " is overdrawn "
 							+ "and will begin to assess daily fees.");

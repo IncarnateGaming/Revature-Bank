@@ -10,27 +10,16 @@ import java.util.Objects;
  */
 public class AssociatedPeople {
 	//SECTION: variables
-		private static int maxId =0;
 		private int id;
 		private int firstPersonId;
 		private int secondPersonId;
 	//SECTION: constructors
 		public AssociatedPeople(int firstPersonId, int secondPersonId) {
 			super();
-			id = getNextMaxId();
 			setFirstPersonId(firstPersonId);
 			setSecondPersonId(secondPersonId);
 		}
 	//SECTION: getters & setters
-		public static int getNextMaxId() {
-			return ++maxId;
-		}
-		public static int getMaxId() {
-			return maxId;
-		}
-		public static void setMaxId(int maxId) {
-			AssociatedPeople.maxId = maxId;
-		}
 		public int getId() {
 			return id;
 		}
