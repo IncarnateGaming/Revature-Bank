@@ -7,27 +7,16 @@ import java.util.Objects;
 public class AccountRequest implements Serializable {
 	private static final long serialVersionUID = 6451961783162870844L;
 	//SECTION: variables
-		private static int maxId =0;
 		private int id;
 		private int accountTypeId;
 		private Date creationDate;
 	//SECTION: constructors
 		public AccountRequest(int accountTypeId, Date date) {
 			super();
-			id = getNextMaxId();
 			setAccountTypeId(accountTypeId);
-			setCreationDateToday();
+			setCreationDate(date);
 		}
 	//SECTION: getters & setters
-	public static int getNextMaxId() {
-		return ++maxId;
-	}
-	public static int getMaxId() {
-		return maxId;
-	}
-	public static void setMaxId(int maxId) {
-		AccountRequest.maxId = maxId;
-	}
 	public int getId() {
 		return id;
 	}

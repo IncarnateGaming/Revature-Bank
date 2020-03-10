@@ -86,7 +86,7 @@ CREATE TABLE ACCOUNT_REQUEST (
 CREATE OR REPLACE PROCEDURE create_account_request(
   acc_request_id OUT NUMBER, 
   acc_request_type IN NUMBER,
-  acc_request_date DATE
+  acc_request_date IN OUT DATE
 )
 IS
 BEGIN
@@ -112,6 +112,26 @@ CREATE TABLE ACCOUNT_REQUEST_USERS_JT (
   person NUMBER,
   acc_request NUMBER
 );
+
+CREATE OR REPLACE PROCEDURE create_account_req_users_jt(
+  per_id IN NUMBER,
+  acc_req_id IN NUMBER,
+  tmp_var OUT NUMBER
+)
+IS
+BEGIN
+  SELECT MIN(person) INTO tmp_var FROM ACCOUNT_REQUEST_USERS_JT
+    WHERE ACCOUNT_REQUEST_USERS_JT.person = per_id AND ACCOUNT_REQUEST_USERS_JT.acc_request = acc_req_id;
+  IF tmp_var > 0
+  THEN
+   DBMS_OUTPUT.PUT_LINE(tmp_var);
+  ELSE
+    INSERT INTO ACCOUNT_REQUEST_USERS_JT(person, acc_request) 
+      VALUES (per_id, acc_req_id);
+    COMMIT;
+  END IF;
+END;
+/
 
 DECLARE
    c int;
@@ -776,6 +796,7 @@ GRANT EXECUTE ON create_acc_tran TO bank_connection;
 GRANT EXECUTE ON create_acc_tran_status TO bank_connection;
 GRANT EXECUTE ON create_acc_tran_type TO bank_connection;
 GRANT EXECUTE ON create_account_type TO bank_connection;
+GRANT EXECUTE ON create_account_req_users_jt TO bank_connection;
 GRANT EXECUTE ON create_address TO bank_connection;
 GRANT EXECUTE ON create_associated_people_jt TO bank_connection;
 GRANT EXECUTE ON create_city TO bank_connection;

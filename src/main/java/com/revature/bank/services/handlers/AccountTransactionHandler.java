@@ -39,15 +39,6 @@ public class AccountTransactionHandler {
 	public AccountTransaction get(int accountTransactionId) {
 		return repository.get(accountTransactionId);
 	}
-	public AccountTransaction update(AccountTransaction accountTransactionToUpdate) {
-		return repository.update(accountTransactionToUpdate);
-	}
-	public boolean delete(AccountTransaction accountTransactionToDelete) {
-		return repository.delete(accountTransactionToDelete);
-	}
-	public boolean delete(int accountTransactionId) {
-		return repository.delete(accountTransactionId);
-	}
 	public int getHighestId() {
 		return repository.getHighestId();
 	}

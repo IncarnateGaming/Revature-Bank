@@ -16,10 +16,6 @@ public interface AccountTransactionDAO {
 	List<AccountTransaction> list(Account account);
 	AccountTransaction get(int accountTransactionId);
 
-	AccountTransaction update(AccountTransaction accountTransactionToUpdate);
-
-	boolean delete(AccountTransaction accountTransactionToDelete);
-	boolean delete(int accountTransactionId);
 	/**
 	 * Gets the highest id for the AccountTransaction objects in persisted memory
 	 * @return Integer

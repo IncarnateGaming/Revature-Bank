@@ -200,7 +200,7 @@ public class AccountOwnershipDAOImpl implements AccountOwnershipDAO {
 				}
 			}
 		}catch(SQLException e) {
-			LoggerSingleton.getLogger().warn("Failed to get ownership",e);
+			LoggerSingleton.getLogger().warn("Failed to get ownership max id",e);
 		}
 		return result;
 	}

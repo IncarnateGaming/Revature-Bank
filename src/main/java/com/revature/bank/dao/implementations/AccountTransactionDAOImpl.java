@@ -97,24 +97,6 @@ public class AccountTransactionDAOImpl implements AccountTransactionDAO {
 	}
 
 	@Override
-	public AccountTransaction update(AccountTransaction accountTransactionToUpdate) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean delete(AccountTransaction accountTransactionToDelete) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean delete(int accountTransactionId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public int getHighestId() {
 		// TODO Auto-generated method stub
 		return 0;

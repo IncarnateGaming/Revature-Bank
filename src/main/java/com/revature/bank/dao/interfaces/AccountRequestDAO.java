@@ -12,8 +12,8 @@ public interface AccountRequestDAO {
 
 	AccountRequest update(AccountRequest accountRequestToUpdate);
 
-	AccountRequest delete(AccountRequest accountRequestToDelete);
-	AccountRequest delete(int accountRequestId);
+	boolean delete(AccountRequest accountRequestToDelete);
+	boolean delete(int accountRequestId);
 	/**
 	 * Gets the highest id for the AccountRequest objects in persisted memory
 	 * @return Integer

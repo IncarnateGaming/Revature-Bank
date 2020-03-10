@@ -35,16 +35,16 @@ public class RequestAccountsMenu extends AbstractMenu {
 		}while(accountType == null && !accountTypes.isEmpty());
 		//TODO add account request creation
 		List<Person> associates = new AssociatePersonService().getPeople(getMainMenu().getPerson());
-		int input = -1;
-		while (input != 0 && !associates.isEmpty()) {
+		String input = "-1";
+		while (input.equals("0") && !associates.isEmpty()) {
 			System.out.println("Known associates:");
 			for (Person per : associates) {
 				System.out.println(per.toString());
 			}
-			System.out.println("If you wish to add an associate to this account enter their id. "
+			System.out.println("If you wish to add an associate to this account enter their username. "
 					+ "Enter \"0\" when you are done making selections.");
-			input = MenuHelper.inputPositiveInt(s);
-			if (input > 0) {
+			input = MenuHelper.inputToken(s);
+			if (!(input.equals("0")||input.equals("-1"))) {
 				Person personToAdd = personHandler.get(input);
 				if(personToAdd != null) {
 					System.out.println(personToAdd.getFirstName() + " " + personToAdd.getLastName() + 
