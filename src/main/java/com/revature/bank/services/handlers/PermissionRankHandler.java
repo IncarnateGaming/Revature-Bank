@@ -2,7 +2,7 @@ package com.revature.bank.services.handlers;
 
 import java.util.List;
 
-import com.revature.bank.dao.implementations.PermissionRankDAOImpl;
+import com.revature.bank.dao.DAOUtilities;
 import com.revature.bank.dao.interfaces.PermissionRankDAO;
 import com.revature.bank.model.PermissionRank;
 import com.revature.bank.model.Person;
@@ -11,7 +11,7 @@ public class PermissionRankHandler {
 	private PermissionRankDAO repository = null;
 	public PermissionRankHandler() {
 		super();
-		this.repository = new PermissionRankDAOImpl();
+		this.repository = DAOUtilities.getPermissionRankDao();
 	}
 	public PermissionRankHandler(PermissionRankDAO repository) {
 		super();

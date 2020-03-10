@@ -2,7 +2,7 @@ package com.revature.bank.services.handlers;
 
 import java.util.List;
 
-import com.revature.bank.dao.implementations.AccountDAOImpl;
+import com.revature.bank.dao.DAOUtilities;
 import com.revature.bank.dao.interfaces.AccountDAO;
 import com.revature.bank.model.Account;
 import com.revature.bank.model.Person;
@@ -11,7 +11,7 @@ public class AccountHandler {
 	private AccountDAO repository = null;
 	public AccountHandler() {
 		super();
-		this.repository = new AccountDAOImpl();
+		this.repository = DAOUtilities.getAccountDao();
 	}
 	public AccountHandler(AccountDAO repository) {
 		super();

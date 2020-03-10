@@ -2,7 +2,7 @@ package com.revature.bank.services.handlers;
 
 import java.util.List;
 
-import com.revature.bank.dao.implementations.AccountTransactionDAOImpl;
+import com.revature.bank.dao.DAOUtilities;
 import com.revature.bank.dao.interfaces.AccountTransactionDAO;
 import com.revature.bank.model.Account;
 import com.revature.bank.model.AccountTransaction;
@@ -12,7 +12,7 @@ public class AccountTransactionHandler {
 	private AccountTransactionDAO repository = null;
 	public AccountTransactionHandler() {
 		super();
-		this.repository = new AccountTransactionDAOImpl();
+		this.repository = DAOUtilities.getAccountTransactionDao();
 	}
 	public AccountTransactionHandler(AccountTransactionDAO repository) {
 		super();

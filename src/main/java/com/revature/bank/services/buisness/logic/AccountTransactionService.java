@@ -17,7 +17,11 @@ public class AccountTransactionService {
 	private static AccountTypeHandler accountTypeHandler;
 	public AccountTransactionService() {
 		super();
-		this.tranHandler = new AccountTransactionHandler();
+		AccountTransactionService.tranHandler = new AccountTransactionHandler();
+	}
+	public AccountTransactionService(AccountTransactionHandler tranHandler) {
+		super();
+		AccountTransactionService.tranHandler = tranHandler;
 	}
 	private static AccountHandler getAccountHandler() {
 		if(accHandler == null) {
@@ -26,9 +30,6 @@ public class AccountTransactionService {
 		return accHandler;
 	}
 	private static AccountTransactionHandler getAccountTransactionHandler() {
-		if(tranHandler == null) {
-			tranHandler = new AccountTransactionHandler();
-		}
 		return tranHandler;
 	}
 	private static AccountTypeHandler getAccountTypeHandler() {
@@ -36,10 +37,6 @@ public class AccountTransactionService {
 			accountTypeHandler = new AccountTypeHandler();
 		}
 		return accountTypeHandler;
-	}
-	public AccountTransactionService(AccountTransactionHandler tranHandler) {
-		super();
-		this.tranHandler = tranHandler;
 	}
 	public boolean createDeposit(Account account, double value) throws InvalidNegativeValue {
 		boolean result = false;
@@ -95,8 +92,43 @@ public class AccountTransactionService {
 		}
 		return result;
 	}
-	public boolean createTranfer(Account originAccount, Account targetAccount, double value) {
-		return tranHandler.createTransfer(originAccount, targetAccount, value);
+	public boolean createTransfer(Account originAccount, Account targetAccount, double value) throws InvalidNegativeValue, InsufficientLineOfCredit {
+		boolean result = false;
+		if (value < 0) {
+			String msg = "Transfers must be positive. " + value + " was attempted to be entered.";
+			System.out.println(msg);
+			throw new InvalidNegativeValue(msg);
+		}else {
+			Account officialAccount = getAccountHandler().get(originAccount.getId());
+			AccountType officialAccountType = getAccountTypeHandler().get(officialAccount.getAccountTypeId());
+			double futureValue = officialAccount.getBalance() - value;
+			if(futureValue >= officialAccountType.getMinBalance() + officialAccount.getOverdraftProtection()) {
+				if(futureValue >= officialAccountType.getMinBalance()) {
+					result =  tranHandler.createTransfer(officialAccount, targetAccount, value);
+					LoggerSingleton.getLogger().info(MathHelper.doubleTextOut(value) + " transfered from "
+							+ "account number: " + officialAccount.getId() + " to account number: " + targetAccount.getId());
+				}else {
+					System.out.println("WARNING: transfering " + MathHelper.doubleTextOut(value) + " from "
+							+ "your account will result in you becoming overdrawn. You will be assessed a fee "
+							+ "each day your account is overdrawn, so make sure to deposit more money by the end "
+							+ "of the buisness day.");
+					tranHandler.createTransfer(officialAccount, targetAccount, value);
+					LoggerSingleton.getLogger().info(MathHelper.doubleTextOut(value) + " transfered from "
+							+ "account number: " + officialAccount.getId() + " to account number: " + targetAccount.getId() + " The origin account is currently overdrawn.");
+					throw new InsufficientFunds("Warning issued that account: " + officialAccount.getId() + " is overdrawn "
+							+ "and will begin to assess daily fees.");
+				}
+			}else {
+				System.out.println("Insufficient line of credit. Your combined balance: " + MathHelper.doubleTextOut(officialAccount.getBalance()) 
+				+ " and overdraft protection: " + MathHelper.doubleTextOut(officialAccount.getOverdraftProtection()) + 
+				". Remember that " + officialAccountType.getLabel() + " accounts have a minimum balance of " + MathHelper.doubleTextOut(officialAccountType.getMinBalance())
+				+ " preventing you from transfering " + MathHelper.doubleTextOut(value) + " when your account only"
+				+ " has " + MathHelper.doubleTextOut(officialAccount.getBalance()) + " in it.");
+				throw new InsufficientLineOfCredit("Attempt to transfer "+ MathHelper.doubleTextOut(value) + 
+						" from account: " + officialAccount.getId() + " to account: " + targetAccount.getId());
+			}
+		}
+		return result;
 	}
 
 }

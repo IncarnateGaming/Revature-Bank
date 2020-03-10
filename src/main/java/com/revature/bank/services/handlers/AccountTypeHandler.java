@@ -2,7 +2,7 @@ package com.revature.bank.services.handlers;
 
 import java.util.List;
 
-import com.revature.bank.dao.implementations.AccountTypeDAOImpl;
+import com.revature.bank.dao.DAOUtilities;
 import com.revature.bank.dao.interfaces.AccountTypeDAO;
 import com.revature.bank.model.AccountType;
 
@@ -10,7 +10,7 @@ public class AccountTypeHandler {
 	private AccountTypeDAO repository = null;
 	public AccountTypeHandler() {
 		super();
-		this.repository = new AccountTypeDAOImpl();
+		this.repository = DAOUtilities.getAccountTypeDao();
 	}
 	public AccountTypeHandler(AccountTypeDAO repository) {
 		super();

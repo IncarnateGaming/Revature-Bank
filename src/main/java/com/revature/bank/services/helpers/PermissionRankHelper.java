@@ -24,7 +24,7 @@ public class PermissionRankHelper {
 	public static PermissionRank getCustomer() {
 		if(customer == null) {
 			customer = new PermissionRankHandler().create(
-					new PermissionRank(PermissionRankHelper.permissionCustomer)
+					new PermissionRank(PermissionRankHelper.getPermissionCustomer())
 					);
 		}
 		return customer;
@@ -32,7 +32,7 @@ public class PermissionRankHelper {
 	public static PermissionRank getEmployee() {
 		if(employee == null) {
 			employee = new PermissionRankHandler().create(
-					new PermissionRank(PermissionRankHelper.permissionEmployee)
+					new PermissionRank(PermissionRankHelper.getPermissionEmployee())
 					);
 		}
 		return employee;
@@ -40,7 +40,7 @@ public class PermissionRankHelper {
 	public static PermissionRank getAdmin() {
 		if(admin == null) {
 			admin = new PermissionRankHandler().create(
-					new PermissionRank(PermissionRankHelper.permissionAdmin)
+					new PermissionRank(PermissionRankHelper.getPermissionAdmin())
 					);
 		}
 		return admin;

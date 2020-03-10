@@ -2,7 +2,7 @@ package com.revature.bank.services.handlers;
 
 import java.util.List;
 
-import com.revature.bank.dao.implementations.AccountOwnershipDAOImpl;
+import com.revature.bank.dao.DAOUtilities;
 import com.revature.bank.dao.interfaces.AccountOwnershipDAO;
 import com.revature.bank.model.Account;
 import com.revature.bank.model.AccountOwnership;
@@ -12,7 +12,7 @@ public class AccountOwnershipHandler {
 	private AccountOwnershipDAO repository = null;
 	public AccountOwnershipHandler() {
 		super();
-		this.repository = new AccountOwnershipDAOImpl();
+		this.repository = DAOUtilities.getAccountOwnershipDao();
 	}
 	public AccountOwnershipHandler(AccountOwnershipDAO repository) {
 		super();

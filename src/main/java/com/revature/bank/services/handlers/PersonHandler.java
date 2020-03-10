@@ -2,15 +2,15 @@ package com.revature.bank.services.handlers;
 
 import java.util.List;
 
-import com.revature.bank.dao.implementations.PersonDAOImpl;
+import com.revature.bank.dao.DAOUtilities;
 import com.revature.bank.dao.interfaces.PersonDAO;
 import com.revature.bank.model.Person;
 
 public class PersonHandler {
-	private PersonDAO repository = null;
+	private PersonDAO repository;
 	public PersonHandler() {
 		super();
-		this.repository = new PersonDAOImpl();
+		this.repository = DAOUtilities.getPersonDao();
 	}
 	public PersonHandler(PersonDAO repository) {
 		super();

@@ -10,6 +10,7 @@ import com.revature.bank.exceptions.InsufficientLineOfCredit;
 import com.revature.bank.exceptions.InvalidNegativeValue;
 import com.revature.bank.model.Account;
 import com.revature.bank.model.Person;
+import com.revature.bank.services.buisness.logic.AccountService;
 import com.revature.bank.services.buisness.logic.AccountTransactionService;
 import com.revature.bank.services.buisness.logic.PermissionRankService;
 import com.revature.bank.services.handlers.AccountHandler;
@@ -24,6 +25,7 @@ public class DataPopulation {
 	private PermissionRankService rankService = new PermissionRankService();
 	private PermissionRankHandler rankHandler = new PermissionRankHandler();
 	private AccountHandler accountHandler = new AccountHandler();
+	private AccountService accountService = new AccountService();
 	private AccountOwnershipHandler ownHandler = new AccountOwnershipHandler();
 	private AccountTransactionService tranService = new AccountTransactionService();
 	private Person george;
@@ -114,8 +116,8 @@ public class DataPopulation {
 		tranService.createWithdraw(georgeChecking, 321.59);
 		tranService.createWithdraw(bugsChecking, 19.24);
 		tranService.createWithdraw(bugsCredit, 500);
-		tranService.createTranfer(rudolphHighYield, rudolphChecking, 6000);
-		tranService.createTranfer(bugsChecking, georgeChecking, 365.21);
+		tranService.createTransfer(rudolphHighYield, rudolphChecking, 6000);
+		tranService.createTransfer(bugsChecking, georgeChecking, 365.21);
 		assertEquals(543.62,accountHandler.get(georgeChecking.getId()).getBalance(),0.01);
 		assertEquals(19_500,accountHandler.get(georgeSavings.getId()).getBalance(),0.01);
 		assertEquals(1115.55,accountHandler.get(bugsChecking.getId()).getBalance(),0.01);
