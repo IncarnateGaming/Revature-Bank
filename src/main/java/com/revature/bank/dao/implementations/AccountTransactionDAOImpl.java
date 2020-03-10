@@ -2,7 +2,11 @@ package com.revature.bank.dao.implementations;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.bank.dao.DAOUtilities;
@@ -74,31 +78,116 @@ public class AccountTransactionDAOImpl implements AccountTransactionDAO {
 
 	@Override
 	public List<AccountTransaction> list() {
-		// TODO Auto-generated method stub
-		return null;
+		List<AccountTransaction> list = new ArrayList<>();
+		try (Connection conn = DAOUtilities.getConnection()){
+			try(Statement stmt = conn.createStatement()){
+				String sql = "SELECT * FROM ADMIN.ACCOUNT_TRANSACTION";
+				try(ResultSet rs = stmt.executeQuery(sql)){
+					while(rs.next()) {
+						AccountTransaction obj = objectBuilder(rs);
+						list.add(obj);
+					}
+				}
+			}
+		}catch(SQLException e) {
+			LoggerSingleton.getLogger().warn("Failed to get accounts",e);
+		}
+		return list;
 	}
 
 	@Override
 	public List<AccountTransaction> list(Person person) {
-		// TODO Auto-generated method stub
-		return null;
+		List<AccountTransaction> list = new ArrayList<>();
+		try (Connection conn = DAOUtilities.getConnection()){
+			String sql = "SELECT * FROM ADMIN.ACCOUNT_TRANSACTION "
+					+ "INNER JOIN ADMIN.ACCOUNT "
+					+ " ON ADMIN.ACCOUNT.account_id = ADMIN.ACCOUNT_TRANSACTION.account "
+					+ "INNER JOIN ACCOUNT_OWNERSHIP_JT"
+					+ " ON ADMIN.ACCOUNT_OWNERSHIP_JT.account = ADMIN.ACCOUNT.account_id"
+					+ "WHERE ADMIN.ACCOUNT_OWNERSHIP_JT.owner = ?";
+			try(PreparedStatement stmt = conn.prepareStatement(sql)){
+				stmt.setInt(1, person.getId());
+				try(ResultSet rs = stmt.executeQuery(sql)){
+					while(rs.next()) {
+						AccountTransaction obj = objectBuilder(rs);
+						list.add(obj);
+					}
+				}
+			}
+		}catch(SQLException e) {
+			LoggerSingleton.getLogger().warn("Failed to get account transactions",e);
+		}
+		return list;
 	}
 
 	@Override
 	public List<AccountTransaction> list(Account account) {
-		// TODO Auto-generated method stub
-		return null;
+		List<AccountTransaction> list = new ArrayList<>();
+		try (Connection conn = DAOUtilities.getConnection()){
+			String sql = "SELECT * FROM ADMIN.ACCOUNT_TRANSACTION "
+					+ "INNER JOIN ADMIN.ACCOUNT "
+					+ " ON ADMIN.ACCOUNT.account_id = ADMIN.ACCOUNT_TRANSACTION.account "
+					+ "WHERE ADMIN.ACCOUNT.account_id = ?";
+			try(PreparedStatement stmt = conn.prepareStatement(sql)){
+				stmt.setInt(1, account.getId());
+				try(ResultSet rs = stmt.executeQuery(sql)){
+					while(rs.next()) {
+						AccountTransaction obj = objectBuilder(rs);
+						list.add(obj);
+					}
+				}
+			}
+		}catch(SQLException e) {
+			LoggerSingleton.getLogger().warn("Failed to get account transactions",e);
+		}
+		return list;
 	}
 
 	@Override
 	public AccountTransaction get(int accountTransactionId) {
-		// TODO Auto-generated method stub
-		return null;
+		AccountTransaction result = null;
+		try (Connection conn = DAOUtilities.getConnection()){
+			String sql = "SELECT * FROM ADMIN.ACCOUNT_TRANSACTION "
+					+ "WHERE transaction_id = ?";
+			try(PreparedStatement stmt = conn.prepareStatement(sql)){
+				stmt.setInt(1, accountTransactionId);
+				try(ResultSet rs = stmt.executeQuery(sql)){
+					while(rs.next()) {
+						result = objectBuilder(rs);
+					}
+				}
+			}
+		}catch(SQLException e) {
+			LoggerSingleton.getLogger().warn("Failed to get account transaction",e);
+		}
+		return result;
 	}
 
 	@Override
 	public int getHighestId() {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		try (Connection conn = DAOUtilities.getConnection()){
+			try(Statement stmt = conn.createStatement()){
+				String sql = "SELECT MAX(transaction_id) FROM ADMIN.ACCOUNT_TRANSACTION";
+				try(ResultSet rs = stmt.executeQuery(sql)){
+					result = rs.getInt(1);
+				}
+			}
+		}catch(SQLException e) {
+			LoggerSingleton.getLogger().warn("Failed to get maximum transaction id",e);
+		}
+		return result;
+	}
+	private AccountTransaction objectBuilder(ResultSet rs) throws SQLException {
+		AccountTransaction accountTransaction = new AccountTransaction(
+				rs.getInt("account"),
+				rs.getInt("status"),
+				rs.getInt("transaction_type"),
+				rs.getString("notes")
+				);
+		accountTransaction.setId(rs.getInt("transaction_id"));
+		accountTransaction.setRelatedTransactionId(rs.getInt("related_transaction"));
+		accountTransaction.setTransactionDate(rs.getDate("transaction_date"));
+		return accountTransaction;
 	}
 }

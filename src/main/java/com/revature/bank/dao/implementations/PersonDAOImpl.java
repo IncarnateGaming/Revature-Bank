@@ -87,7 +87,7 @@ public class PersonDAOImpl implements PersonDAO {
 				}
 			}
 		}catch(SQLException e) {
-			LoggerSingleton.getLogger().warn("Failed to get accounts",e);
+			LoggerSingleton.getLogger().warn("Failed to get people",e);
 		}
 		return list;
 	}
@@ -189,7 +189,7 @@ public class PersonDAOImpl implements PersonDAO {
 		int result = 0;
 		try (Connection conn = DAOUtilities.getConnection()){
 			try(Statement stmt = conn.createStatement()){
-				String sql = "SELECT MAX(account_id) FROM ADMIN.PERSON";
+				String sql = "SELECT MAX(person_id) FROM ADMIN.PERSON";
 				try(ResultSet rs = stmt.executeQuery(sql)){
 					result = rs.getInt(1);
 				}

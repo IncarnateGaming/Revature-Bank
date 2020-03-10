@@ -44,8 +44,8 @@ public class AccountMenu extends AbstractMenu {
 					)
 				)) {
 			AccessDenied accessDenied = new AccessDenied();
-			log.warn(getMainMenu().getPerson().toString() 
-					+ " just attempted to access" + account.toString(), accessDenied);
+			LoggerSingleton.getAccessLog().warn(getMainMenu().getPerson().toString() 
+					+ " just attempted to access " + account.toString(), accessDenied);
 			System.out.println("Access Denied");
 			return null;
 		}

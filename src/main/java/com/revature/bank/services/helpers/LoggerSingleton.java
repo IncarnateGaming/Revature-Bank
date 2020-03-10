@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 public class LoggerSingleton {
 	private static Logger log;
 	private static Logger businessLog;
+	private static Logger accessDeniedLog;
 	private LoggerSingleton() {
 	}
 	public static Logger getLogger() {
@@ -18,5 +19,11 @@ public class LoggerSingleton {
 			businessLog = Logger.getLogger("businessLog");
 		}
 		return businessLog;
+	}
+	public static Logger getAccessLog() {
+		if(accessDeniedLog == null) {
+			accessDeniedLog = Logger.getLogger("accessDeniedLog");
+		}
+		return accessDeniedLog;
 	}
 }

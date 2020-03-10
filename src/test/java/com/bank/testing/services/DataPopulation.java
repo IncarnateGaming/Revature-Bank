@@ -10,7 +10,6 @@ import com.revature.bank.exceptions.InsufficientLineOfCredit;
 import com.revature.bank.exceptions.InvalidNegativeValue;
 import com.revature.bank.model.Account;
 import com.revature.bank.model.Person;
-import com.revature.bank.services.buisness.logic.AccountService;
 import com.revature.bank.services.buisness.logic.AccountTransactionService;
 import com.revature.bank.services.buisness.logic.PermissionRankService;
 import com.revature.bank.services.handlers.AccountHandler;
@@ -25,7 +24,6 @@ public class DataPopulation {
 	private PermissionRankService rankService = new PermissionRankService();
 	private PermissionRankHandler rankHandler = new PermissionRankHandler();
 	private AccountHandler accountHandler = new AccountHandler();
-	private AccountService accountService = new AccountService();
 	private AccountOwnershipHandler ownHandler = new AccountOwnershipHandler();
 	private AccountTransactionService tranService = new AccountTransactionService();
 	private Person george;

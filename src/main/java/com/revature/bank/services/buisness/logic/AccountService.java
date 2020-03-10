@@ -11,15 +11,15 @@ import com.revature.bank.services.helpers.MenuHelper;
 import com.revature.bank.services.helpers.ScannerSingleton;
 
 public class AccountService {
-	private static AccountHandler accountHandler;
+	private AccountHandler accountHandler;
 	private Scanner s = ScannerSingleton.getScanner();
 	public AccountService() {
 		super();
-		AccountService.accountHandler = new AccountHandler();
+		this.accountHandler = new AccountHandler();
 	}
 	public AccountService(AccountHandler accountHandler) {
 		super();
-		AccountService.accountHandler = accountHandler;
+		this.accountHandler = accountHandler;
 	}
 	public Account deactiveateAccount(Account account) throws ForceCloseThread, ReturnMainMenu {
 		Account result = null;

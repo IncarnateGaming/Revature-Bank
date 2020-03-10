@@ -4,15 +4,19 @@ import java.util.List;
 
 import com.revature.bank.exceptions.ForceCloseThread;
 import com.revature.bank.exceptions.ReturnMainMenu;
+import com.revature.bank.model.AccountRequest;
 import com.revature.bank.model.AccountType;
 import com.revature.bank.model.Person;
+import com.revature.bank.services.buisness.logic.AccountRequestUserService;
 import com.revature.bank.services.buisness.logic.AssociatePersonService;
+import com.revature.bank.services.handlers.AccountRequestHandler;
 import com.revature.bank.services.handlers.AccountTypeHandler;
 import com.revature.bank.services.handlers.PersonHandler;
 import com.revature.bank.services.helpers.MenuHelper;
 
 public class RequestAccountsMenu extends AbstractMenu {
 	private AccountTypeHandler accountTypeHandler = new AccountTypeHandler();
+	private AccountRequestUserService accountRequestUserService = new AccountRequestUserService();
 	private PersonHandler personHandler = new PersonHandler();
 	public RequestAccountsMenu(MainMenu mainMenu) {
 		super();
@@ -33,7 +37,9 @@ public class RequestAccountsMenu extends AbstractMenu {
 				System.out.println("Invalid Integer, please enter the id for an account type.");
 			}
 		}while(accountType == null && !accountTypes.isEmpty());
-		//TODO add account request creation
+		AccountRequest accountRequest = new AccountRequest(accountType.getId());
+		accountRequest = new AccountRequestHandler().create(accountRequest);
+		accountRequestUserService.addUserToRequest(accountRequest, getMainMenu().getPerson());
 		List<Person> associates = new AssociatePersonService().getPeople(getMainMenu().getPerson());
 		String input = "-1";
 		while (input.equals("0") && !associates.isEmpty()) {
@@ -47,6 +53,7 @@ public class RequestAccountsMenu extends AbstractMenu {
 			if (!(input.equals("0")||input.equals("-1"))) {
 				Person personToAdd = personHandler.get(input);
 				if(personToAdd != null) {
+					accountRequestUserService.addUserToRequest(accountRequest, personToAdd);
 					System.out.println(personToAdd.getFirstName() + " " + personToAdd.getLastName() + 
 							" added to your new account.");
 				}else {

@@ -11,9 +11,12 @@ public class AccountRequest implements Serializable {
 		private int accountTypeId;
 		private Date creationDate;
 	//SECTION: constructors
-		public AccountRequest(int accountTypeId, Date date) {
+		public AccountRequest(int accountTypeId) {
 			super();
 			setAccountTypeId(accountTypeId);
+		}
+		public AccountRequest(int accountTypeId, Date date) {
+			this(accountTypeId);
 			setCreationDate(date);
 		}
 	//SECTION: getters & setters
