@@ -96,6 +96,12 @@ public class AccountRequestUsersDAOImpl implements AccountRequestUsersDAO {
 		return result;
 	}
 	@Override
+	public boolean check(AccountRequest accountRequest, Person person) {
+		boolean result = false;
+		if(get(accountRequest,person) != null)result = true;
+		return result;
+	}
+	@Override
 	public AccountRequestUsers get(AccountRequest accountRequest, Person person) {
 		return get(accountRequest.getId(), person.getId());
 	}

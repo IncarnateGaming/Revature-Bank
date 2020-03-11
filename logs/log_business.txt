@@ -28,3 +28,105 @@
 2020-03-11 00:46:25 INFO  businessLog:70 - $500.00 withdrawn from account number: 1111135
 2020-03-11 00:46:26 INFO  businessLog:108 - $6,000.00 transfered from account number: 1111137 to account number: 1111136
 2020-03-11 00:46:27 INFO  businessLog:108 - $365.21 transfered from account number: 1111134 to account number: 1111132
+2020-03-11 07:25:55 INFO  businessLog:48 - $500.00 deposited into account number: 1111115
+2020-03-11 07:25:56 INFO  businessLog:48 - $19,500.00 deposited into account number: 1111116
+2020-03-11 07:25:56 INFO  businessLog:48 - $1,500.00 deposited into account number: 1111117
+2020-03-11 07:25:56 INFO  businessLog:48 - $3,500.00 deposited into account number: 1111119
+2020-03-11 07:25:57 INFO  businessLog:48 - $150,000.00 deposited into account number: 1111120
+2020-03-11 07:25:58 INFO  businessLog:70 - $321.59 withdrawn from account number: 1111115
+2020-03-11 07:26:00 INFO  businessLog:70 - $19.24 withdrawn from account number: 1111117
+2020-03-11 07:26:01 INFO  businessLog:70 - $500.00 withdrawn from account number: 1111118
+2020-03-11 07:26:02 INFO  businessLog:108 - $6,000.00 transfered from account number: 1111120 to account number: 1111119
+2020-03-11 07:26:04 INFO  businessLog:108 - $365.21 transfered from account number: 1111117 to account number: 1111115
+2020-03-11 07:47:13 INFO  businessLog:48 - $500.00 deposited into account number: 1111125
+2020-03-11 07:47:13 INFO  businessLog:48 - $19,500.00 deposited into account number: 1111126
+2020-03-11 07:47:13 INFO  businessLog:48 - $1,500.00 deposited into account number: 1111127
+2020-03-11 07:47:14 INFO  businessLog:48 - $3,500.00 deposited into account number: 1111129
+2020-03-11 07:47:14 INFO  businessLog:48 - $150,000.00 deposited into account number: 1111130
+2020-03-11 07:47:15 INFO  businessLog:70 - $321.59 withdrawn from account number: 1111125
+2020-03-11 07:47:17 INFO  businessLog:70 - $19.24 withdrawn from account number: 1111127
+2020-03-11 07:47:18 INFO  businessLog:70 - $500.00 withdrawn from account number: 1111128
+2020-03-11 07:47:19 INFO  businessLog:108 - $6,000.00 transfered from account number: 1111130 to account number: 1111129
+2020-03-11 07:47:20 INFO  businessLog:108 - $365.21 transfered from account number: 1111127 to account number: 1111125
+2020-03-11 07:48:33 INFO  businessLog:48 - $500.00 deposited into account number: 1111135
+2020-03-11 07:48:34 INFO  businessLog:48 - $19,500.00 deposited into account number: 1111136
+2020-03-11 07:48:34 INFO  businessLog:48 - $1,500.00 deposited into account number: 1111137
+2020-03-11 07:48:34 INFO  businessLog:48 - $3,500.00 deposited into account number: 1111139
+2020-03-11 07:48:35 INFO  businessLog:48 - $150,000.00 deposited into account number: 1111140
+2020-03-11 07:48:36 INFO  businessLog:70 - $321.59 withdrawn from account number: 1111135
+2020-03-11 07:48:37 INFO  businessLog:70 - $19.24 withdrawn from account number: 1111137
+2020-03-11 07:48:39 INFO  businessLog:70 - $500.00 withdrawn from account number: 1111138
+2020-03-11 07:48:40 INFO  businessLog:108 - $6,000.00 transfered from account number: 1111140 to account number: 1111139
+2020-03-11 07:48:41 INFO  businessLog:108 - $365.21 transfered from account number: 1111137 to account number: 1111135
+2020-03-11 08:17:48 INFO  businessLog:48 - $500.00 deposited into account number: 1111148
+2020-03-11 08:17:48 INFO  businessLog:48 - $19,500.00 deposited into account number: 1111149
+2020-03-11 08:17:48 INFO  businessLog:48 - $1,500.00 deposited into account number: 1111150
+2020-03-11 08:17:49 INFO  businessLog:48 - $3,500.00 deposited into account number: 1111152
+2020-03-11 08:17:49 INFO  businessLog:48 - $150,000.00 deposited into account number: 1111153
+2020-03-11 08:17:50 INFO  businessLog:70 - $321.59 withdrawn from account number: 1111148
+2020-03-11 08:17:51 INFO  businessLog:70 - $19.24 withdrawn from account number: 1111150
+2020-03-11 08:17:52 INFO  businessLog:70 - $500.00 withdrawn from account number: 1111151
+2020-03-11 08:17:54 INFO  businessLog:108 - $6,000.00 transfered from account number: 1111153 to account number: 1111152
+2020-03-11 08:17:55 INFO  businessLog:108 - $365.21 transfered from account number: 1111150 to account number: 1111148
+2020-03-11 08:25:19 INFO  businessLog:78 - $15.32 withdrawn from account number: 1111161 This account is currently overdrawn.
+2020-03-11 08:25:24 INFO  businessLog:116 - $15.32 transfered from account number: 1111161 to account number: 1111160 The origin account is currently overdrawn.
+2020-03-11 08:26:00 INFO  businessLog:78 - $15.32 withdrawn from account number: 1111164 This account is currently overdrawn.
+2020-03-11 08:26:05 INFO  businessLog:116 - $15.32 transfered from account number: 1111164 to account number: 1111163 The origin account is currently overdrawn.
+2020-03-11 08:26:32 INFO  businessLog:48 - $500.00 deposited into account number: 1111170
+2020-03-11 08:26:32 INFO  businessLog:48 - $19,500.00 deposited into account number: 1111171
+2020-03-11 08:26:33 INFO  businessLog:48 - $1,500.00 deposited into account number: 1111172
+2020-03-11 08:26:33 INFO  businessLog:48 - $3,500.00 deposited into account number: 1111174
+2020-03-11 08:26:33 INFO  businessLog:48 - $150,000.00 deposited into account number: 1111175
+2020-03-11 08:26:35 INFO  businessLog:70 - $321.59 withdrawn from account number: 1111170
+2020-03-11 08:26:36 INFO  businessLog:70 - $19.24 withdrawn from account number: 1111172
+2020-03-11 08:26:37 INFO  businessLog:70 - $500.00 withdrawn from account number: 1111173
+2020-03-11 08:26:38 INFO  businessLog:108 - $6,000.00 transfered from account number: 1111175 to account number: 1111174
+2020-03-11 08:26:39 INFO  businessLog:108 - $365.21 transfered from account number: 1111172 to account number: 1111170
+2020-03-11 08:37:00 INFO  businessLog:78 - $15.32 withdrawn from account number: 1111177 This account is currently overdrawn.
+2020-03-11 08:37:05 INFO  businessLog:116 - $15.32 transfered from account number: 1111177 to account number: 1111176 The origin account is currently overdrawn.
+2020-03-11 08:37:18 INFO  businessLog:27 - Account: 1111181 approved and created.
+2020-03-11 08:37:19 INFO  businessLog:31 - Bugs added to account: 1111181
+2020-03-11 08:37:19 INFO  businessLog:31 - Rudolph added to account: 1111181
+2020-03-11 08:37:24 INFO  businessLog:27 - Account: 1111182 approved and created.
+2020-03-11 08:37:24 INFO  businessLog:31 - Bugs added to account: 1111182
+2020-03-11 08:37:25 INFO  businessLog:31 - Rudolph added to account: 1111182
+2020-03-11 08:37:50 INFO  businessLog:48 - $500.00 deposited into account number: 1111185
+2020-03-11 08:37:50 INFO  businessLog:48 - $19,500.00 deposited into account number: 1111186
+2020-03-11 08:37:51 INFO  businessLog:48 - $1,500.00 deposited into account number: 1111187
+2020-03-11 08:37:51 INFO  businessLog:48 - $3,500.00 deposited into account number: 1111189
+2020-03-11 08:37:52 INFO  businessLog:48 - $150,000.00 deposited into account number: 1111190
+2020-03-11 08:37:53 INFO  businessLog:70 - $321.59 withdrawn from account number: 1111185
+2020-03-11 08:37:54 INFO  businessLog:70 - $19.24 withdrawn from account number: 1111187
+2020-03-11 08:37:56 INFO  businessLog:70 - $500.00 withdrawn from account number: 1111188
+2020-03-11 08:37:57 INFO  businessLog:108 - $6,000.00 transfered from account number: 1111190 to account number: 1111189
+2020-03-11 08:37:58 INFO  businessLog:108 - $365.21 transfered from account number: 1111187 to account number: 1111185
+2020-03-11 08:42:33 INFO  businessLog:27 - Account: 1111193 approved and created.
+2020-03-11 08:42:34 INFO  businessLog:31 - Bugs added to account: 1111193
+2020-03-11 08:42:34 INFO  businessLog:31 - Rudolph added to account: 1111193
+2020-03-11 08:42:38 INFO  businessLog:27 - Account: 1111194 approved and created.
+2020-03-11 08:42:39 INFO  businessLog:31 - Bugs added to account: 1111194
+2020-03-11 08:42:40 INFO  businessLog:31 - Rudolph added to account: 1111194
+2020-03-11 08:43:00 INFO  businessLog:78 - $15.32 withdrawn from account number: 1111198 This account is currently overdrawn.
+2020-03-11 08:43:05 INFO  businessLog:116 - $15.32 transfered from account number: 1111198 to account number: 1111197 The origin account is currently overdrawn.
+2020-03-11 08:43:27 INFO  businessLog:48 - $500.00 deposited into account number: 1111200
+2020-03-11 08:43:28 INFO  businessLog:48 - $19,500.00 deposited into account number: 1111201
+2020-03-11 08:43:28 INFO  businessLog:48 - $1,500.00 deposited into account number: 1111202
+2020-03-11 08:43:29 INFO  businessLog:48 - $3,500.00 deposited into account number: 1111204
+2020-03-11 08:43:29 INFO  businessLog:48 - $150,000.00 deposited into account number: 1111205
+2020-03-11 08:43:31 INFO  businessLog:70 - $321.59 withdrawn from account number: 1111200
+2020-03-11 08:43:32 INFO  businessLog:70 - $19.24 withdrawn from account number: 1111202
+2020-03-11 08:43:33 INFO  businessLog:70 - $500.00 withdrawn from account number: 1111203
+2020-03-11 08:43:34 INFO  businessLog:108 - $6,000.00 transfered from account number: 1111205 to account number: 1111204
+2020-03-11 08:43:35 INFO  businessLog:108 - $365.21 transfered from account number: 1111202 to account number: 1111200
+2020-03-11 08:47:59 INFO  businessLog:78 - $15.32 withdrawn from account number: 1111211 This account is currently overdrawn.
+2020-03-11 08:48:04 INFO  businessLog:116 - $15.32 transfered from account number: 1111211 to account number: 1111210 The origin account is currently overdrawn.
+2020-03-11 08:48:29 INFO  businessLog:48 - $500.00 deposited into account number: 1111213
+2020-03-11 08:48:29 INFO  businessLog:48 - $19,500.00 deposited into account number: 1111214
+2020-03-11 08:48:30 INFO  businessLog:48 - $1,500.00 deposited into account number: 1111215
+2020-03-11 08:48:30 INFO  businessLog:48 - $3,500.00 deposited into account number: 1111217
+2020-03-11 08:48:31 INFO  businessLog:48 - $150,000.00 deposited into account number: 1111218
+2020-03-11 08:48:32 INFO  businessLog:70 - $321.59 withdrawn from account number: 1111213
+2020-03-11 08:48:34 INFO  businessLog:70 - $19.24 withdrawn from account number: 1111215
+2020-03-11 08:48:35 INFO  businessLog:70 - $500.00 withdrawn from account number: 1111216
+2020-03-11 08:48:36 INFO  businessLog:108 - $6,000.00 transfered from account number: 1111218 to account number: 1111217
+2020-03-11 08:48:38 INFO  businessLog:108 - $365.21 transfered from account number: 1111215 to account number: 1111213

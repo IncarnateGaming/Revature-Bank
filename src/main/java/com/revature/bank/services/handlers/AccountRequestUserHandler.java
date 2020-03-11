@@ -25,6 +25,9 @@ public class AccountRequestUserHandler {
 	public List<Integer> list(Person person){
 		return repository.list(person);
 	}
+	public boolean check(AccountRequest accountRequest, Person person) {
+		return repository.check(accountRequest, person);
+	}
 	public AccountRequestUsers get(AccountRequest accountRequest, Person person) {
 		return repository.get(accountRequest, person);
 	}

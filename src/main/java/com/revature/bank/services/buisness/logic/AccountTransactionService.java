@@ -64,7 +64,7 @@ public class AccountTransactionService {
 			Account officialAccount = getAccountHandler().get(account.getId());
 			AccountType officialAccountType = getAccountTypeHandler().get(officialAccount.getAccountTypeId());
 			double futureValue = officialAccount.getBalance() - value;
-			if(futureValue >= officialAccountType.getMinBalance() + officialAccount.getOverdraftProtection()) {
+			if(futureValue >= (officialAccountType.getMinBalance() - officialAccount.getOverdraftProtection())) {
 				if(futureValue >= officialAccountType.getMinBalance()) {
 					result = tranHandler.createWithdraw(officialAccount, value);
 					LoggerSingleton.getBusinessLog().info(MathHelper.doubleTextOut(value) + " withdrawn from "
@@ -102,7 +102,7 @@ public class AccountTransactionService {
 			Account officialAccount = getAccountHandler().get(originAccount.getId());
 			AccountType officialAccountType = getAccountTypeHandler().get(officialAccount.getAccountTypeId());
 			double futureValue = officialAccount.getBalance() - value;
-			if(futureValue >= officialAccountType.getMinBalance() + officialAccount.getOverdraftProtection()) {
+			if(futureValue >= (officialAccountType.getMinBalance() - officialAccount.getOverdraftProtection())) {
 				if(futureValue >= officialAccountType.getMinBalance()) {
 					result =  tranHandler.createTransfer(officialAccount, targetAccount, value);
 					LoggerSingleton.getBusinessLog().info(MathHelper.doubleTextOut(value) + " transfered from "

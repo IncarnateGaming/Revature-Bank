@@ -12,6 +12,7 @@ public interface AccountRequestUsersDAO {
 	List<AccountRequestUsers> list();
 	List<Integer> list(AccountRequest accountRequest);
 	List<Integer> list(Person person);
+	boolean check(AccountRequest accountRequest, Person person);
 	AccountRequestUsers get(AccountRequest accountRequest, Person person);
 	AccountRequestUsers get(int accountId, int personId);
 
