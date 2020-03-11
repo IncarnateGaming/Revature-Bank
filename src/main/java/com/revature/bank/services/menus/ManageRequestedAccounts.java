@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.revature.bank.exceptions.ForceCloseThread;
 import com.revature.bank.exceptions.ReturnMainMenu;
-import com.revature.bank.model.Account;
-import com.revature.bank.services.handlers.AccountHandler;
+import com.revature.bank.model.AccountRequest;
+import com.revature.bank.services.handlers.AccountRequestHandler;
 import com.revature.bank.services.helpers.MenuHelper;
 
 public class ManageRequestedAccounts extends AbstractMenu {
 
-	List<Account> listAccounts;
+	List<AccountRequest> listRequests;
 	public ManageRequestedAccounts(MainMenu mainMenu) {
 		super();
 		setMainMenu(mainMenu);
@@ -20,13 +20,11 @@ public class ManageRequestedAccounts extends AbstractMenu {
 	AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
 		AbstractMenu result = null;
 		do {
-			if(listAccounts == null) {
-				listAccounts = new AccountHandler().list();
+			if(listRequests == null) {
+				this.listRequests = new AccountRequestHandler().list();
 			}
-			if(!listAccounts.isEmpty()) {
-				for(Account account : listAccounts) {
-					account.toString();
-				}
+			for(AccountRequest request : listRequests) {
+				System.out.println(request.toString());
 			}
 			System.out.println("Press 1 to Enter an account request to manage. Press 0 to return to previous menu.");
 			setInput(MenuHelper.inputPositiveInt(s));

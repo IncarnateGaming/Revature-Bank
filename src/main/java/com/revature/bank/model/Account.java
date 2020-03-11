@@ -125,10 +125,11 @@ public class Account implements Serializable{
 	}
 	
 	//SECTION: toString
-
 	@Override
 	public String toString() {
 		return "Account [id=" + id + ", accountTypeId=" + accountTypeId + ", balance=" + balance
-				+ ", overdraftProtection=" + overdraftProtection + "]";
+				+ ", overdraftProtection=" + overdraftProtection + ", active=" + active + ", accountType=" + accountType
+				+ "]";
 	}
+
 }

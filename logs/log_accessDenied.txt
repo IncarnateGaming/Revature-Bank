@@ -1,9 +1,0 @@
-2020-03-10 22:52:21 WARN  accessDeniedLog:48 - Person [id=2, firstName=Bugs, lastName=Bunny, socialSecurityNumber=null, standing=0, password=SecurePassword1, city=0, address=0, username=Bugs] just attempted to access Account [id=1111111, accountTypeId=1, balance=543.62, overdraftProtection=0]
-com.revature.bank.exceptions.AccessDenied
-	at com.revature.bank.services.menus.AccountMenu.menuFactory(AccountMenu.java:47)
-	at com.revature.bank.services.menus.MainMenu.runMenu(MainMenu.java:53)
-	at com.revature.bank.services.menus.MainMenu.runMenu(MainMenu.java:55)
-	at com.revature.bank.services.menus.MainMenu.runMenu(MainMenu.java:55)
-	at com.revature.bank.services.menus.MainMenu.runMenu(MainMenu.java:55)
-	at com.revature.bank.services.menus.MainMenu.run(MainMenu.java:66)
-	at java.lang.Thread.run(Unknown Source)

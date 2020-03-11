@@ -3,12 +3,10 @@ package com.revature.bank.services.menus;
 import com.revature.bank.exceptions.ForceCloseThread;
 import com.revature.bank.exceptions.ReturnMainMenu;
 import com.revature.bank.model.AccountRequest;
-import com.revature.bank.services.buisness.logic.PermissionRankService;
 import com.revature.bank.services.buisness.logic.ProcessAccountRequest;
 import com.revature.bank.services.handlers.AccountRequestHandler;
 import com.revature.bank.services.handlers.AccountTypeHandler;
 import com.revature.bank.services.helpers.MenuHelper;
-import com.revature.bank.services.helpers.PermissionRankHelper;
 
 public class ManageRequestedAccount extends AbstractMenu {
 
@@ -43,17 +41,10 @@ public class ManageRequestedAccount extends AbstractMenu {
 //				AbstractMenu requestersAccounts = new ListAccountsMenu(accountRequestHandling.getPerson(accountRequest));
 //				result = new ListAccountsMenu(getMainMenu());
 				break;
-			case 4:
-				if(new PermissionRankService().containsPermission(PermissionRankHelper.getCustomer(), getMainMenu().getPermissions())) {
-//					result = new ListAccountsMenu(getMainMenu(),getMainMenu().getPerson());
-				}else {
-					unsupportedInteger();
-				}
-				break;
 			default:
 				unsupportedInteger();
 			}
-		}while(getInput()!=0 && (result == null));
+		}while(getInput()!=0 && getInput() != 1 && getInput() != 2 && (result == null));
 		return null;
 	}
 

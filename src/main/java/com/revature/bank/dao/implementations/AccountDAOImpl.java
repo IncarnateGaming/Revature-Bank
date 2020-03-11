@@ -81,7 +81,7 @@ public class AccountDAOImpl implements AccountDAO {
 		}catch(SQLException e) {
 			LoggerSingleton.getLogger().warn("Failed to get accounts",e);
 		}
-		return null;
+		return list;
 	}
 	public List<Account> listJoin(){
 		List<Account> list = new ArrayList<>();
@@ -163,10 +163,11 @@ public class AccountDAOImpl implements AccountDAO {
 					+ "SET account_type = ?, balance = ?, overdraft_protection = ?, active = ?"
 					+ "WHERE ADMIN.ACCOUNT.account_id = ?";
 			try(PreparedStatement stmt = conn.prepareStatement(sql)){
-				stmt.setDouble(1, accountToUpdate.getBalance());
-				stmt.setInt(2, accountToUpdate.getOverdraftProtection());
-				stmt.setInt(3, accountToUpdate.getActive() ? 1 : 0);
-				stmt.setInt(4, accountToUpdate.getId());
+				stmt.setInt(1, accountToUpdate.getAccountTypeId());
+				stmt.setDouble(2, accountToUpdate.getBalance());
+				stmt.setInt(3, accountToUpdate.getOverdraftProtection());
+				stmt.setInt(4, accountToUpdate.getActive() ? 1 : 0);
+				stmt.setInt(5, accountToUpdate.getId());
 				int rs = stmt.executeUpdate();
 				if (rs > 0) {
 					result = accountToUpdate;
@@ -174,7 +175,7 @@ public class AccountDAOImpl implements AccountDAO {
 			}
 			DAOUtilities.commit(conn);
 		}catch(SQLException e) {
-			LoggerSingleton.getLogger().warn("Failed to create account",e);
+			LoggerSingleton.getLogger().warn("Failed to update account",e);
 		}
 		return result;
 	}

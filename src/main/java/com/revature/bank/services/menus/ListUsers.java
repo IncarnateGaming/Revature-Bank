@@ -18,7 +18,7 @@ public class ListUsers extends AbstractMenu {
 	@Override
 	AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
 		for(Person per : list) {
-			per.toString();
+			System.out.println(per.toString());
 		}
 		return null;
 	}

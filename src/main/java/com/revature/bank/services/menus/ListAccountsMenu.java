@@ -29,12 +29,12 @@ public class ListAccountsMenu extends AbstractMenu {
 		do {
 			if(accounts == null) {
 				if(owner != null) {
-					accounts = accountHandler.list(owner);
+					this.accounts = accountHandler.list(owner);
 				}else {
-					accounts = accountHandler.list();
+					this.accounts = accountHandler.list();
 				}
 			}
-			if(accounts != null && !accounts.isEmpty()) {
+			if(this.accounts != null && !this.accounts.isEmpty()) {
 				for(Account account : accounts) {
 					System.out.println(account.toString());
 				}

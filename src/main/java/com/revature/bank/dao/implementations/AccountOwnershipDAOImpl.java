@@ -123,6 +123,8 @@ public class AccountOwnershipDAOImpl implements AccountOwnershipDAO {
 	
 	@Override
 	public boolean checkOwned(Account account, Person person) {
+		if (account == null || account.getId() == 0)return false;
+		if (person == null || person.getId() == 0)return false;
 		boolean result = false;
 		try (Connection conn = DAOUtilities.getConnection()){
 			String sql = "SELECT MIN(ownership_id) FROM ADMIN.ACCOUNT_OWNERSHIP_JT "

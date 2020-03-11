@@ -42,7 +42,7 @@ public class RequestAccountsMenu extends AbstractMenu {
 		accountRequestUserService.addUserToRequest(accountRequest, getMainMenu().getPerson());
 		List<Person> associates = new AssociatePersonService().getPeople(getMainMenu().getPerson());
 		String input = "-1";
-		while (input.equals("0") && !associates.isEmpty()) {
+		while (!input.equals("0") && !associates.isEmpty()) {
 			System.out.println("Known associates:");
 			for (Person per : associates) {
 				System.out.println(per.toString());

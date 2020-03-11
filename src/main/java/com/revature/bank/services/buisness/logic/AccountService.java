@@ -29,7 +29,19 @@ public class AccountService {
 			Account officialAccount = accountHandler.get(account.getId());
 			officialAccount.setActive(false);
 			result = accountHandler.update(officialAccount);
-			LoggerSingleton.getLogger().info("Deactivated account number: " + officialAccount.getId());
+			LoggerSingleton.getBusinessLog().info("Deactivated account number: " + officialAccount.getId());
+		}
+		return result;
+	}
+	public Account reactivateAccount(Account account) throws ForceCloseThread, ReturnMainMenu {
+		Account result = null;
+		System.out.println("Are you sure you want to reactivate this account?(Y/N)");
+		boolean confirmation = MenuHelper.inputYN(s);
+		if (confirmation) {
+			Account officialAccount = accountHandler.get(account.getId());
+			officialAccount.setActive(true);
+			result = accountHandler.update(officialAccount);
+			LoggerSingleton.getBusinessLog().info("Reactivated account number: " + officialAccount.getId());
 		}
 		return result;
 	}
