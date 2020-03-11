@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.revature.bank.dao.DAOUtilities;
 import com.revature.bank.dao.interfaces.AccountRequestUsersDAO;
-import com.revature.bank.model.Account;
+import com.revature.bank.model.AccountRequest;
 import com.revature.bank.model.AccountRequestUsers;
 import com.revature.bank.model.Person;
 
@@ -19,14 +19,14 @@ public class AccountRequestUserHandler {
 	public List<AccountRequestUsers> list() {
 		return repository.list();
 	}
-	public List<Integer> list(Account account){
-		return repository.list(account);
+	public List<Integer> list(AccountRequest accountRequest){
+		return repository.list(accountRequest);
 	}
 	public List<Integer> list(Person person){
 		return repository.list(person);
 	}
-	public AccountRequestUsers get(Account account, Person person) {
-		return repository.get(account, person);
+	public AccountRequestUsers get(AccountRequest accountRequest, Person person) {
+		return repository.get(accountRequest, person);
 	}
 	public AccountRequestUsers get(int accountId, int personId) {
 		return repository.get(accountId, personId);
@@ -36,5 +36,8 @@ public class AccountRequestUserHandler {
 	}
 	public boolean delete(int accId, int perId) {
 		return repository.delete(accId, perId);
+	}
+	public boolean delete(int accId) {
+		return repository.delete(accId);
 	}
 }

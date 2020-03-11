@@ -2,7 +2,6 @@ package com.revature.bank.services.menus;
 
 import com.revature.bank.exceptions.ForceCloseThread;
 import com.revature.bank.exceptions.ReturnMainMenu;
-import com.revature.bank.model.PermissionRank;
 import com.revature.bank.services.buisness.logic.PermissionRankService;
 import com.revature.bank.services.helpers.MenuHelper;
 import com.revature.bank.services.helpers.PermissionRankHelper;

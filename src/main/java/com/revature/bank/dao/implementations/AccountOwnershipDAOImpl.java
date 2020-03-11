@@ -72,9 +72,9 @@ public class AccountOwnershipDAOImpl implements AccountOwnershipDAO {
 	public List<AccountOwnership> list(int userId) {
 		List<AccountOwnership> list = new ArrayList<>();
 		try (Connection conn = DAOUtilities.getConnection()){
-			String sql = "SELECT * FROM ADMIN.ACCOUNT_OWNERSHIP_JT"
-					+ "INNER JOIN ADMIN.PERSON"
-					+ "ON ADMIN.PERSON.person_id = ADMIN.ACCOUNT_OWNERSHIP_JT.owner"
+			String sql = "SELECT * FROM ADMIN.ACCOUNT_OWNERSHIP_JT "
+					+ "INNER JOIN ADMIN.PERSON "
+					+ "ON ADMIN.PERSON.person_id = ADMIN.ACCOUNT_OWNERSHIP_JT.owner "
 					+ "WHERE ADMIN.PERSON.person_id = ?";
 			try(PreparedStatement stmt = conn.prepareStatement(sql)){
 				stmt.setInt(1, userId);

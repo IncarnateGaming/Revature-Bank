@@ -1,12 +1,16 @@
 package com.revature.bank.services.menus;
 
+import java.util.List;
+
 import com.revature.bank.exceptions.ForceCloseThread;
 import com.revature.bank.exceptions.ReturnMainMenu;
-import com.revature.bank.model.PermissionRank;
+import com.revature.bank.model.Account;
+import com.revature.bank.services.handlers.AccountHandler;
 import com.revature.bank.services.helpers.MenuHelper;
 
 public class ManageRequestedAccounts extends AbstractMenu {
 
+	List<Account> listAccounts;
 	public ManageRequestedAccounts(MainMenu mainMenu) {
 		super();
 		setMainMenu(mainMenu);
@@ -16,17 +20,21 @@ public class ManageRequestedAccounts extends AbstractMenu {
 	AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
 		AbstractMenu result = null;
 		do {
-		// Print out top 10 Account Requests
-			System.out.println("Press 1 to Enter an account request to manage, 2 to display next set of results. Press 0 to return to previous menu.");
+			if(listAccounts == null) {
+				listAccounts = new AccountHandler().list();
+			}
+			if(!listAccounts.isEmpty()) {
+				for(Account account : listAccounts) {
+					account.toString();
+				}
+			}
+			System.out.println("Press 1 to Enter an account request to manage. Press 0 to return to previous menu.");
 			setInput(MenuHelper.inputPositiveInt(s));
 			switch(getInput()) {
 			case 0:
 				break;
 			case 1:
 				result = manageAccountRequest();
-				break;
-			case 2:
-				//ToDo, display next 10
 				break;
 			default:
 				unsupportedInteger();

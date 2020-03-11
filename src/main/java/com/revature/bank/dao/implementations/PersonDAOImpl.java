@@ -134,7 +134,7 @@ public class PersonDAOImpl implements PersonDAO {
 	public Person update(Person personToUpdate) {
 		Person result = null;
 		try (Connection conn = DAOUtilities.getConnection()){
-			String sql = "UPDATE ADMIN.Person "
+			String sql = "UPDATE ADMIN.PERSON "
 					+ "SET first_name = ?, last_name = ?, social_sec_num = ?, standing = ?, "
 					+ "password = ?, city = ?, address = ?, username = ?"
 					+ "WHERE ADMIN.PERSON.person_id = ?";

@@ -6,12 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.bank.dao.DAOUtilities;
 import com.revature.bank.dao.interfaces.AccountRequestUsersDAO;
-import com.revature.bank.model.Account;
+import com.revature.bank.model.AccountRequest;
 import com.revature.bank.model.AccountRequestUsers;
 import com.revature.bank.model.Person;
 import com.revature.bank.services.helpers.LoggerSingleton;
@@ -22,10 +23,11 @@ public class AccountRequestUsersDAOImpl implements AccountRequestUsersDAO {
 	public AccountRequestUsers create(AccountRequestUsers accountRequestUsersToCreate) {
 		AccountRequestUsers result = null;
 		try (Connection conn = DAOUtilities.getConnection()){
-			String sql = "call admin.create_account_req_users_jt(?,?)";
+			String sql = "call admin.create_account_req_users_jt(?,?,?)";
 			try(CallableStatement stmt = conn.prepareCall(sql)){
 				stmt.setInt(1, accountRequestUsersToCreate.getPersonId());
 				stmt.setInt(2, accountRequestUsersToCreate.getAccountRequestId());
+				stmt.registerOutParameter(3, Types.INTEGER);
 				stmt.execute();
 				result = accountRequestUsersToCreate;
 			}
@@ -56,13 +58,13 @@ public class AccountRequestUsersDAOImpl implements AccountRequestUsersDAO {
 	}
 
 	@Override
-	public List<Integer> list(Account account){
+	public List<Integer> list(AccountRequest accountRequest){
 		List<Integer> result = new ArrayList<>();
 		try (Connection conn = DAOUtilities.getConnection()){
 			String sql = "SELECT person FROM ADMIN.ACCOUNT_REQUEST_USERS_JT "
 					+ "WHERE acc_request = ?";
 			try(PreparedStatement stmt = conn.prepareStatement(sql)){
-				stmt.setInt(1, account.getId());
+				stmt.setInt(1, accountRequest.getId());
 				try(ResultSet rs = stmt.executeQuery()){
 					while(rs.next()) {
 						result.add(rs.getInt("person"));
@@ -94,8 +96,8 @@ public class AccountRequestUsersDAOImpl implements AccountRequestUsersDAO {
 		return result;
 	}
 	@Override
-	public AccountRequestUsers get(Account account, Person person) {
-		return get(account.getId(), person.getId());
+	public AccountRequestUsers get(AccountRequest accountRequest, Person person) {
+		return get(accountRequest.getId(), person.getId());
 	}
 	@Override
 	public AccountRequestUsers get(int accountId, int personId) {
@@ -132,6 +134,25 @@ public class AccountRequestUsersDAOImpl implements AccountRequestUsersDAO {
 			try(PreparedStatement stmt = conn.prepareStatement(sql)){
 				stmt.setInt(1, accId);
 				stmt.setInt(2, perId);
+				int rs = stmt.executeUpdate();
+				if (rs > 0) {
+					result = true;
+				}
+			}
+		}catch(SQLException e) {
+			LoggerSingleton.getLogger().warn("Failed to delete account request user.",e);
+		}
+		return result;
+	}
+
+	@Override
+	public boolean delete(int accId) {
+		Boolean result = false;
+		try (Connection conn = DAOUtilities.getConnection()){
+			String sql = "DELETE FROM ADMIN.ACCOUNT_REQUEST_USERS_JT "
+					+ "WHERE acc_request = ?";
+			try(PreparedStatement stmt = conn.prepareStatement(sql)){
+				stmt.setInt(1, accId);
 				int rs = stmt.executeUpdate();
 				if (rs > 0) {
 					result = true;

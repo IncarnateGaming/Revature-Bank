@@ -6,6 +6,7 @@ import com.revature.bank.model.AccountRequest;
 import com.revature.bank.services.buisness.logic.PermissionRankService;
 import com.revature.bank.services.buisness.logic.ProcessAccountRequest;
 import com.revature.bank.services.handlers.AccountRequestHandler;
+import com.revature.bank.services.handlers.AccountTypeHandler;
 import com.revature.bank.services.helpers.MenuHelper;
 import com.revature.bank.services.helpers.PermissionRankHelper;
 
@@ -21,9 +22,12 @@ public class ManageRequestedAccount extends AbstractMenu {
 	@Override
 	AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
 		AbstractMenu result = null;
+		System.out.println(new AccountTypeHandler().get(accountRequest.getAccountTypeId()).toString());
 		//Display relevant information
 		do {
-			System.out.println("Press 1 to approve, 2 to reject, 3 to view all accounts controlled by this person.");
+			System.out.println("Press 1 to approve, 2 to reject"
+//					+ ", 3 to view all accounts controlled by this person"
+					+ ". Press 0 to return to previous menu.");
 			setInput(MenuHelper.inputPositiveInt(s));
 			switch(getInput()) {
 			case 0:
@@ -35,6 +39,7 @@ public class ManageRequestedAccount extends AbstractMenu {
 				ProcessAccountRequest.reject(accountRequest);
 				break;
 			case 3:
+				unsupportedInteger();
 //				AbstractMenu requestersAccounts = new ListAccountsMenu(accountRequestHandling.getPerson(accountRequest));
 //				result = new ListAccountsMenu(getMainMenu());
 				break;

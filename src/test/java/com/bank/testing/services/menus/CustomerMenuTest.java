@@ -9,12 +9,12 @@ import org.junit.Test;
 import com.bank.testing.TestingHelper;
 import com.revature.bank.exceptions.ForceCloseThread;
 import com.revature.bank.exceptions.ReturnMainMenu;
-import com.revature.bank.services.menus.CreateAccountMenu;
 import com.revature.bank.services.menus.CustomerMenu;
 import com.revature.bank.services.menus.ListAccountsMenu;
 import com.revature.bank.services.menus.ListAssociatedAccountsMenu;
 import com.revature.bank.services.menus.MainMenu;
 import com.revature.bank.services.menus.ModifyUserMenu;
+import com.revature.bank.services.menus.NewPersonMenu;
 import com.revature.bank.services.menus.RequestAccountsMenu;
 
 public class CustomerMenuTest {
@@ -44,7 +44,7 @@ public class CustomerMenuTest {
 	@Test
 	public void CreateAccountTest() throws ForceCloseThread, ReturnMainMenu {
 		s = TestingHelper.changeBuffer("bob   test\r\n4\r\n");
-		assertTrue(new CustomerMenu(mainMenu,s).menuFactory() instanceof CreateAccountMenu);
+		assertTrue(new CustomerMenu(mainMenu,s).menuFactory() instanceof NewPersonMenu);
 	}
 	@Test
 	public void ListAccountsTest2() throws ForceCloseThread, ReturnMainMenu {

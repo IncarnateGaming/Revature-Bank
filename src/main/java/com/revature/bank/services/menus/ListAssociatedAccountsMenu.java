@@ -1,7 +1,11 @@
 package com.revature.bank.services.menus;
 
+import java.util.List;
+
 import com.revature.bank.exceptions.ForceCloseThread;
 import com.revature.bank.exceptions.ReturnMainMenu;
+import com.revature.bank.model.Person;
+import com.revature.bank.services.buisness.logic.AssociatePersonService;
 
 public class ListAssociatedAccountsMenu extends AbstractMenu {
 
@@ -12,7 +16,10 @@ public class ListAssociatedAccountsMenu extends AbstractMenu {
 
 	@Override
 	AbstractMenu menuFactory() throws ForceCloseThread, ReturnMainMenu {
-		// TODO Auto-generated method stub
+		List<Person> associates = new AssociatePersonService().getPeople(getMainMenu().getPerson());
+		for(Person person : associates) {
+			System.out.println(person.toString());
+		}
 		return null;
 	}
 }

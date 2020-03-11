@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class AssociatedPeopleDAOImpl implements AssociatedPeopleDAO {
 			try(CallableStatement stmt = conn.prepareCall(sql)){
 				stmt.setInt(1, associatedPeopleToCreate.getFirstPersonId());
 				stmt.setDouble(2, associatedPeopleToCreate.getSecondPersonId());
+				stmt.registerOutParameter(3, Types.INTEGER);
 				stmt.execute();
 				result = associatedPeopleToCreate;
 			}
@@ -63,18 +65,25 @@ public class AssociatedPeopleDAOImpl implements AssociatedPeopleDAO {
 	public List<Integer> list(Person person){
 		List<Integer> list = new ArrayList<>();
 		try (Connection conn = DAOUtilities.getConnection()){
-			String sql = "SELECT second_person FROM ADMIN.ASSOCIATED_PEOPLE_JT "
+			String sql = "SELECT * FROM ADMIN.ASSOCIATED_PEOPLE_JT "
 					+ "WHERE first_person = ? "
-					+ "UNION "
-					+ "SELECT first_person FROM ADMIN.ASSOCIATED_PEOPLE_JT "
-					+ "WHERE second_person = ? "
 					;
 			try(PreparedStatement stmt = conn.prepareStatement(sql)){
 				stmt.setInt(1, person.getId());
-				stmt.setInt(2, person.getId());
 				try(ResultSet rs = stmt.executeQuery()){
 					while(rs.next()) {
-						list.add(rs.getInt(1));
+						list.add(rs.getInt("second_person"));
+					}
+				}
+			}
+			String sql2 = "SELECT * FROM ADMIN.ASSOCIATED_PEOPLE_JT "
+					+ "WHERE second_person = ? "
+					;
+			try(PreparedStatement stmt = conn.prepareStatement(sql2)){
+				stmt.setInt(1, person.getId());
+				try(ResultSet rs = stmt.executeQuery()){
+					while(rs.next()) {
+						list.add(rs.getInt("first_person"));
 					}
 				}
 			}

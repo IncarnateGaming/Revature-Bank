@@ -14,6 +14,7 @@ import com.revature.bank.services.buisness.logic.AccountTransactionService;
 import com.revature.bank.services.buisness.logic.PermissionRankService;
 import com.revature.bank.services.handlers.AccountHandler;
 import com.revature.bank.services.handlers.AccountOwnershipHandler;
+import com.revature.bank.services.handlers.AssociatedPersonHandler;
 import com.revature.bank.services.handlers.PermissionRankHandler;
 import com.revature.bank.services.handlers.PersonHandler;
 import com.revature.bank.services.helpers.AccountTypeHelper;
@@ -26,9 +27,11 @@ public class DataPopulation {
 	private AccountHandler accountHandler = new AccountHandler();
 	private AccountOwnershipHandler ownHandler = new AccountOwnershipHandler();
 	private AccountTransactionService tranService = new AccountTransactionService();
+	private AssociatedPersonHandler associatedPersonHandler = new AssociatedPersonHandler();
 	private Person george;
 	private Person bugs;
 	private Person rudolph;
+	private Person snoopy;
 	private Account georgeChecking;
 	private Account georgeSavings;
 	private Account bugsChecking;
@@ -37,36 +40,67 @@ public class DataPopulation {
 	private Account rudolphHighYield;
 	@Test
 	public void userSetup() throws InvalidNegativeValue, InsufficientLineOfCredit {
-		this.george = new Person("GeorgeTheThird", "password", "King", "George");
+		this.george = new Person("George", "SecurePassword1");
 		if(personHandler.get(george.getUsername()) == null) {
 			george = personHandler.create(george);
 		}else {
 			george = personHandler.get(george.getUsername());
 		}
-		this.bugs = new Person("WhatsUpDock", "password", "Bugs", "Bunny");
+		george.setFirstName("King");
+		george.setLastName("George");
+		george = personHandler.update(george);
+		this.bugs = new Person("Bugs", "SecurePassword1");
 		if(personHandler.get(bugs.getUsername()) == null) {
 			bugs = personHandler.create(bugs);
 		}else {
 			bugs = personHandler.get(bugs.getUsername());
 		}
-		this.rudolph = new Person("LetItGlow", "password", "Rudolph", "RedNose");
+		bugs.setFirstName("Bugs");
+		bugs.setLastName("Bunny");
+		personHandler.update(bugs);
+		this.rudolph = new Person("Rudolph", "SecurePassword1");
 		if(personHandler.get(rudolph.getUsername()) == null) {
 			rudolph = personHandler.create(rudolph);
 		}else {
 			rudolph = personHandler.get(rudolph.getUsername());
 		}
+		rudolph.setFirstName("Rudolph");
+		rudolph.setLastName("RedNose");
+		personHandler.update(rudolph);
+		this.snoopy = new Person("Snoopy", "SecurePassword1");
+		if(personHandler.get(snoopy.getUsername()) == null) {
+			snoopy = personHandler.create(snoopy);
+		}else {
+			snoopy = personHandler.get(snoopy.getUsername());
+		}
+		snoopy.setFirstName("Snoopy");
+		snoopy.setLastName("LongEars");
+		personHandler.update(snoopy);
+		associatedPersonHandler.create(george, bugs);
+		associatedPersonHandler.create(george, snoopy);
+		associatedPersonHandler.create(snoopy, bugs);
+		assertTrue(associatedPersonHandler.check(george, bugs));
+		assertFalse(associatedPersonHandler.check(george, rudolph));
 		rankHandler.assign(george, PermissionRankHelper.getCustomer());
 		assertTrue(rankService.containsPermission(
 				PermissionRankHelper.getCustomer(), 
 				rankHandler.list(george)));
+		rankHandler.assign(snoopy, PermissionRankHelper.getCustomer());
+		assertTrue(rankService.containsPermission(
+				PermissionRankHelper.getCustomer(), 
+				rankHandler.list(snoopy)));
 		rankHandler.assign(bugs, PermissionRankHelper.getEmployee());
 		assertTrue(rankService.containsPermission(
 				PermissionRankHelper.getEmployee(), 
 				rankHandler.list(bugs)));
 		rankHandler.assign(rudolph, PermissionRankHelper.getAdmin());
 		assertTrue(rankService.containsPermission(
-				PermissionRankHelper.getEmployee(), 
-				rankHandler.list(bugs)));
+				PermissionRankHelper.getAdmin(), 
+				rankHandler.list(rudolph)));
+		rankHandler.assign(snoopy, PermissionRankHelper.getAdmin());
+		assertTrue(rankService.containsPermission(
+				PermissionRankHelper.getAdmin(), 
+				rankHandler.list(snoopy)));
 		georgeChecking = new Account(
 				AccountTypeHelper.getChecking().getId(),
 				0,0);
@@ -93,12 +127,16 @@ public class DataPopulation {
 		rudolphHighYield = accountHandler.create(rudolphHighYield);
 		ownHandler.create(georgeChecking, george);
 		ownHandler.create(georgeSavings, george);
+		ownHandler.create(georgeSavings, bugs);
+		ownHandler.create(georgeSavings, snoopy);
 		ownHandler.create(bugsChecking, bugs);
 		ownHandler.create(bugsCredit, bugs);
+		ownHandler.create(bugsCredit, snoopy);
 		ownHandler.create(rudolphChecking, rudolph);
 		ownHandler.create(rudolphHighYield, rudolph);
 		assertTrue(ownHandler.checkOwned(georgeChecking, george));
 		assertTrue(ownHandler.checkOwned(georgeSavings, george));
+		assertTrue(ownHandler.checkOwned(georgeSavings, bugs));//Make sure that you can have dual ownership
 		assertFalse(ownHandler.checkOwned(georgeChecking, bugs));
 		assertTrue(ownHandler.checkOwned(bugsChecking, bugs));
 		assertTrue(ownHandler.checkOwned(bugsCredit, bugs));

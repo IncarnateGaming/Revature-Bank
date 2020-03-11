@@ -2,19 +2,18 @@ package com.revature.bank.services.menus;
 
 import java.util.List;
 
-import com.revature.bank.dao.DAOUtilities;
-import com.revature.bank.dao.interfaces.AccountDAO;
 import com.revature.bank.exceptions.ForceCloseThread;
 import com.revature.bank.exceptions.ReturnMainMenu;
 import com.revature.bank.exceptions.UnsupportedInteger;
 import com.revature.bank.model.Account;
 import com.revature.bank.model.Person;
+import com.revature.bank.services.handlers.AccountHandler;
 import com.revature.bank.services.helpers.MenuHelper;
 
 public class ListAccountsMenu extends AbstractMenu {
 	private Person owner;
 	private List<Account> accounts;
-	private AccountDAO daoAccount = DAOUtilities.getAccountDao();
+	private AccountHandler accountHandler = new AccountHandler();
 	public ListAccountsMenu(MainMenu mainMenu) {
 		super();
 		setMainMenu(mainMenu);
@@ -30,12 +29,12 @@ public class ListAccountsMenu extends AbstractMenu {
 		do {
 			if(accounts == null) {
 				if(owner != null) {
-					accounts = daoAccount.listJoin(owner);
+					accounts = accountHandler.list(owner);
 				}else {
-					accounts = daoAccount.listJoin();
+					accounts = accountHandler.list();
 				}
 			}
-			if(!accounts.isEmpty()) {
+			if(accounts != null && !accounts.isEmpty()) {
 				for(Account account : accounts) {
 					System.out.println(account.toString());
 				}

@@ -26,6 +26,7 @@ public class AccountMenu extends AbstractMenu {
 	public AccountMenu(MainMenu mainMenu, int accountId) {
 		super();
 		setMainMenu(mainMenu);
+		account = accountHandler.get(accountId);
 	}
 	public Account getAccount() {
 		return account;
@@ -39,7 +40,7 @@ public class AccountMenu extends AbstractMenu {
 		//Check if owner or employee or admin
 		if ((!(
 					accountOwnershipHandler.checkOwned(account, getMainMenu().getPerson())//check ownership
-					|| rankService.containsPermission(PermissionRankHelper.getEmployee(),getMainMenu().getPermissions())//check employee 
+//					|| rankService.containsPermission(PermissionRankHelper.getEmployee(),getMainMenu().getPermissions())//check employee 
 					|| rankService.containsPermission(PermissionRankHelper.getAdmin(), getMainMenu().getPermissions())//check admin
 					)
 				)) {
