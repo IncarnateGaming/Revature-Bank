@@ -20304,3 +20304,22 @@ java.lang.NumberFormatException: For input string: "12.341"
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:770)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:464)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210)
+2020-03-11 09:05:12 WARN  errorLog:43 - The integer: 1111209 is unsupported in this menu.
+com.revature.bank.exceptions.UnsupportedInteger: The integer: 1111209 is unsupported in this menu.
+	at com.revature.bank.services.menus.AbstractMenu.unsupportedInteger(AbstractMenu.java:42)
+	at com.revature.bank.services.menus.ManageRequestedAccounts.menuFactory(ManageRequestedAccounts.java:38)
+	at com.revature.bank.services.menus.MainMenu.runMenu(MainMenu.java:53)
+	at com.revature.bank.services.menus.MainMenu.runMenu(MainMenu.java:55)
+	at com.revature.bank.services.menus.MainMenu.runMenu(MainMenu.java:55)
+	at com.revature.bank.services.menus.MainMenu.run(MainMenu.java:66)
+	at java.lang.Thread.run(Unknown Source)
+2020-03-11 09:20:05 WARN  errorLog:86 - Negative Withdraw
+com.revature.bank.exceptions.InsufficientLineOfCredit: Attempt to withdraw $10,000,000.00 from account: 1111201
+	at com.revature.bank.services.buisness.logic.AccountTransactionService.createWithdraw(AccountTransactionService.java:89)
+	at com.revature.bank.services.menus.AccountMenu.menuFactory(AccountMenu.java:83)
+	at com.revature.bank.services.menus.MainMenu.runMenu(MainMenu.java:53)
+	at com.revature.bank.services.menus.MainMenu.runMenu(MainMenu.java:55)
+	at com.revature.bank.services.menus.MainMenu.runMenu(MainMenu.java:55)
+	at com.revature.bank.services.menus.MainMenu.runMenu(MainMenu.java:55)
+	at com.revature.bank.services.menus.MainMenu.run(MainMenu.java:66)
+	at java.lang.Thread.run(Unknown Source)
